@@ -90,6 +90,7 @@ async function main() {
   console.log(`✅ Created ${zoneTypes.length} zone types`);
 
   // Create Zones (sample polygons for Santo Tomas area)
+  // Centered around 7.5093° N, 125.6314° E
   console.log("Creating zones...");
   const zones = await Promise.all([
     prisma.zone.create({
@@ -100,11 +101,11 @@ async function main() {
           type: "Polygon",
           coordinates: [
             [
-              [125.648, 7.370],
-              [125.650, 7.370],
-              [125.650, 7.368],
-              [125.648, 7.368],
-              [125.648, 7.370],
+              [125.6314, 7.5093],
+              [125.6344, 7.5093],
+              [125.6344, 7.5063],
+              [125.6314, 7.5063],
+              [125.6314, 7.5093],
             ],
           ],
         },
@@ -119,11 +120,11 @@ async function main() {
           type: "Polygon",
           coordinates: [
             [
-              [125.645, 7.375],
-              [125.647, 7.375],
-              [125.647, 7.373],
-              [125.645, 7.373],
-              [125.645, 7.375],
+              [125.6284, 7.5143],
+              [125.6314, 7.5143],
+              [125.6314, 7.5113],
+              [125.6284, 7.5113],
+              [125.6284, 7.5143],
             ],
           ],
         },
@@ -138,11 +139,11 @@ async function main() {
           type: "Polygon",
           coordinates: [
             [
-              [125.652, 7.365],
-              [125.655, 7.365],
-              [125.655, 7.362],
-              [125.652, 7.362],
-              [125.652, 7.365],
+              [125.6364, 7.5043],
+              [125.6414, 7.5043],
+              [125.6414, 7.4993],
+              [125.6364, 7.4993],
+              [125.6364, 7.5043],
             ],
           ],
         },
@@ -204,6 +205,7 @@ async function main() {
   console.log(`✅ Created ${categories.length} business categories`);
 
   // Create Hazard Zones
+  // Centered around Santo Tomas coordinates
   console.log("Creating hazard zones...");
   const hazardZones = await Promise.all([
     prisma.hazardZone.create({
@@ -216,11 +218,11 @@ async function main() {
           type: "Polygon",
           coordinates: [
             [
-              [125.646, 7.372],
-              [125.648, 7.372],
-              [125.648, 7.371],
-              [125.646, 7.371],
-              [125.646, 7.372],
+              [125.6294, 7.5123],
+              [125.6324, 7.5123],
+              [125.6324, 7.5103],
+              [125.6294, 7.5103],
+              [125.6294, 7.5123],
             ],
           ],
         },
@@ -238,11 +240,11 @@ async function main() {
           type: "Polygon",
           coordinates: [
             [
-              [125.653, 7.363],
-              [125.654, 7.363],
-              [125.654, 7.362],
-              [125.653, 7.362],
-              [125.653, 7.363],
+              [125.6374, 7.5023],
+              [125.6394, 7.5023],
+              [125.6394, 7.5003],
+              [125.6374, 7.5003],
+              [125.6374, 7.5023],
             ],
           ],
         },
@@ -254,6 +256,7 @@ async function main() {
   console.log(`✅ Created ${hazardZones.length} hazard zones`);
 
   // Create sample businesses
+  // Using Santo Tomas coordinates: 7.5093° N, 125.6314° E
   console.log("Creating sample businesses...");
   const businesses = await Promise.all([
     prisma.business.create({
@@ -263,10 +266,10 @@ async function main() {
         ownerName: "Juan Dela Cruz",
         ownerContact: "09171234567",
         ownerEmail: "juan@example.com",
-        address: "Main Street, Poblacion",
+        address: "Main Street, Poblacion, Santo Tomas",
         barangayId: barangays[0].id,
-        latitude: 7.369,
-        longitude: 125.649,
+        latitude: 7.5078,
+        longitude: 125.6329,
         categoryId: categories[0].id,
         description: "General merchandise store",
         zoneId: zones[0].id,
@@ -285,10 +288,10 @@ async function main() {
         businessName: "Kimamon Sari-Sari Store",
         ownerName: "Maria Santos",
         ownerContact: "09187654321",
-        address: "Purok 3, Kimamon",
+        address: "Purok 3, Kimamon, Santo Tomas",
         barangayId: barangays[1].id,
-        latitude: 7.374,
-        longitude: 125.646,
+        latitude: 7.5128,
+        longitude: 125.6299,
         categoryId: categories[2].id,
         description: "Neighborhood convenience store",
         zoneId: zones[1].id,
@@ -308,10 +311,10 @@ async function main() {
         ownerName: "Pedro Reyes",
         ownerContact: "09191112222",
         ownerEmail: "pedro@example.com",
-        address: "Commercial Area, Poblacion",
+        address: "Commercial Area, Poblacion, Santo Tomas",
         barangayId: barangays[0].id,
-        latitude: 7.3695,
-        longitude: 125.6495,
+        latitude: 7.5085,
+        longitude: 125.6320,
         categoryId: categories[1].id,
         description: "Filipino cuisine restaurant",
         zoneId: zones[0].id,
@@ -320,6 +323,50 @@ async function main() {
           zoneCheck: { passed: true, message: "Business category allowed in this zone" },
           proximityCheck: { passed: true, violations: [] },
           hazardCheck: { passed: true, hazards: [] },
+        },
+      },
+    }),
+    prisma.business.create({
+      data: {
+        applicationNo: "BA-2025-00004",
+        businessName: "Salvacion Agri-Supply",
+        ownerName: "Rosa Martinez",
+        ownerContact: "09181234567",
+        ownerEmail: "rosa@example.com",
+        address: "National Highway, Salvacion, Santo Tomas",
+        barangayId: barangays[2].id,
+        latitude: 7.5018,
+        longitude: 125.6389,
+        categoryId: categories[4].id,
+        description: "Agricultural supplies and equipment",
+        zoneId: zones[2].id,
+        status: "APPROVED",
+        complianceChecks: {
+          zoneCheck: { passed: true, message: "Business category allowed in this zone" },
+          proximityCheck: { passed: true, violations: [] },
+          hazardCheck: { passed: true, hazards: [] },
+        },
+        approvedAt: new Date(),
+      },
+    }),
+    prisma.business.create({
+      data: {
+        applicationNo: "BA-2025-00005",
+        businessName: "Tulalian Mini Mart",
+        ownerName: "Carlos Ramos",
+        ownerContact: "09171112233",
+        address: "Barangay Road, Tulalian, Santo Tomas",
+        barangayId: barangays[3].id,
+        latitude: 7.5113,
+        longitude: 125.6309,
+        categoryId: categories[2].id,
+        description: "Convenience store and mini mart",
+        zoneId: zones[1].id,
+        status: "UNDER_REVIEW",
+        complianceChecks: {
+          zoneCheck: { passed: true, message: "Business category allowed in this zone" },
+          proximityCheck: { passed: true, violations: [] },
+          hazardCheck: { passed: false, hazards: ["Located near flood zone"] },
         },
       },
     }),

@@ -78,7 +78,8 @@ export default function MapView({ businesses, zones, hazards, selectedLayers }: 
     if (!mapContainerRef.current || mapRef.current) return;
 
     // Create map centered on Santo Tomas, Davao del Norte
-    const map = L.map(mapContainerRef.current).setView([7.37, 125.648], 13);
+    // Coordinates: 7.5093° N, 125.6314° E (7°32'02"N, 125°37'25"E)
+    const map = L.map(mapContainerRef.current).setView([7.5093, 125.6314], 14);
 
     // Add OpenStreetMap tiles
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -88,12 +89,13 @@ export default function MapView({ businesses, zones, hazards, selectedLayers }: 
 
     // Add Santo Tomas municipality boundary highlight
     // Approximate boundary coordinates for Santo Tomas, Davao del Norte
+    // Centered around 7.5093° N, 125.6314° E
     const santoTomasBoundary: L.LatLngExpression[] = [
-      [7.45, 125.60],
-      [7.45, 125.70],
-      [7.30, 125.70],
-      [7.30, 125.60],
-      [7.45, 125.60],
+      [7.58, 125.58],
+      [7.58, 125.68],
+      [7.44, 125.68],
+      [7.44, 125.58],
+      [7.58, 125.58],
     ];
 
     L.polygon(santoTomasBoundary, {
@@ -105,10 +107,23 @@ export default function MapView({ businesses, zones, hazards, selectedLayers }: 
       dashArray: "10, 10",
       className: "municipality-boundary",
     }).addTo(map).bindPopup(`
-      <div class="p-3">
-        <h3 class="font-bold text-lg text-blue-900">Santo Tomas</h3>
-        <p class="text-sm text-gray-600">Davao del Norte</p>
-        <p class="text-xs text-gray-500 mt-1">Municipality Boundary</p>
+      <div class="p-4 min-w-[280px]">
+        <h3 class="font-bold text-xl text-blue-900 mb-2">Municipality of Santo Tomas</h3>
+        <div class="space-y-2 text-sm">
+          <div class="border-b border-gray-200 pb-2">
+            <p class="text-gray-700"><strong>Province:</strong> Davao del Norte</p>
+            <p class="text-gray-700"><strong>Region:</strong> Region XI (Davao Region)</p>
+          </div>
+          <div class="border-b border-gray-200 pb-2">
+            <p class="text-gray-600"><strong>Coordinates:</strong></p>
+            <p class="text-xs text-gray-500 ml-2">7.5093° N, 125.6314° E</p>
+            <p class="text-xs text-gray-500 ml-2">(7°32'02"N, 125°37'25"E)</p>
+          </div>
+          <div class="bg-blue-50 p-2 rounded">
+            <p class="text-xs text-blue-800 font-medium">📍 Municipality Boundary</p>
+            <p class="text-xs text-blue-600 mt-1">Zoning and business permit tracking area</p>
+          </div>
+        </div>
       </div>
     `);
 
@@ -153,9 +168,21 @@ export default function MapView({ businesses, zones, hazards, selectedLayers }: 
           });
 
           polygon.bindPopup(`
-            <div class="p-2">
-              <h3 class="font-semibold text-gray-900">${zone.name}</h3>
-              <p class="text-sm text-gray-600">Type: ${zone.zoneType.name}</p>
+            <div class="p-4 min-w-[260px]">
+              <h3 class="font-bold text-lg text-gray-900 mb-2">🏘️ ${zone.name}</h3>
+              <div class="space-y-2 text-sm">
+                <div class="bg-blue-50 p-2 rounded">
+                  <p class="text-gray-700"><strong>Zone Type:</strong> ${zone.zoneType.name}</p>
+                  <div class="flex items-center gap-2 mt-1">
+                    <div style="width: 20px; height: 20px; background-color: ${zone.zoneType.color ?? "#3b82f6"}; border-radius: 4px; border: 1px solid #ddd;"></div>
+                    <span class="text-xs text-gray-500">Zone Color</span>
+                  </div>
+                </div>
+                <div class="border-t border-gray-200 pt-2">
+                  <p class="text-xs text-gray-600"><strong>Zone ID:</strong> ${zone.id}</p>
+                  <p class="text-xs text-gray-500 mt-1">📍 Click to view zone regulations and permitted business types</p>
+                </div>
+              </div>
             </div>
           `);
 
@@ -199,12 +226,42 @@ export default function MapView({ businesses, zones, hazards, selectedLayers }: 
             dashArray: "5, 5",
           });
 
+          const severityIcons: Record<string, string> = {
+            LOW: "⚠️",
+            MODERATE: "⚠️",
+            HIGH: "🚨",
+            VERY_HIGH: "🔴",
+          };
+
+          const severityLabels: Record<string, string> = {
+            LOW: "Low Risk",
+            MODERATE: "Moderate Risk",
+            HIGH: "High Risk",
+            VERY_HIGH: "Very High Risk",
+          };
+
           polygon.bindPopup(`
-            <div class="p-2">
-              <h3 class="font-semibold text-red-900">${hazard.name}</h3>
-              <p class="text-sm text-gray-600">Type: ${hazard.type}</p>
-              <p class="text-sm text-gray-600">Severity: ${hazard.severity}</p>
-              ${hazard.description ? `<p class="text-xs text-gray-500 mt-1">${hazard.description}</p>` : ""}
+            <div class="p-4 min-w-[280px]">
+              <h3 class="font-bold text-lg text-red-900 mb-2">${severityIcons[hazard.severity] ?? "⚠️"} ${hazard.name}</h3>
+              <div class="space-y-2 text-sm">
+                <div class="bg-red-50 p-2 rounded border border-red-200">
+                  <p class="text-gray-700"><strong>Hazard Type:</strong> ${hazard.type}</p>
+                  <div class="flex items-center gap-2 mt-1">
+                    <div style="width: 20px; height: 20px; background-color: ${severityColors[hazard.severity] ?? "#ef4444"}; border-radius: 4px; border: 1px solid #ddd;"></div>
+                    <span class="text-xs font-semibold" style="color: ${severityColors[hazard.severity] ?? "#ef4444"};">${severityLabels[hazard.severity] ?? hazard.severity}</span>
+                  </div>
+                </div>
+                ${hazard.description ? `
+                <div class="border-t border-gray-200 pt-2">
+                  <p class="text-xs text-gray-700"><strong>Description:</strong></p>
+                  <p class="text-xs text-gray-600 mt-1">${hazard.description}</p>
+                </div>
+                ` : ""}
+                <div class="border-t border-gray-200 pt-2">
+                  <p class="text-xs text-gray-600"><strong>Hazard ID:</strong> ${hazard.id}</p>
+                  <p class="text-xs text-orange-600 mt-1 font-medium">⚠️ Business permits in this area require additional safety compliance</p>
+                </div>
+              </div>
             </div>
           `);
 
@@ -257,27 +314,43 @@ export default function MapView({ businesses, zones, hazards, selectedLayers }: 
         closeButton: true,
         autoClose: false,
         closeOnClick: false,
-        className: 'custom-hover-popup'
+        className: 'custom-hover-popup',
+        maxWidth: 320
       }).setContent(`
-        <div class="p-3 min-w-[200px]">
-          <h3 class="font-semibold text-gray-900 mb-1">${business.businessName}</h3>
-          <div class="space-y-1 text-sm text-gray-600">
-            <p><strong>App No:</strong> ${business.applicationNo}</p>
-            <p><strong>Owner:</strong> ${business.ownerName}</p>
-            <p><strong>Category:</strong> ${business.category.name}</p>
-            <p><strong>Barangay:</strong> ${business.barangay.name}</p>
-            <p><strong>Address:</strong> ${business.address}</p>
-            <p class="mt-2">
-              <span class="inline-block px-2 py-1 text-xs font-semibold rounded" style="
+        <div class="p-4 min-w-[280px]">
+          <h3 class="font-bold text-lg text-gray-900 mb-2">🏢 ${business.businessName}</h3>
+          <div class="space-y-2 text-sm">
+            <div class="bg-slate-50 p-2 rounded border border-slate-200">
+              <p class="text-gray-700"><strong>Application No:</strong> ${business.applicationNo}</p>
+              <p class="text-gray-700"><strong>Business ID:</strong> ${business.id}</p>
+            </div>
+            
+            <div class="border-t border-gray-200 pt-2">
+              <p class="text-gray-700"><strong>👤 Owner:</strong> ${business.ownerName}</p>
+              <p class="text-gray-700"><strong>📂 Category:</strong> ${business.category.name}</p>
+            </div>
+            
+            <div class="border-t border-gray-200 pt-2">
+              <p class="text-gray-700"><strong>📍 Location:</strong></p>
+              <p class="text-xs text-gray-600 ml-2 mt-1">${business.address}</p>
+              <p class="text-xs text-gray-600 ml-2"><strong>Barangay:</strong> ${business.barangay.name}</p>
+              <p class="text-xs text-gray-500 ml-2 mt-1"><strong>Coordinates:</strong></p>
+              <p class="text-xs text-gray-500 ml-4">${business.latitude.toFixed(6)}° N, ${business.longitude.toFixed(6)}° E</p>
+            </div>
+            
+            <div class="border-t border-gray-200 pt-2">
+              <p class="text-xs text-gray-700 mb-1"><strong>Permit Status:</strong></p>
+              <span class="inline-block px-3 py-1.5 text-xs font-semibold rounded-lg" style="
                 background-color: ${statusColors[business.status]}20;
                 color: ${statusColors[business.status]};
+                border: 1px solid ${statusColors[business.status]}40;
               ">
                 ${business.status.replace("_", " ")}
               </span>
-            </p>
+            </div>
           </div>
-          <a href="/applications/${business.id}" class="mt-2 inline-block text-xs text-blue-600 hover:text-blue-800 font-medium">
-            View Details →
+          <a href="/applications/${business.id}" class="mt-3 inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-semibold hover:underline">
+            View Full Details →
           </a>
         </div>
       `);
