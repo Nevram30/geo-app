@@ -252,7 +252,13 @@ export default function MapView({ businesses, zones, hazards, selectedLayers }: 
 
       const marker = L.marker([business.latitude, business.longitude], { icon });
 
-      marker.bindPopup(`
+      // Create popup that opens on hover and stays open with close button
+      const popup = L.popup({
+        closeButton: true,
+        autoClose: false,
+        closeOnClick: false,
+        className: 'custom-hover-popup'
+      }).setContent(`
         <div class="p-3 min-w-[200px]">
           <h3 class="font-semibold text-gray-900 mb-1">${business.businessName}</h3>
           <div class="space-y-1 text-sm text-gray-600">
@@ -270,11 +276,21 @@ export default function MapView({ businesses, zones, hazards, selectedLayers }: 
               </span>
             </p>
           </div>
-          <a href="/applications/${business.id}" class="mt-2 inline-block text-xs text-blue-600 hover:text-blue-800">
+          <a href="/applications/${business.id}" class="mt-2 inline-block text-xs text-blue-600 hover:text-blue-800 font-medium">
             View Details →
           </a>
         </div>
       `);
+
+      marker.bindPopup(popup);
+
+      // Open popup on hover
+      marker.on('mouseover', function(this: L.Marker) {
+        this.openPopup();
+      });
+
+      // Don't close popup on mouseout - user must click close button
+      // This allows users to interact with the popup content
 
       marker.addTo(layersRef.current!.businesses);
     });

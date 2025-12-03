@@ -15,6 +15,7 @@ export default function MapPage() {
     businesses: true,
     heatmap: false,
   });
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const { data: businesses } = api.business.getAll.useQuery();
   const { data: zones } = api.zone.getAll.useQuery();
@@ -28,7 +29,7 @@ export default function MapPage() {
     <div className="flex h-screen flex-col bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Professional Header */}
       <header className="border-b border-slate-200 bg-white/80 shadow-sm backdrop-blur-sm">
-        <div className="mx-auto flex max-w-screen-2xl items-center justify-between px-6 py-4">
+        <div className="mx-auto flex max-w-screen-2xl items-center justify-between px-3 py-3 sm:px-6 sm:py-4">
           <div className="flex items-center gap-4">
             <Link href="/" className="group flex items-center gap-3 transition-all">
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 shadow-lg shadow-blue-500/30 transition-transform group-hover:scale-105">
@@ -53,24 +54,69 @@ export default function MapPage() {
             </div>
             <Link
               href="/"
-              className="flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white shadow-lg shadow-slate-900/20 transition-all hover:bg-slate-800 hover:shadow-xl"
+              className="flex items-center gap-2 rounded-lg bg-slate-900 px-3 py-2 sm:px-4 text-sm font-medium text-white shadow-lg shadow-slate-900/20 transition-all hover:bg-slate-800 hover:shadow-xl"
             >
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              <svg className="h-5 w-5 sm:h-4 sm:w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>
-              Back to Home
+              <span className="hidden sm:inline">Back to Home</span>
             </Link>
           </div>
         </div>
       </header>
 
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden relative">
+        {/* Mobile Sidebar Toggle Button - Floating in bottom-right corner */}
+        {!sidebarOpen && (
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="lg:hidden fixed bottom-6 right-6 z-[9999] flex items-center justify-center w-16 h-16 bg-blue-600 rounded-full shadow-2xl hover:bg-blue-700 transition-all active:scale-95 border-4 border-white"
+            aria-label="Open menu"
+          >
+            <svg className="h-7 w-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        )}
+
+        {/* Overlay for mobile when sidebar is open */}
+        {sidebarOpen && (
+          <div
+            className="lg:hidden fixed inset-0 bg-black/50 z-[9998]"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+
         {/* Professional Sidebar */}
-        <div className="w-96 overflow-y-auto border-r border-slate-200 bg-white shadow-xl">
+        <div className={`
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+          lg:translate-x-0
+          fixed lg:relative
+          z-[9999] lg:z-0
+          w-80 sm:w-96
+          h-full
+          overflow-y-auto
+          border-r border-slate-200
+          bg-white
+          shadow-xl
+          transition-transform duration-300 ease-in-out
+        `}>
           {/* Sidebar Header */}
-          <div className="border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white p-6">
-            <h2 className="text-xl font-bold text-slate-900">Map Controls</h2>
-            <p className="mt-1 text-sm text-slate-600">Toggle layers to customize your view</p>
+          <div className="border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white p-4 sm:p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-lg sm:text-xl font-bold text-slate-900">Map Controls</h2>
+                <p className="mt-1 text-xs sm:text-sm text-slate-600">Toggle layers to customize your view</p>
+              </div>
+              <button
+                onClick={() => setSidebarOpen(false)}
+                className="lg:hidden flex items-center justify-center w-8 h-8 rounded-lg hover:bg-slate-200 transition-colors"
+              >
+                <svg className="h-5 w-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
           </div>
 
           <div className="p-6">
@@ -277,10 +323,10 @@ export default function MapPage() {
           />
           
           {/* Map Overlay Info */}
-          <div className="pointer-events-none absolute bottom-6 left-6 right-6 flex items-end justify-between">
-            <div className="pointer-events-auto rounded-xl bg-white/95 px-4 py-3 shadow-xl backdrop-blur-sm">
+          <div className="pointer-events-none absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 flex items-end justify-between">
+            <div className="pointer-events-auto rounded-xl bg-white/95 px-3 py-2 sm:px-4 sm:py-3 shadow-xl backdrop-blur-sm max-w-full">
               <p className="text-xs font-medium text-slate-600">
-                <span className="font-semibold text-slate-900">Tip:</span> Click on markers and zones for more details
+                <span className="font-semibold text-slate-900">Tip:</span> <span className="hidden sm:inline">Hover over business markers to see details, click zones for more info</span><span className="sm:hidden">Hover markers for details</span>
               </p>
             </div>
           </div>

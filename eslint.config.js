@@ -16,6 +16,7 @@ export default tseslint.config(
       "src/server/api/routers/hazard.ts",
       "src/server/api/routers/zone.ts",
       "src/app/dashboard/page.tsx",
+      "src/app/applications/[id]/page.tsx",
     ],
   },
   ...compat.extends("next/core-web-vitals"),
