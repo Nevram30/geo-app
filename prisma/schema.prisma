@@ -277,7 +277,10 @@ model User {
     email         String?   @unique
     emailVerified DateTime?
     image         String?
-    role          UserRole  @default(STAFF)
+    password      String?   // For credentials-based authentication
+    role          UserRole  @default(APPLICANT)
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
     accounts      Account[]
     sessions      Session[]
     posts         Post[]
@@ -289,8 +292,8 @@ model User {
 
 enum UserRole {
     ADMIN
-    STAFF
-    VIEWER
+    COMPLIANCE
+    APPLICANT
 }
 
 model VerificationToken {

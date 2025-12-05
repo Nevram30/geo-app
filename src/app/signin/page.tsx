@@ -9,7 +9,7 @@ function SignInForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") ?? "/";
-  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -29,13 +29,26 @@ function SignInForm() {
 
       if (result?.error) {
         setError("Invalid credentials. Please try again.");
+        setLoading(false);
       } else {
-        router.push(callbackUrl);
+        // Fetch session to get user role
+        const response = await fetch("/api/auth/session");
+        const session = (await response.json()) as { user?: { role?: string } };
+
+        // Redirect based on user role
+        if (session?.user?.role === "ADMIN") {
+          router.push("/admin");
+        } else if (session?.user?.role === "COMPLIANCE") {
+          router.push("/compliance");
+        } else if (session?.user?.role === "APPLICANT") {
+          router.push("/applicant");
+        } else {
+          router.push(callbackUrl);
+        }
         router.refresh();
       }
     } catch {
       setError("An error occurred. Please try again.");
-    } finally {
       setLoading(false);
     }
   };
@@ -43,23 +56,9 @@ function SignInForm() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-blue-50 to-white px-4">
       <div className="w-full max-w-md">
-        {/* Logo and Title */}
-        <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg">
-            <svg className="h-10 w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-            </svg>
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900">ZoniTrack+</h1>
-          <p className="mt-2 text-sm text-gray-600">
-            Municipal Planning & Development Office
-          </p>
-          <p className="text-xs text-gray-500">Santo Tomas, Davao del Norte</p>
-        </div>
-
         {/* Sign In Form */}
-        <div className="rounded-2xl border bg-white p-8 shadow-lg">
-          <h2 className="mb-6 text-center text-2xl font-semibold text-gray-900">
+        <div className="rounded-2xl border border-gray-300 bg-white p-6 shadow-lg">
+          <h2 className="mb-6 text-start text-2xl font-semibold text-gray-900">
             Sign In
           </h2>
 
@@ -109,13 +108,15 @@ function SignInForm() {
             </button>
           </form>
 
-          <div className="mt-6 rounded-lg bg-blue-50 p-4">
-            <p className="text-xs text-blue-800">
-              <strong>Demo Access:</strong> Use any email and password to sign in. 
-              The system will automatically create an account for testing purposes.
-            </p>
-            <p className="mt-2 text-xs text-blue-700">
-              Example: <code className="rounded bg-blue-100 px-1">admin@mpdo.gov.ph</code> / <code className="rounded bg-blue-100 px-1">password</code>
+          <div className="mt-6 text-center">
+            <p className="text-sm text-gray-600">
+              Don&apos;t have an account?{" "}
+              <Link
+                href="/register"
+                className="font-medium text-blue-600 hover:text-blue-800"
+              >
+                Register here
+              </Link>
             </p>
           </div>
 

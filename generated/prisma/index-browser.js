@@ -276,7 +276,10 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   emailVerified: 'emailVerified',
   image: 'image',
-  role: 'role'
+  password: 'password',
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.VerificationTokenScalarFieldEnum = {
@@ -340,8 +343,8 @@ exports.HazardSeverity = exports.$Enums.HazardSeverity = {
 
 exports.UserRole = exports.$Enums.UserRole = {
   ADMIN: 'ADMIN',
-  STAFF: 'STAFF',
-  VIEWER: 'VIEWER'
+  COMPLIANCE: 'COMPLIANCE',
+  APPLICANT: 'APPLICANT'
 };
 
 exports.Prisma.ModelName = {

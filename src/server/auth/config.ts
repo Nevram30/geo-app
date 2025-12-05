@@ -1,6 +1,7 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { type DefaultSession, type NextAuthConfig } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { compare } from "bcryptjs";
 
 import { db } from "~/server/db";
 
@@ -37,24 +38,26 @@ export const authConfig = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        // For demo purposes, accept any email/password
-        // In production, verify against database with hashed passwords
         if (credentials?.email && credentials?.password) {
           // Check if user exists in database
-          let user = await db.user.findUnique({
+          const user = await db.user.findUnique({
             where: { email: credentials.email as string },
           });
 
-          // If user doesn't exist, create one (for demo)
           if (!user) {
-            const email = credentials.email as string;
-            user = await db.user.create({
-              data: {
-                email: email,
-                name: email.split("@")[0],
-                role: "STAFF",
-              },
-            });
+            return null;
+          }
+
+          // Verify password if user has one
+          if (user.password) {
+            const isPasswordValid = await compare(
+              credentials.password as string,
+              user.password
+            );
+
+            if (!isPasswordValid) {
+              return null;
+            }
           }
 
           return {
@@ -89,6 +92,6 @@ export const authConfig = {
     },
   },
   pages: {
-    signIn: "/auth/signin",
+    signIn: "/signin",
   },
 } satisfies NextAuthConfig;

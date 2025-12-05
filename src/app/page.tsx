@@ -1,8 +1,71 @@
-import Link from "next/link";
-import { auth } from "~/server/auth";
+"use client";
 
-export default async function Home() {
-  const session = await auth();
+import Link from "next/link";
+import { useState, useEffect } from "react";
+
+interface Session {
+  user?: {
+    name?: string;
+    email?: string;
+    role?: string;
+  };
+}
+
+export default function Home() {
+  const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [signingIn, setSigningIn] = useState(false);
+
+  useEffect(() => {
+    void fetch("/api/auth/session")
+      .then((res) => res.json())
+      .then((data: Session) => {
+        setSession(data);
+        setLoading(false);
+      });
+  }, []);
+
+  const handleSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setSigningIn(true);
+
+    try {
+      const response = await fetch("/api/auth/callback/credentials", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          redirect: false,
+        }),
+      });
+
+      if (response.ok) {
+        window.location.reload();
+      } else {
+        setError("Invalid email or password");
+      }
+    } catch {
+      setError("An error occurred. Please try again.");
+    } finally {
+      setSigningIn(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-blue-600 border-t-transparent"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
@@ -37,12 +100,20 @@ export default async function Home() {
                 </Link>
               </div>
             ) : (
-              <Link
-                href="/api/auth/signin"
-                className="rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-2 text-sm font-medium text-white shadow-lg shadow-blue-500/30 transition-all hover:from-blue-700 hover:to-blue-800 hover:shadow-xl"
-              >
-                Sign in
-              </Link>
+              <div className="flex items-center gap-3">
+                <Link
+                  href="/register"
+                  className="rounded-lg border border-blue-600 bg-white px-6 py-2 text-sm font-medium text-blue-600 transition-all hover:bg-blue-50"
+                >
+                  Register
+                </Link>
+                <Link
+                  href="/signin"
+                  className="rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-2 text-sm font-medium text-white shadow-lg shadow-blue-500/30 transition-all hover:from-blue-700 hover:to-blue-800 hover:shadow-xl"
+                >
+                  Sign in
+                </Link>
+              </div>
             )}
           </div>
         </div>
@@ -73,7 +144,7 @@ export default async function Home() {
 
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
-                href="/applications/new"
+                href={session?.user ? "/applications/new" : "/signin"}
                 className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-base font-semibold text-blue-700 shadow-xl transition-all hover:bg-blue-50 hover:shadow-2xl"
               >
                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,7 +153,7 @@ export default async function Home() {
                 Submit Application
               </Link>
               <Link
-                href="/map"
+                href={session?.user ? "/map" : "/signin"}
                 className="inline-flex items-center gap-2 rounded-lg border-2 border-white/30 bg-white/10 px-6 py-3 text-base font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20"
               >
                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -99,95 +170,6 @@ export default async function Home() {
           <svg className="w-full" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0 0L60 10C120 20 240 40 360 46.7C480 53 600 47 720 43.3C840 40 960 40 1080 46.7C1200 53 1320 67 1380 73.3L1440 80V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0V0Z" fill="rgb(248, 250, 252)"/>
           </svg>
-        </div>
-      </section>
-
-      {/* Quick Access Cards */}
-      <section className="mx-auto max-w-screen-2xl px-6 -mt-16 relative z-10">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <Link
-            href="/applications"
-            className="group rounded-xl border border-slate-200 bg-white p-6 shadow-lg transition-all hover:shadow-xl hover:-translate-y-1"
-          >
-            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg shadow-green-500/30 transition-transform group-hover:scale-110">
-              <svg className="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
-            <h3 className="mb-2 text-xl font-bold text-slate-900">Applications</h3>
-            <p className="text-sm text-slate-600">
-              Submit and manage business permit applications
-            </p>
-            <div className="mt-4 flex items-center text-sm font-medium text-green-600">
-              View Applications
-              <svg className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
-
-          <Link
-            href="/map"
-            className="group rounded-xl border border-slate-200 bg-white p-6 shadow-lg transition-all hover:shadow-xl hover:-translate-y-1"
-          >
-            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-lg shadow-purple-500/30 transition-transform group-hover:scale-110">
-              <svg className="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-              </svg>
-            </div>
-            <h3 className="mb-2 text-xl font-bold text-slate-900">Interactive Map</h3>
-            <p className="text-sm text-slate-600">
-              Explore zones, hazards, and business locations
-            </p>
-            <div className="mt-4 flex items-center text-sm font-medium text-purple-600">
-              Open Map
-              <svg className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
-
-          <Link
-            href="/compliance"
-            className="group rounded-xl border border-slate-200 bg-white p-6 shadow-lg transition-all hover:shadow-xl hover:-translate-y-1"
-          >
-            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/30 transition-transform group-hover:scale-110">
-              <svg className="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-            </div>
-            <h3 className="mb-2 text-xl font-bold text-slate-900">Compliance Check</h3>
-            <p className="text-sm text-slate-600">
-              Automated zoning and hazard compliance validation
-            </p>
-            <div className="mt-4 flex items-center text-sm font-medium text-orange-600">
-              Check Compliance
-              <svg className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
-
-          <Link
-            href="/dashboard"
-            className="group rounded-xl border border-slate-200 bg-white p-6 shadow-lg transition-all hover:shadow-xl hover:-translate-y-1"
-          >
-            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30 transition-transform group-hover:scale-110">
-              <svg className="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-              </svg>
-            </div>
-            <h3 className="mb-2 text-xl font-bold text-slate-900">Dashboard</h3>
-            <p className="text-sm text-slate-600">
-              View analytics, statistics, and spatial insights
-            </p>
-            <div className="mt-4 flex items-center text-sm font-medium text-blue-600">
-              View Dashboard
-              <svg className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
         </div>
       </section>
 
@@ -282,7 +264,7 @@ export default async function Home() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link
-              href="/applications/new"
+              href={session?.user ? "/applications/new" : "/signin"}
               className="inline-flex items-center gap-2 rounded-lg bg-white px-8 py-3 text-base font-semibold text-blue-700 shadow-xl transition-all hover:bg-blue-50"
             >
               <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -291,7 +273,7 @@ export default async function Home() {
               Submit Application
             </Link>
             <Link
-              href="/applications"
+              href={session?.user ? "/applications" : "/signin"}
               className="inline-flex items-center gap-2 rounded-lg border-2 border-white/30 bg-white/10 px-8 py-3 text-base font-semibold backdrop-blur-sm transition-all hover:bg-white/20"
             >
               View All Applications
@@ -306,7 +288,7 @@ export default async function Home() {
       {/* Footer */}
       <footer className="border-t border-slate-200 bg-white py-12">
         <div className="mx-auto max-w-screen-2xl px-6">
-          <div className="grid gap-8 md:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-2">
             <div>
               <div className="mb-4 flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 text-white">
@@ -322,16 +304,6 @@ export default async function Home() {
               <p className="text-sm text-slate-600">
                 Geo-Intelligent Decision Support System for Location Assessment and Zoning Compliance
               </p>
-            </div>
-            
-            <div>
-              <h4 className="mb-4 font-semibold text-slate-900">Quick Links</h4>
-              <ul className="space-y-2 text-sm text-slate-600">
-                <li><Link href="/applications" className="hover:text-blue-600">Applications</Link></li>
-                <li><Link href="/map" className="hover:text-blue-600">Interactive Map</Link></li>
-                <li><Link href="/compliance" className="hover:text-blue-600">Compliance Check</Link></li>
-                <li><Link href="/dashboard" className="hover:text-blue-600">Dashboard</Link></li>
-              </ul>
             </div>
             
             <div>
@@ -359,6 +331,88 @@ export default async function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Sign In Modal */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-2xl">
+            <div className="mb-6 flex items-center justify-between">
+              <h3 className="text-2xl font-bold text-slate-900">Sign In</h3>
+              <button
+                onClick={() => {
+                  setShowModal(false);
+                  setError("");
+                  setEmail("");
+                  setPassword("");
+                }}
+                className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+              >
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {error && (
+              <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">
+                {error}
+              </div>
+            )}
+
+            <form onSubmit={handleSignIn} className="space-y-4">
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                  Email Address
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  placeholder="user@example.com"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  placeholder="••••••••"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={signingIn}
+                className="w-full rounded-lg bg-blue-600 px-4 py-3 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400"
+              >
+                {signingIn ? "Signing In..." : "Sign In"}
+              </button>
+            </form>
+
+            <div className="mt-6 text-center">
+              <p className="text-sm text-gray-600">
+                Don&apos;t have an account?{" "}
+                <Link
+                  href="/register"
+                  className="font-medium text-blue-600 hover:text-blue-800"
+                >
+                  Register here
+                </Link>
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
