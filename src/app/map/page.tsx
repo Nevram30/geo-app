@@ -230,13 +230,81 @@ export default function MapPage() {
               </div>
             </div>
 
-            {/* Legend Section */}
+            {/* Official Zoning Legend */}
+            <div className="mt-8">
+              <div className="mb-4 flex items-center gap-2">
+                <svg className="h-5 w-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                </svg>
+                <h3 className="text-base font-bold text-slate-900">Official Zoning Map</h3>
+              </div>
+              <div className="rounded-xl bg-gradient-to-br from-slate-50 to-slate-100 p-4 border border-slate-200">
+                <div className="mb-3 pb-3 border-b border-slate-300">
+                  <p className="text-xs font-semibold text-slate-900">Municipality of Sto. Tomas</p>
+                  <p className="text-xs text-slate-600">Province of Davao del Norte</p>
+                  <p className="text-xs text-slate-500 mt-1">Scale: 1:45,000</p>
+                  <p className="text-xs text-slate-500">Urban Zoning Map 2007-2016</p>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <div className="h-4 w-4 rounded" style={{backgroundColor: '#FFFF00', border: '1px solid #ccc'}}></div>
+                    <span className="text-xs font-medium text-slate-700">Residential Zone (RZ)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-4 w-4 rounded" style={{backgroundColor: '#F5DEB3', border: '1px solid #ccc'}}></div>
+                    <span className="text-xs font-medium text-slate-700">Socialized Housing Zone (SHZ)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-4 w-4 rounded" style={{backgroundColor: '#DC143C', border: '1px solid #ccc'}}></div>
+                    <span className="text-xs font-medium text-slate-700">Commercial Zone (CZ)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-4 w-4 rounded" style={{backgroundColor: '#4169E1', border: '1px solid #ccc'}}></div>
+                    <span className="text-xs font-medium text-slate-700">Institutional Zone (IZ)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-4 w-4 rounded" style={{backgroundColor: '#9932CC', border: '1px solid #ccc'}}></div>
+                    <span className="text-xs font-medium text-slate-700">Medium Industrial Zone (MIZ)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-4 w-4 rounded" style={{backgroundColor: '#228B22', border: '1px solid #ccc'}}></div>
+                    <span className="text-xs font-medium text-slate-700">Agricultural Zone (AZ)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-4 w-4 rounded" style={{backgroundColor: '#8B008B', border: '1px solid #ccc'}}></div>
+                    <span className="text-xs font-medium text-slate-700">Agro-Industrial Zone (AIZ)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-4 w-4 rounded" style={{backgroundColor: '#7CFC00', border: '1px solid #ccc'}}></div>
+                    <span className="text-xs font-medium text-slate-700">Parks & Recreation (PRTZ)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-4 w-4 rounded" style={{backgroundColor: '#4682B4', border: '1px solid #ccc'}}></div>
+                    <span className="text-xs font-medium text-slate-700">Water Zone (WZ)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-4 w-4 rounded" style={{backgroundColor: '#006400', border: '1px solid #ccc'}}></div>
+                    <span className="text-xs font-medium text-slate-700">Forest Zone (FZ)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-4 w-4 rounded" style={{backgroundColor: '#808080', border: '1px solid #ccc'}}></div>
+                    <span className="text-xs font-medium text-slate-700">Other Use Zone (OUZ)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-4 w-4 rounded" style={{backgroundColor: '#00CED1', border: '1px solid #ccc'}}></div>
+                    <span className="text-xs font-medium text-slate-700">Tourist Zone (TZ)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Business Status Legend */}
             <div className="mt-8">
               <div className="mb-4 flex items-center gap-2">
                 <svg className="h-5 w-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
                 </svg>
-                <h3 className="text-base font-bold text-slate-900">Status Legend</h3>
+                <h3 className="text-base font-bold text-slate-900">Business Status</h3>
               </div>
               <div className="space-y-2.5 rounded-xl bg-slate-50 p-4">
                 <div className="flex items-center gap-3">

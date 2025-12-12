@@ -69,61 +69,180 @@ async function main() {
   ]);
   console.log(`✅ Created ${barangays.length} barangays`);
 
-  // Create Zone Types
-  console.log("Creating zone types...");
+  // Create Zone Types - Official Zoning Map 2007-2016
+  // Based on Municipality of Sto. Tomas Urban Zoning Map
+  console.log("Creating official zone types...");
   const zoneTypes = await Promise.all([
     prisma.zoneType.upsert({
-      where: { code: "R1" },
-      update: {},
+      where: { code: "RZ" },
+      update: {
+        name: "Residential Zone",
+        description: "Areas designated for residential development and housing",
+        color: "#FFFF00",
+      },
       create: {
-        code: "R1",
-        name: "Residential Low Density",
-        description: "Single-family residential areas",
-        color: "#90EE90",
+        code: "RZ",
+        name: "Residential Zone",
+        description: "Areas designated for residential development and housing",
+        color: "#FFFF00",
       },
     }),
     prisma.zoneType.upsert({
-      where: { code: "R2" },
-      update: {},
+      where: { code: "SHZ" },
+      update: {
+        name: "Socialized Housing Zone",
+        description: "Areas for socialized housing and low-cost residential development",
+        color: "#F5DEB3",
+      },
       create: {
-        code: "R2",
-        name: "Residential Medium Density",
-        description: "Multi-family residential areas",
-        color: "#98FB98",
+        code: "SHZ",
+        name: "Socialized Housing Zone",
+        description: "Areas for socialized housing and low-cost residential development",
+        color: "#F5DEB3",
       },
     }),
     prisma.zoneType.upsert({
-      where: { code: "C1" },
-      update: {},
+      where: { code: "CZ" },
+      update: {
+        name: "Commercial Zone",
+        description: "Areas designated for commercial and business establishments",
+        color: "#DC143C",
+      },
       create: {
-        code: "C1",
-        name: "Commercial",
-        description: "Retail and commercial establishments",
-        color: "#FFB6C1",
+        code: "CZ",
+        name: "Commercial Zone",
+        description: "Areas designated for commercial and business establishments",
+        color: "#DC143C",
       },
     }),
     prisma.zoneType.upsert({
-      where: { code: "I1" },
-      update: {},
+      where: { code: "IZ" },
+      update: {
+        name: "Institutional Zone",
+        description: "Areas for government offices, schools, hospitals, and other institutions",
+        color: "#4169E1",
+      },
       create: {
-        code: "I1",
-        name: "Light Industrial",
-        description: "Light manufacturing and warehousing",
-        color: "#DDA0DD",
+        code: "IZ",
+        name: "Institutional Zone",
+        description: "Areas for government offices, schools, hospitals, and other institutions",
+        color: "#4169E1",
       },
     }),
     prisma.zoneType.upsert({
-      where: { code: "A1" },
-      update: {},
+      where: { code: "MIZ" },
+      update: {
+        name: "Medium Industrial Zone",
+        description: "Areas designated for medium-scale industrial and manufacturing activities",
+        color: "#9932CC",
+      },
       create: {
-        code: "A1",
-        name: "Agricultural",
-        description: "Farming and agricultural use",
-        color: "#F0E68C",
+        code: "MIZ",
+        name: "Medium Industrial Zone",
+        description: "Areas designated for medium-scale industrial and manufacturing activities",
+        color: "#9932CC",
+      },
+    }),
+    prisma.zoneType.upsert({
+      where: { code: "AZ" },
+      update: {
+        name: "Agricultural Zone",
+        description: "Areas preserved for agricultural production and farming activities",
+        color: "#228B22",
+      },
+      create: {
+        code: "AZ",
+        name: "Agricultural Zone",
+        description: "Areas preserved for agricultural production and farming activities",
+        color: "#228B22",
+      },
+    }),
+    prisma.zoneType.upsert({
+      where: { code: "AIZ" },
+      update: {
+        name: "Agro-Industrial Zone",
+        description: "Areas for agro-based industries and food processing",
+        color: "#8B008B",
+      },
+      create: {
+        code: "AIZ",
+        name: "Agro-Industrial Zone",
+        description: "Areas for agro-based industries and food processing",
+        color: "#8B008B",
+      },
+    }),
+    prisma.zoneType.upsert({
+      where: { code: "PRTZ" },
+      update: {
+        name: "Parks, Recreational and Tourism Zone",
+        description: "Areas for parks, recreation facilities, and tourism development",
+        color: "#7CFC00",
+      },
+      create: {
+        code: "PRTZ",
+        name: "Parks, Recreational and Tourism Zone",
+        description: "Areas for parks, recreation facilities, and tourism development",
+        color: "#7CFC00",
+      },
+    }),
+    prisma.zoneType.upsert({
+      where: { code: "WZ" },
+      update: {
+        name: "Water Zone",
+        description: "Waterways, rivers, and water bodies",
+        color: "#4682B4",
+      },
+      create: {
+        code: "WZ",
+        name: "Water Zone",
+        description: "Waterways, rivers, and water bodies",
+        color: "#4682B4",
+      },
+    }),
+    prisma.zoneType.upsert({
+      where: { code: "FZ" },
+      update: {
+        name: "Forest Zone",
+        description: "Forest reserves and protected forest areas",
+        color: "#006400",
+      },
+      create: {
+        code: "FZ",
+        name: "Forest Zone",
+        description: "Forest reserves and protected forest areas",
+        color: "#006400",
+      },
+    }),
+    prisma.zoneType.upsert({
+      where: { code: "OUZ" },
+      update: {
+        name: "Other Use Zone",
+        description: "Areas for special or mixed-use purposes",
+        color: "#808080",
+      },
+      create: {
+        code: "OUZ",
+        name: "Other Use Zone",
+        description: "Areas for special or mixed-use purposes",
+        color: "#808080",
+      },
+    }),
+    prisma.zoneType.upsert({
+      where: { code: "TZ" },
+      update: {
+        name: "Tourist Zone",
+        description: "Areas designated for tourism development and attractions",
+        color: "#00CED1",
+      },
+      create: {
+        code: "TZ",
+        name: "Tourist Zone",
+        description: "Areas designated for tourism development and attractions",
+        color: "#00CED1",
       },
     }),
   ]);
-  console.log(`✅ Created ${zoneTypes.length} zone types`);
+  console.log(`✅ Created ${zoneTypes.length} official zone types`);
 
   // Create Zones (sample polygons for Santo Tomas area)
   // Centered around 7.5093° N, 125.6314° E
@@ -144,7 +263,7 @@ async function main() {
     existingZone1 || await prisma.zone.create({
       data: {
         name: "Poblacion Commercial District",
-        zoneTypeId: zoneTypes[2]!.id, // C1
+        zoneTypeId: zoneTypes[2]!.id, // CZ - Commercial Zone
         boundary: {
           type: "Polygon",
           coordinates: [
@@ -163,7 +282,7 @@ async function main() {
     existingZone2 || await prisma.zone.create({
       data: {
         name: "Kimamon Residential Area",
-        zoneTypeId: zoneTypes[0]!.id, // R1
+        zoneTypeId: zoneTypes[0]!.id, // RZ - Residential Zone
         boundary: {
           type: "Polygon",
           coordinates: [
@@ -182,7 +301,7 @@ async function main() {
     existingZone3 || await prisma.zone.create({
       data: {
         name: "Salvacion Agricultural Zone",
-        zoneTypeId: zoneTypes[4]!.id, // A1
+        zoneTypeId: zoneTypes[5]!.id, // AZ - Agricultural Zone
         boundary: {
           type: "Polygon",
           coordinates: [
@@ -206,56 +325,66 @@ async function main() {
   const categories = await Promise.all([
     prisma.businessCategory.upsert({
       where: { code: "CAT-001" },
-      update: {},
+      update: {
+        allowedZones: ["CZ", "RZ"],
+      },
       create: {
         name: "Retail Store",
         code: "CAT-001",
         description: "General merchandise and retail",
-        allowedZones: ["C1", "R2"],
+        allowedZones: ["CZ", "RZ"],
         minDistance: 50,
       },
     }),
     prisma.businessCategory.upsert({
       where: { code: "CAT-002" },
-      update: {},
+      update: {
+        allowedZones: ["CZ", "TZ"],
+      },
       create: {
         name: "Restaurant",
         code: "CAT-002",
         description: "Food service establishments",
-        allowedZones: ["C1"],
+        allowedZones: ["CZ", "TZ"],
         minDistance: 100,
       },
     }),
     prisma.businessCategory.upsert({
       where: { code: "CAT-003" },
-      update: {},
+      update: {
+        allowedZones: ["RZ", "SHZ", "CZ"],
+      },
       create: {
         name: "Sari-Sari Store",
         code: "CAT-003",
         description: "Small neighborhood convenience store",
-        allowedZones: ["R1", "R2", "C1"],
+        allowedZones: ["RZ", "SHZ", "CZ"],
         minDistance: 25,
       },
     }),
     prisma.businessCategory.upsert({
       where: { code: "CAT-004" },
-      update: {},
+      update: {
+        allowedZones: ["MIZ", "AIZ"],
+      },
       create: {
         name: "Manufacturing",
         code: "CAT-004",
         description: "Light manufacturing facility",
-        allowedZones: ["I1"],
+        allowedZones: ["MIZ", "AIZ"],
         minDistance: 200,
       },
     }),
     prisma.businessCategory.upsert({
       where: { code: "CAT-005" },
-      update: {},
+      update: {
+        allowedZones: ["AZ", "AIZ", "CZ"],
+      },
       create: {
         name: "Agricultural Supply",
         code: "CAT-005",
         description: "Farm supplies and equipment",
-        allowedZones: ["A1", "C1"],
+        allowedZones: ["AZ", "AIZ", "CZ"],
         minDistance: 100,
       },
     }),
