@@ -1,17 +1,26 @@
 import type {
   ApplicantDetails,
-  RepresentativeDetails,
-  ProjectDescription,
+  ProjectInformation,
+  ZoningNotice,
+  SimilarApplication,
+  DecisionDelivery,
   DocumentFieldKey,
-  LotOwnershipType,
-  RequiredDocumentKey,
-  LotOwnershipDocumentKey,
-  RepresentativeDocumentKey,
-  COEDocumentKey,
+  SupportingDocumentKey,
+  ProjectNatureType,
+  RightOverLandType,
+  ProjectTenureType,
+  DecisionReleaseModeType,
 } from "../schemas/document.schema";
 
 // Re-export types from schema
-export type { DocumentFieldKey, LotOwnershipType };
+export type {
+  DocumentFieldKey,
+  SupportingDocumentKey,
+  ProjectNatureType,
+  RightOverLandType,
+  ProjectTenureType,
+  DecisionReleaseModeType,
+};
 
 // Form step definition
 export interface FormStep {
@@ -20,32 +29,32 @@ export interface FormStep {
   description: string;
 }
 
-// Application form steps
+// Application form steps based on HLURB form
 export const FORM_STEPS: FormStep[] = [
   {
     id: 1,
-    title: "Applicant Details",
-    description: "Provide your personal information",
+    title: "Applicant/Corporation Details",
+    description: "Provide applicant and corporation information",
   },
   {
     id: 2,
-    title: "Proof of Lot Ownership",
-    description: "Select and upload proof of lot ownership",
+    title: "Project Information",
+    description: "Enter project details and specifications",
   },
   {
     id: 3,
-    title: "Required Documents",
-    description: "Upload required official documents",
+    title: "Zoning Notice History",
+    description: "Previous zoning notices from HLURB",
   },
   {
     id: 4,
-    title: "Representative Info",
-    description: "For representative applications only",
+    title: "Similar Applications",
+    description: "History of similar applications filed",
   },
   {
     id: 5,
-    title: "COE Requirements",
-    description: "Certificate of Exception requirements",
+    title: "Decision Delivery",
+    description: "Select how to receive the decision",
   },
   {
     id: 6,
@@ -62,18 +71,6 @@ export interface FileUploadState {
   isUploading: boolean;
 }
 
-// Required documents state
-export type RequiredDocumentsState = Record<RequiredDocumentKey, FileUploadState>;
-
-// Lot ownership documents state
-export type LotOwnershipDocumentsState = Record<LotOwnershipDocumentKey, FileUploadState>;
-
-// Representative documents state
-export type RepresentativeDocumentsState = Record<RepresentativeDocumentKey, FileUploadState>;
-
-// COE documents state
-export type COEDocumentsState = Record<COEDocumentKey, FileUploadState>;
-
 // All documents state
 export type DocumentsState = Record<DocumentFieldKey, FileUploadState>;
 
@@ -81,11 +78,11 @@ export type DocumentsState = Record<DocumentFieldKey, FileUploadState>;
 export interface ApplicationFormState {
   currentStep: number;
   applicantDetails: ApplicantDetails;
-  representativeDetails: RepresentativeDetails;
-  projectDescription: ProjectDescription;
-  lotOwnershipType: LotOwnershipType | null;
+  projectInformation: ProjectInformation;
+  zoningNotice: ZoningNotice;
+  similarApplication: SimilarApplication;
+  decisionDelivery: DecisionDelivery;
   documents: DocumentsState;
-  longFolder: boolean;
   isSubmitting: boolean;
   submitError: string | null;
 }
@@ -94,22 +91,49 @@ export interface ApplicationFormState {
 export const initialApplicantDetails: ApplicantDetails = {
   applicantName: "",
   applicantAddress: "",
-  applicantContact: "",
-  applicantEmail: "",
-};
-
-// Initial representative details
-export const initialRepresentativeDetails: RepresentativeDetails = {
-  isRepresentative: false,
+  corporationName: "",
+  corporationAddress: "",
   representativeName: "",
+  representativeAddress: "",
 };
 
-// Initial project description
-export const initialProjectDescription: ProjectDescription = {
-  projectDescription: "",
-  projectBoundaries: "",
-  projectObjectives: "",
-  zoningExceptionReason: "",
+// Initial project information
+export const initialProjectInformation: ProjectInformation = {
+  projectType: "",
+  projectNature: "NEW_DEVELOPMENT",
+  projectNatureOther: "",
+  projectLocation: "",
+  projectAreaLot: "",
+  projectAreaBuilding: "",
+  rightOverLand: "OWNER",
+  rightOverLandOther: "",
+  projectTenure: "PERMANENT",
+  projectTenureYears: "",
+  projectCostFigure: "",
+  projectCostWords: "",
+};
+
+// Initial zoning notice
+export const initialZoningNotice: ZoningNotice = {
+  hasZoningNotice: false,
+  zoningOfficerName: "",
+  zoningNoticeDates: "",
+  zoningNoticeOtherRequests: "",
+};
+
+// Initial similar application
+export const initialSimilarApplication: SimilarApplication = {
+  hasSimilarApplication: false,
+  similarApplicationOffices: "",
+  similarApplicationDates: "",
+  similarApplicationActions: "",
+};
+
+// Initial decision delivery
+export const initialDecisionDelivery: DecisionDelivery = {
+  decisionReleaseMode: "PICKUP_APPLICANT",
+  mailAddress: "",
+  signatureConfirmed: false,
 };
 
 // Initial file upload state
@@ -122,28 +146,11 @@ export const initialFileUploadState: FileUploadState = {
 
 // Initial documents state
 export const initialDocumentsState: DocumentsState = {
-  // Required documents
-  taxClearanceOriginal: { ...initialFileUploadState },
-  taxClearancePhotocopy: { ...initialFileUploadState },
-  authorityToSign: { ...initialFileUploadState },
-  lotPlan: { ...initialFileUploadState },
-  architecturalPlan: { ...initialFileUploadState },
-  professionalTaxReceipt: { ...initialFileUploadState },
-  // Lot ownership documents
-  transferCertificateOfTitle: { ...initialFileUploadState },
-  leaseContract: { ...initialFileUploadState },
-  awardNotice: { ...initialFileUploadState },
-  deedOfSale: { ...initialFileUploadState },
-  memorandumOfAgreement: { ...initialFileUploadState },
-  affidavitOfConsent: { ...initialFileUploadState },
-  specialPowerOfAttorney: { ...initialFileUploadState },
-  // Representative documents
-  authorizationLetter: { ...initialFileUploadState },
-  representedPersonId: { ...initialFileUploadState },
-  representativeId: { ...initialFileUploadState },
-  // COE documents
-  projectDescriptionDoc: { ...initialFileUploadState },
-  projectDescriptionPhotocopy: { ...initialFileUploadState },
+  proofOfOwnership: { ...initialFileUploadState },
+  taxDeclaration: { ...initialFileUploadState },
+  vicinityMap: { ...initialFileUploadState },
+  siteDevelopmentPlan: { ...initialFileUploadState },
+  otherDocuments: { ...initialFileUploadState },
 };
 
 // Validation result type
@@ -174,6 +181,31 @@ export interface FileUploadProps {
   onFileRemove: (fieldKey: DocumentFieldKey) => void;
   required?: boolean;
 }
+
+// ============================================
+// LEGACY EXPORTS FOR BACKWARD COMPATIBILITY
+// ============================================
+
+// Keep old types for any existing code that might reference them
+export type LotOwnershipType = RightOverLandType;
+
+export type RequiredDocumentsState = DocumentsState;
+export type LotOwnershipDocumentsState = DocumentsState;
+export type RepresentativeDocumentsState = DocumentsState;
+export type COEDocumentsState = DocumentsState;
+
+// Legacy initial states
+export const initialRepresentativeDetails = {
+  isRepresentative: false,
+  representativeName: "",
+};
+
+export const initialProjectDescription = {
+  projectDescription: "",
+  projectBoundaries: "",
+  projectObjectives: "",
+  zoningExceptionReason: "",
+};
 
 // Legacy exports for backward compatibility
 export type { ApplicantDetails as LandOwnerDetails } from "../schemas/document.schema";

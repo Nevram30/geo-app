@@ -39,32 +39,74 @@ export const optionalFileSchema = z
   )
   .nullable();
 
-// Lot ownership types enum
-export const LOT_OWNERSHIP_TYPES = [
-  "TRANSFER_CERTIFICATE_OF_TITLE",
-  "LEASE_CONTRACT",
-  "AWARD_NOTICE",
-  "DEED_OF_SALE",
-  "MEMORANDUM_OF_AGREEMENT",
-  "AFFIDAVIT_OF_CONSENT",
-  "SPECIAL_POWER_OF_ATTORNEY",
+// ============================================
+// HLURB FORM ENUMS AND TYPES
+// ============================================
+
+// Project Nature types
+export const PROJECT_NATURE_TYPES = [
+  "NEW_DEVELOPMENT",
+  "IMPROVEMENT",
+  "OTHER",
 ] as const;
 
-export type LotOwnershipType = (typeof LOT_OWNERSHIP_TYPES)[number];
+export type ProjectNatureType = (typeof PROJECT_NATURE_TYPES)[number];
 
-// Lot ownership type labels
-export const LOT_OWNERSHIP_LABELS: Record<LotOwnershipType, string> = {
-  TRANSFER_CERTIFICATE_OF_TITLE: "Transfer Certificate of Title (1 certified true copy)",
-  LEASE_CONTRACT: "Lease Contract (1 photocopy)",
-  AWARD_NOTICE: "Award Notice (1 photocopy)",
-  DEED_OF_SALE: "Deed of Sale (1 photocopy)",
-  MEMORANDUM_OF_AGREEMENT: "Memorandum of Agreement (MOA) (1 photocopy)",
-  AFFIDAVIT_OF_CONSENT: "Affidavit of Consent to Construct",
-  SPECIAL_POWER_OF_ATTORNEY: "Special Power of Attorney (SPA) (1 photocopy)",
+export const PROJECT_NATURE_LABELS: Record<ProjectNatureType, string> = {
+  NEW_DEVELOPMENT: "New Development",
+  IMPROVEMENT: "Improvement",
+  OTHER: "Other (Please specify)",
 };
 
-// Applicant details schema
+// Right Over Land types
+export const RIGHT_OVER_LAND_TYPES = [
+  "OWNER",
+  "LEASE",
+  "OTHER",
+] as const;
+
+export type RightOverLandType = (typeof RIGHT_OVER_LAND_TYPES)[number];
+
+export const RIGHT_OVER_LAND_LABELS: Record<RightOverLandType, string> = {
+  OWNER: "Owner",
+  LEASE: "Lease",
+  OTHER: "Other (Please specify)",
+};
+
+// Project Tenure types
+export const PROJECT_TENURE_TYPES = [
+  "PERMANENT",
+  "TEMPORARY",
+] as const;
+
+export type ProjectTenureType = (typeof PROJECT_TENURE_TYPES)[number];
+
+export const PROJECT_TENURE_LABELS: Record<ProjectTenureType, string> = {
+  PERMANENT: "Permanent",
+  TEMPORARY: "Temporary",
+};
+
+// Decision Release Mode types
+export const DECISION_RELEASE_MODES = [
+  "PICKUP_APPLICANT",
+  "PICKUP_REPRESENTATIVE",
+  "BY_MAIL",
+] as const;
+
+export type DecisionReleaseModeType = (typeof DECISION_RELEASE_MODES)[number];
+
+export const DECISION_RELEASE_MODE_LABELS: Record<DecisionReleaseModeType, string> = {
+  PICKUP_APPLICANT: "Pick-up by Applicant",
+  PICKUP_REPRESENTATIVE: "Pick-up by Authorized Representative",
+  BY_MAIL: "By mail",
+};
+
+// ============================================
+// STEP 1: APPLICANT/CORPORATION DETAILS SCHEMA
+// ============================================
+
 export const applicantDetailsSchema = z.object({
+  // Applicant Information
   applicantName: z
     .string()
     .min(2, "Name must be at least 2 characters")
@@ -72,285 +114,215 @@ export const applicantDetailsSchema = z.object({
   applicantAddress: z
     .string()
     .min(5, "Address must be at least 5 characters")
-    .max(200, "Address must be less than 200 characters"),
-  applicantContact: z
-    .string()
-    .min(10, "Contact number must be at least 10 digits")
-    .max(15, "Contact number must be less than 15 digits")
-    .regex(/^[0-9+\-\s()]+$/, "Invalid contact number format"),
-  applicantEmail: z.string().email("Invalid email address"),
+    .max(300, "Address must be less than 300 characters"),
+  // Corporation Information (optional)
+  corporationName: z.string().max(150, "Corporation name must be less than 150 characters").optional().or(z.literal("")),
+  corporationAddress: z.string().max(300, "Corporation address must be less than 300 characters").optional().or(z.literal("")),
+  // Authorized Representative Information (optional)
+  representativeName: z.string().max(100, "Representative name must be less than 100 characters").optional().or(z.literal("")),
+  representativeAddress: z.string().max(300, "Representative address must be less than 300 characters").optional().or(z.literal("")),
 });
 
-// Representative details schema
-export const representativeDetailsSchema = z.object({
-  isRepresentative: z.boolean(),
-  representativeName: z.string().optional(),
+// ============================================
+// STEP 2: PROJECT INFORMATION SCHEMA
+// ============================================
+
+export const projectInformationSchema = z.object({
+  // 7. Project Type
+  projectType: z
+    .string()
+    .min(2, "Project type is required")
+    .max(200, "Project type must be less than 200 characters"),
+  // 8. Project Nature
+  projectNature: z.enum(PROJECT_NATURE_TYPES, {
+    errorMap: () => ({ message: "Please select a project nature" }),
+  }),
+  projectNatureOther: z.string().max(200).optional().or(z.literal("")),
+  // 9. Project Location
+  projectLocation: z
+    .string()
+    .min(5, "Project location must be at least 5 characters")
+    .max(500, "Project location must be less than 500 characters"),
+  // 10. Project Area (in square meters)
+  projectAreaLot: z
+    .string()
+    .min(1, "Lot area is required")
+    .max(50, "Lot area must be less than 50 characters"),
+  projectAreaBuilding: z.string().max(50).optional().or(z.literal("")),
+  // 11. Right Over Land
+  rightOverLand: z.enum(RIGHT_OVER_LAND_TYPES, {
+    errorMap: () => ({ message: "Please select right over land" }),
+  }),
+  rightOverLandOther: z.string().max(100).optional().or(z.literal("")),
+  // 12. Project Tenure
+  projectTenure: z.enum(PROJECT_TENURE_TYPES, {
+    errorMap: () => ({ message: "Please select project tenure" }),
+  }),
+  projectTenureYears: z.string().max(20).optional().or(z.literal("")),
+  // 14. Project Cost/Capitalization
+  projectCostFigure: z
+    .string()
+    .min(1, "Project cost (figure) is required")
+    .max(50, "Project cost must be less than 50 characters"),
+  projectCostWords: z
+    .string()
+    .min(5, "Project cost (words) is required")
+    .max(300, "Project cost (words) must be less than 300 characters"),
 });
 
-// Project description schema (for COE)
-export const projectDescriptionSchema = z.object({
-  projectDescription: z
-    .string()
-    .min(10, "Project description must be at least 10 characters")
-    .max(2000, "Project description must be less than 2000 characters"),
-  projectBoundaries: z
-    .string()
-    .min(10, "Project boundaries must be at least 10 characters")
-    .max(1000, "Project boundaries must be less than 1000 characters"),
-  projectObjectives: z
-    .string()
-    .min(10, "Project objectives must be at least 10 characters")
-    .max(1000, "Project objectives must be less than 1000 characters"),
-  zoningExceptionReason: z
-    .string()
-    .min(10, "Reason must be at least 10 characters")
-    .max(1000, "Reason must be less than 1000 characters"),
+// ============================================
+// STEP 3: ZONING NOTICE HISTORY SCHEMA
+// ============================================
+
+export const zoningNoticeSchema = z.object({
+  // 15. Is the project subject to written notice
+  hasZoningNotice: z.boolean(),
+  // 16. If yes, provide details
+  zoningOfficerName: z.string().max(100).optional().or(z.literal("")),
+  zoningNoticeDates: z.string().max(200).optional().or(z.literal("")),
+  zoningNoticeOtherRequests: z.string().max(500).optional().or(z.literal("")),
+});
+
+// ============================================
+// STEP 4: SIMILAR APPLICATION HISTORY SCHEMA
+// ============================================
+
+export const similarApplicationSchema = z.object({
+  // 17. Has similar application been filed
+  hasSimilarApplication: z.boolean(),
+  // If yes, provide details
+  similarApplicationOffices: z.string().max(300).optional().or(z.literal("")),
+  similarApplicationDates: z.string().max(200).optional().or(z.literal("")),
+  similarApplicationActions: z.string().max(500).optional().or(z.literal("")),
+});
+
+// ============================================
+// STEP 5: DECISION DELIVERY SCHEMA
+// ============================================
+
+export const decisionDeliverySchema = z.object({
+  // 18. Preferred Mode of Release
+  decisionReleaseMode: z.enum(DECISION_RELEASE_MODES, {
+    errorMap: () => ({ message: "Please select a delivery mode" }),
+  }),
+  mailAddress: z.string().max(300).optional().or(z.literal("")),
+  // Signature confirmation
+  signatureConfirmed: z.boolean(),
 });
 
 // ============================================
 // DOCUMENT FIELD DEFINITIONS
 // ============================================
 
-// Document field keys for required documents
-export type RequiredDocumentKey =
-  | "taxClearanceOriginal"
-  | "taxClearancePhotocopy"
-  | "authorityToSign"
-  | "lotPlan"
-  | "architecturalPlan"
-  | "professionalTaxReceipt";
-
-// Document field keys for lot ownership documents
-export type LotOwnershipDocumentKey =
-  | "transferCertificateOfTitle"
-  | "leaseContract"
-  | "awardNotice"
-  | "deedOfSale"
-  | "memorandumOfAgreement"
-  | "affidavitOfConsent"
-  | "specialPowerOfAttorney";
-
-// Document field keys for representative documents
-export type RepresentativeDocumentKey =
-  | "authorizationLetter"
-  | "representedPersonId"
-  | "representativeId";
-
-// Document field keys for COE documents
-export type COEDocumentKey =
-  | "projectDescriptionDoc"
-  | "projectDescriptionPhotocopy";
+// Document field keys for supporting documents
+export type SupportingDocumentKey =
+  | "proofOfOwnership"
+  | "taxDeclaration"
+  | "vicinityMap"
+  | "siteDevelopmentPlan"
+  | "otherDocuments";
 
 // All document field keys
-export type DocumentFieldKey =
-  | RequiredDocumentKey
-  | LotOwnershipDocumentKey
-  | RepresentativeDocumentKey
-  | COEDocumentKey;
+export type DocumentFieldKey = SupportingDocumentKey;
 
-// Required documents schema
-export const requiredDocumentsSchema = z.object({
-  taxClearanceOriginal: fileSchema,
-  taxClearancePhotocopy: fileSchema,
-  authorityToSign: fileSchema,
-  lotPlan: fileSchema,
-  architecturalPlan: fileSchema,
-  professionalTaxReceipt: fileSchema,
+// Supporting documents schema
+export const supportingDocumentsSchema = z.object({
+  proofOfOwnership: optionalFileSchema,
+  taxDeclaration: optionalFileSchema,
+  vicinityMap: optionalFileSchema,
+  siteDevelopmentPlan: optionalFileSchema,
+  otherDocuments: optionalFileSchema,
 });
 
-// Lot ownership documents schema (optional based on selection)
-export const lotOwnershipDocumentsSchema = z.object({
-  transferCertificateOfTitle: optionalFileSchema,
-  leaseContract: optionalFileSchema,
-  awardNotice: optionalFileSchema,
-  deedOfSale: optionalFileSchema,
-  memorandumOfAgreement: optionalFileSchema,
-  affidavitOfConsent: optionalFileSchema,
-  specialPowerOfAttorney: optionalFileSchema,
-});
-
-// Representative documents schema
-export const representativeDocumentsSchema = z.object({
-  authorizationLetter: optionalFileSchema,
-  representedPersonId: optionalFileSchema,
-  representativeId: optionalFileSchema,
-});
-
-// COE documents schema
-export const coeDocumentsSchema = z.object({
-  projectDescriptionDoc: fileSchema,
-  projectDescriptionPhotocopy: fileSchema,
-});
-
-// Complete documents schema
-export const documentsSchema = z.object({
-  ...requiredDocumentsSchema.shape,
-  ...lotOwnershipDocumentsSchema.shape,
-  ...representativeDocumentsSchema.shape,
-  ...coeDocumentsSchema.shape,
-});
-
-// Complete application schema
-export const applicationSchema = z.object({
-  applicantDetails: applicantDetailsSchema,
-  representativeDetails: representativeDetailsSchema,
-  projectDescription: projectDescriptionSchema,
-  lotOwnershipType: z.enum(LOT_OWNERSHIP_TYPES),
-  documents: documentsSchema,
-  longFolder: z.boolean(),
-});
-
-// Types derived from schemas
-export type ApplicantDetails = z.infer<typeof applicantDetailsSchema>;
-export type RepresentativeDetails = z.infer<typeof representativeDetailsSchema>;
-export type ProjectDescription = z.infer<typeof projectDescriptionSchema>;
-export type Documents = z.infer<typeof documentsSchema>;
-export type ApplicationData = z.infer<typeof applicationSchema>;
-
-// ============================================
-// DOCUMENT FIELD METADATA FOR UI
-// ============================================
-
-// Required document fields metadata
-export const requiredDocumentFields: {
-  key: RequiredDocumentKey;
+// Supporting document fields metadata
+export const supportingDocumentFields: {
+  key: SupportingDocumentKey;
   label: string;
   description: string;
 }[] = [
   {
-    key: "taxClearanceOriginal",
-    label: "Tax Clearance/Real Property Tax Receipt & Bill (Original)",
-    description: "1 original copy of current year",
+    key: "proofOfOwnership",
+    label: "Proof of Land Ownership/Right Over Land",
+    description: "TCT, Tax Declaration, Lease Contract, or other proof of ownership",
   },
   {
-    key: "taxClearancePhotocopy",
-    label: "Tax Clearance/Real Property Tax Receipt & Bill (Photocopy)",
-    description: "1 photocopy of current year",
+    key: "taxDeclaration",
+    label: "Tax Declaration/Real Property Tax Receipt",
+    description: "Current year tax declaration or receipt",
   },
   {
-    key: "authorityToSign",
-    label: "Authority to Sign/Corporate Secretary's Affidavit",
-    description: "1 photocopy",
+    key: "vicinityMap",
+    label: "Vicinity Map",
+    description: "Map showing the project location",
   },
   {
-    key: "lotPlan",
-    label: "Lot Plan",
-    description: "1 set signed & sealed",
+    key: "siteDevelopmentPlan",
+    label: "Site Development Plan",
+    description: "Layout plan of the proposed project",
   },
   {
-    key: "architecturalPlan",
-    label: "Architectural Plan",
-    description: "2 sets signed & sealed",
-  },
-  {
-    key: "professionalTaxReceipt",
-    label: "Professional Tax Receipt (PTR)",
-    description: "Valid PTR of the signing professional",
-  },
-];
-
-// Lot ownership document fields metadata
-export const lotOwnershipDocumentFields: {
-  key: LotOwnershipDocumentKey;
-  type: LotOwnershipType;
-  label: string;
-  description: string;
-}[] = [
-  {
-    key: "transferCertificateOfTitle",
-    type: "TRANSFER_CERTIFICATE_OF_TITLE",
-    label: "Transfer Certificate of Title",
-    description: "1 certified true copy",
-  },
-  {
-    key: "leaseContract",
-    type: "LEASE_CONTRACT",
-    label: "Lease Contract",
-    description: "1 photocopy",
-  },
-  {
-    key: "awardNotice",
-    type: "AWARD_NOTICE",
-    label: "Award Notice",
-    description: "1 photocopy",
-  },
-  {
-    key: "deedOfSale",
-    type: "DEED_OF_SALE",
-    label: "Deed of Sale",
-    description: "1 photocopy",
-  },
-  {
-    key: "memorandumOfAgreement",
-    type: "MEMORANDUM_OF_AGREEMENT",
-    label: "Memorandum of Agreement (MOA)",
-    description: "1 photocopy",
-  },
-  {
-    key: "affidavitOfConsent",
-    type: "AFFIDAVIT_OF_CONSENT",
-    label: "Affidavit of Consent to Construct",
-    description: "Notarized document",
-  },
-  {
-    key: "specialPowerOfAttorney",
-    type: "SPECIAL_POWER_OF_ATTORNEY",
-    label: "Special Power of Attorney (SPA)",
-    description: "1 photocopy",
-  },
-];
-
-// Representative document fields metadata
-export const representativeDocumentFields: {
-  key: RepresentativeDocumentKey;
-  label: string;
-  description: string;
-}[] = [
-  {
-    key: "authorizationLetter",
-    label: "Duly Notarized Authorization Letter/Special Power of Attorney",
-    description: "1 original",
-  },
-  {
-    key: "representedPersonId",
-    label: "Government Issued ID (Person Being Represented)",
-    description: "1 photocopy of the card of the person being represented",
-  },
-  {
-    key: "representativeId",
-    label: "Government Issued ID (Representative)",
-    description: "1 photocopy of the representative's ID card",
-  },
-];
-
-// COE document fields metadata
-export const coeDocumentFields: {
-  key: COEDocumentKey;
-  label: string;
-  description: string;
-}[] = [
-  {
-    key: "projectDescriptionDoc",
-    label: "Project Description Document (Original)",
-    description:
-      "Boundaries, nature of operation/use, objectives, and statement why project cannot fulfill objectives under Zoning Regulations",
-  },
-  {
-    key: "projectDescriptionPhotocopy",
-    label: "Project Description Document (Photocopy)",
-    description: "1 photocopy of the project description",
+    key: "otherDocuments",
+    label: "Other Supporting Documents",
+    description: "Any additional documents required",
   },
 ];
 
 // All document fields combined
-export const allDocumentFields = [
-  ...requiredDocumentFields,
-  ...lotOwnershipDocumentFields,
-  ...representativeDocumentFields,
-  ...coeDocumentFields,
-];
+export const allDocumentFields = [...supportingDocumentFields];
 
-// Legacy exports for backward compatibility
+// ============================================
+// COMPLETE APPLICATION SCHEMA
+// ============================================
+
+export const applicationSchema = z.object({
+  applicantDetails: applicantDetailsSchema,
+  projectInformation: projectInformationSchema,
+  zoningNotice: zoningNoticeSchema,
+  similarApplication: similarApplicationSchema,
+  decisionDelivery: decisionDeliverySchema,
+  documents: supportingDocumentsSchema,
+});
+
+// Types derived from schemas
+export type ApplicantDetails = z.infer<typeof applicantDetailsSchema>;
+export type ProjectInformation = z.infer<typeof projectInformationSchema>;
+export type ZoningNotice = z.infer<typeof zoningNoticeSchema>;
+export type SimilarApplication = z.infer<typeof similarApplicationSchema>;
+export type DecisionDelivery = z.infer<typeof decisionDeliverySchema>;
+export type Documents = z.infer<typeof supportingDocumentsSchema>;
+export type ApplicationData = z.infer<typeof applicationSchema>;
+
+// ============================================
+// LEGACY EXPORTS FOR BACKWARD COMPATIBILITY
+// ============================================
+
+// Keep old types for any existing code that might reference them
+export const LOT_OWNERSHIP_TYPES = RIGHT_OVER_LAND_TYPES;
+export type LotOwnershipType = RightOverLandType;
+export const LOT_OWNERSHIP_LABELS = RIGHT_OVER_LAND_LABELS;
+
+export type RequiredDocumentKey = SupportingDocumentKey;
+export type LotOwnershipDocumentKey = SupportingDocumentKey;
+export type RepresentativeDocumentKey = SupportingDocumentKey;
+export type COEDocumentKey = SupportingDocumentKey;
+
+export const requiredDocumentFields = supportingDocumentFields;
+export const lotOwnershipDocumentFields = supportingDocumentFields;
+export const representativeDocumentFields = supportingDocumentFields;
+export const coeDocumentFields = supportingDocumentFields;
+
+export type RepresentativeDetails = {
+  isRepresentative: boolean;
+  representativeName: string;
+};
+
+export type ProjectDescription = {
+  projectDescription: string;
+  projectBoundaries: string;
+  projectObjectives: string;
+  zoningExceptionReason: string;
+};
+
 export const landOwnerDetailsSchema = applicantDetailsSchema;
 export type LandOwnerDetails = ApplicantDetails;
-export const documentFields = requiredDocumentFields;
+export const documentFields = supportingDocumentFields;

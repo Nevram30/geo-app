@@ -4,11 +4,11 @@ import React from "react";
 import { StepIndicator } from "./components";
 import { useApplicationForm } from "./hooks";
 import {
-  ApplicantDetailsStep,
-  LotOwnershipStep,
-  DocumentUploadStep,
-  RepresentativeInfoStep,
-  COERequirementsStep,
+  ApplicantCorporationStep,
+  ProjectInformationStep,
+  ZoningNoticeStep,
+  SimilarApplicationStep,
+  DecisionDeliveryStep,
   ReviewStep,
 } from "./steps";
 
@@ -18,33 +18,37 @@ const ApplicantUserPage: React.FC = () => {
   const {
     currentStep,
     applicantDetails,
-    representativeDetails,
-    projectDescription,
-    lotOwnershipType,
+    projectInformation,
+    zoningNotice,
+    similarApplication,
+    decisionDelivery,
     documents,
-    longFolder,
     isSubmitting,
     submitError,
     fieldErrors,
     handleApplicantDetailsChange,
-    handleRepresentativeDetailsChange,
-    handleRepresentativeCheckboxChange,
-    handleProjectDescriptionChange,
-    handleLongFolderChange,
-    handleLotOwnershipTypeSelect,
+    handleProjectInformationChange,
+    handleProjectInformationSelectChange,
+    handleZoningNoticeChange,
+    handleZoningNoticeCheckboxChange,
+    handleSimilarApplicationChange,
+    handleSimilarApplicationCheckboxChange,
+    handleDecisionDeliveryChange,
+    handleDecisionDeliverySelectChange,
+    handleDecisionDeliveryCheckboxChange,
     handleFileSelect,
     handleFileRemove,
     nextStep,
     prevStep,
     handleSubmit,
-    allDocumentsUploaded,
+    isReadyToSubmit,
   } = useApplicationForm();
 
   const renderStep = () => {
     switch (currentStep) {
       case 1:
         return (
-          <ApplicantDetailsStep
+          <ApplicantCorporationStep
             data={applicantDetails}
             errors={fieldErrors}
             onChange={handleApplicantDetailsChange}
@@ -52,43 +56,40 @@ const ApplicantUserPage: React.FC = () => {
         );
       case 2:
         return (
-          <LotOwnershipStep
-            selectedType={lotOwnershipType}
-            documents={documents}
-            onTypeSelect={handleLotOwnershipTypeSelect}
-            onFileSelect={handleFileSelect}
-            onFileRemove={handleFileRemove}
+          <ProjectInformationStep
+            data={projectInformation}
+            errors={fieldErrors}
+            onChange={handleProjectInformationChange}
+            onSelectChange={handleProjectInformationSelectChange}
           />
         );
       case 3:
         return (
-          <DocumentUploadStep
-            documents={documents}
-            onFileSelect={handleFileSelect}
-            onFileRemove={handleFileRemove}
+          <ZoningNoticeStep
+            data={zoningNotice}
+            errors={fieldErrors}
+            onChange={handleZoningNoticeChange}
+            onCheckboxChange={handleZoningNoticeCheckboxChange}
           />
         );
       case 4:
         return (
-          <RepresentativeInfoStep
-            data={representativeDetails}
-            documents={documents}
+          <SimilarApplicationStep
+            data={similarApplication}
             errors={fieldErrors}
-            onChange={handleRepresentativeDetailsChange}
-            onCheckboxChange={handleRepresentativeCheckboxChange}
-            onFileSelect={handleFileSelect}
-            onFileRemove={handleFileRemove}
+            onChange={handleSimilarApplicationChange}
+            onCheckboxChange={handleSimilarApplicationCheckboxChange}
           />
         );
       case 5:
         return (
-          <COERequirementsStep
-            data={projectDescription}
+          <DecisionDeliveryStep
+            data={decisionDelivery}
             documents={documents}
-            longFolder={longFolder}
             errors={fieldErrors}
-            onChange={handleProjectDescriptionChange}
-            onLongFolderChange={handleLongFolderChange}
+            onChange={handleDecisionDeliveryChange}
+            onSelectChange={handleDecisionDeliverySelectChange}
+            onCheckboxChange={handleDecisionDeliveryCheckboxChange}
             onFileSelect={handleFileSelect}
             onFileRemove={handleFileRemove}
           />
@@ -97,11 +98,11 @@ const ApplicantUserPage: React.FC = () => {
         return (
           <ReviewStep
             applicantDetails={applicantDetails}
-            representativeDetails={representativeDetails}
-            projectDescription={projectDescription}
-            lotOwnershipType={lotOwnershipType}
+            projectInformation={projectInformation}
+            zoningNotice={zoningNotice}
+            similarApplication={similarApplication}
+            decisionDelivery={decisionDelivery}
             documents={documents}
-            longFolder={longFolder}
           />
         );
       default:
@@ -115,10 +116,10 @@ const ApplicantUserPage: React.FC = () => {
         {/* Header */}
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold text-gray-900">
-            Zoning Application (COE)
+            Locational Clearance / Zoning Compliance
           </h1>
           <p className="mt-2 text-gray-600">
-            Certificate of Exception Application - Submit your requirements
+            ANNEX A - HLURB Memorandum Circular Application Form
           </p>
         </div>
 
@@ -179,9 +180,9 @@ const ApplicantUserPage: React.FC = () => {
               <button
                 type="button"
                 onClick={handleSubmit}
-                disabled={isSubmitting || !allDocumentsUploaded}
+                disabled={isSubmitting || !isReadyToSubmit}
                 className={`rounded-md px-6 py-2.5 text-sm font-medium text-white transition-colors ${
-                  isSubmitting || !allDocumentsUploaded
+                  isSubmitting || !isReadyToSubmit
                     ? "cursor-not-allowed bg-green-400"
                     : "bg-green-600 hover:bg-green-700"
                 }`}
@@ -217,43 +218,48 @@ const ApplicantUserPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Requirements Checklist Summary */}
+        {/* HLURB Form Reference */}
         <div className="mt-6 rounded-xl bg-white p-6 shadow-lg">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">
-            Checklist of Requirements
+            Form Fields Reference (HLURB ANNEX A)
           </h3>
           <div className="grid gap-2 text-sm text-gray-600">
             <div className="flex items-start gap-2">
-              <span className="text-blue-500">1.</span>
-              <span>Tax Clearance/Real Property Tax Receipt & Bill (1 original, 1 photocopy - current year)</span>
+              <span className="text-blue-500 font-medium">1-6.</span>
+              <span>Applicant/Corporation/Representative Details</span>
             </div>
             <div className="flex items-start gap-2">
-              <span className="text-blue-500">2.</span>
-              <span>Proof of Lot Ownership (whichever is applicable)</span>
+              <span className="text-blue-500 font-medium">7-8.</span>
+              <span>Project Type and Nature</span>
             </div>
             <div className="flex items-start gap-2">
-              <span className="text-blue-500">3.</span>
-              <span>Authority to Sign/Corporate Secretary&apos;s Affidavit (1 photocopy)</span>
+              <span className="text-blue-500 font-medium">9-10.</span>
+              <span>Project Location and Area</span>
             </div>
             <div className="flex items-start gap-2">
-              <span className="text-blue-500">4.</span>
-              <span>Lot Plan (1 set signed & sealed)</span>
+              <span className="text-blue-500 font-medium">11-12.</span>
+              <span>Right Over Land and Project Tenure</span>
             </div>
             <div className="flex items-start gap-2">
-              <span className="text-blue-500">5.</span>
-              <span>Architectural Plan (2 sets signed & sealed) & PTR</span>
+              <span className="text-blue-500 font-medium">14.</span>
+              <span>Project Cost/Capitalization</span>
             </div>
             <div className="flex items-start gap-2">
-              <span className="text-blue-500">6.</span>
-              <span>Long Folder</span>
+              <span className="text-blue-500 font-medium">15-16.</span>
+              <span>Zoning Notice History</span>
             </div>
             <div className="flex items-start gap-2">
-              <span className="text-blue-500">7.</span>
-              <span>Project Description for COE (1 original, 1 photocopy)</span>
+              <span className="text-blue-500 font-medium">17.</span>
+              <span>Similar Application History</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-blue-500 font-medium">18-19.</span>
+              <span>Decision Delivery Mode and Signature</span>
             </div>
           </div>
           <p className="mt-4 text-xs text-gray-500">
-            For representatives: Authorization letter, IDs of both represented person and representative are required.
+            This form follows ANNEX A of HLURB Memorandum Circular for Application for the
+            Locational Clearance/Certificate of Zoning Compliance.
           </p>
         </div>
       </div>
