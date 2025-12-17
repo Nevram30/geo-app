@@ -407,7 +407,8 @@ exports.ZoningApplicationStatus = exports.$Enums.ZoningApplicationStatus = {
 exports.UserRole = exports.$Enums.UserRole = {
   ADMIN: 'ADMIN',
   COMPLIANCE: 'COMPLIANCE',
-  APPLICANT: 'APPLICANT'
+  APPLICANT: 'APPLICANT',
+  REVIEWER: 'REVIEWER'
 };
 
 exports.Prisma.ModelName = {

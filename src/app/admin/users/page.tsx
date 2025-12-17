@@ -19,7 +19,7 @@ export default function UserManagementPage() {
     name: "",
     email: "",
     password: "",
-    role: "COMPLIANCE" as "ADMIN" | "COMPLIANCE",
+    role: "COMPLIANCE" as "ADMIN" | "COMPLIANCE" | "REVIEWER",
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -76,7 +76,7 @@ export default function UserManagementPage() {
         name: "",
         email: "",
         password: "",
-        role: "COMPLIANCE",
+        role: "COMPLIANCE" as "ADMIN" | "COMPLIANCE" | "REVIEWER",
       });
       setShowAddModal(false);
       void fetchUsers(); // Refresh user list
@@ -130,6 +130,8 @@ export default function UserManagementPage() {
         return "bg-green-100 text-green-700";
       case "APPLICANT":
         return "bg-blue-100 text-blue-700";
+      case "REVIEWER":
+        return "bg-orange-100 text-orange-700";
       default:
         return "bg-gray-100 text-gray-700";
     }
@@ -348,14 +350,16 @@ export default function UserManagementPage() {
                   id="role"
                   required
                   value={formData.role}
-                  onChange={(e) => setFormData({ ...formData, role: e.target.value as "ADMIN" | "COMPLIANCE" })}
+                  onChange={(e) => setFormData({ ...formData, role: e.target.value as "ADMIN" | "COMPLIANCE" | "REVIEWER" })}
                   className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
                 >
                   <option value="COMPLIANCE">Compliance User</option>
+                  <option value="REVIEWER">Reviewer User</option>
                   <option value="ADMIN">Admin User</option>
                 </select>
                 <p className="mt-1 text-xs text-gray-500">
                   {formData.role === "COMPLIANCE" && "Can review compliance and check areas on map"}
+                  {formData.role === "REVIEWER" && "Can review and process applications"}
                   {formData.role === "ADMIN" && "Full system access and user management"}
                 </p>
               </div>

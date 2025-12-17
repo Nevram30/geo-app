@@ -42,7 +42,9 @@ function SignInForm() {
           router.push("/compliance");
         } else if (session?.user?.role === "APPLICANT") {
           router.push("/applicant-user");
-        } else {
+        } else if (session?.user?.role === "REVIEWER") {
+          router.push("/reviewer");
+        }else {
           router.push(callbackUrl);
         }
         router.refresh();

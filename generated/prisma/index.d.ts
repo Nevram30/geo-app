@@ -153,7 +153,8 @@ export type ZoningApplicationStatus = (typeof ZoningApplicationStatus)[keyof typ
 export const UserRole: {
   ADMIN: 'ADMIN',
   COMPLIANCE: 'COMPLIANCE',
-  APPLICANT: 'APPLICANT'
+  APPLICANT: 'APPLICANT',
+  REVIEWER: 'REVIEWER'
 };
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]

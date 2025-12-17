@@ -394,6 +394,7 @@ enum UserRole {
     ADMIN
     COMPLIANCE
     APPLICANT
+    REVIEWER
 }
 
 model VerificationToken {
