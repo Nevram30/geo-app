@@ -217,7 +217,7 @@ export async function POST(req: Request) {
 
         // Other fields
         longFolder: validatedData.longFolder,
-        status: "PENDING",
+        status: "SUBMITTED",
       },
     });
 

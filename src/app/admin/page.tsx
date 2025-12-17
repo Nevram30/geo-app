@@ -5,9 +5,8 @@ export default async function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-slate-50">
-
       {/* Main Content */}
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="px-4 py-8 sm:px-6 lg:px-8">
         {/* Quick Actions */}
         <div className="mb-8">
           <h3 className="mb-4 text-lg font-bold text-slate-900">Quick Actions</h3>

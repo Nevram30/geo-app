@@ -140,11 +140,11 @@ export type LotOwnershipType = (typeof LotOwnershipType)[keyof typeof LotOwnersh
 
 
 export const ZoningApplicationStatus: {
-  PENDING: 'PENDING',
-  UNDER_REVIEW: 'UNDER_REVIEW',
-  APPROVED: 'APPROVED',
+  SUBMITTED: 'SUBMITTED',
+  REVIEWING: 'REVIEWING',
   REJECTED: 'REJECTED',
-  REQUIRES_REVISION: 'REQUIRES_REVISION'
+  APPROVED: 'APPROVED',
+  FOR_EVALUATION: 'FOR_EVALUATION'
 };
 
 export type ZoningApplicationStatus = (typeof ZoningApplicationStatus)[keyof typeof ZoningApplicationStatus]

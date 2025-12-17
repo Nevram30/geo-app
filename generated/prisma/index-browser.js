@@ -397,11 +397,11 @@ exports.LotOwnershipType = exports.$Enums.LotOwnershipType = {
 };
 
 exports.ZoningApplicationStatus = exports.$Enums.ZoningApplicationStatus = {
-  PENDING: 'PENDING',
-  UNDER_REVIEW: 'UNDER_REVIEW',
-  APPROVED: 'APPROVED',
+  SUBMITTED: 'SUBMITTED',
+  REVIEWING: 'REVIEWING',
   REJECTED: 'REJECTED',
-  REQUIRES_REVISION: 'REQUIRES_REVISION'
+  APPROVED: 'APPROVED',
+  FOR_EVALUATION: 'FOR_EVALUATION'
 };
 
 exports.UserRole = exports.$Enums.UserRole = {

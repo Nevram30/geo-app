@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { StepIndicator } from "./components";
+import { StepIndicator, ApplicantNavigation } from "./components";
 import { useApplicationForm } from "./hooks";
 import {
   ApplicantCorporationStep,
@@ -111,8 +111,13 @@ const ApplicantUserPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
+    <div className="py-8 px-4">
       <div className="mx-auto max-w-4xl">
+        {/* Navigation */}
+        <div className="mb-6">
+          <ApplicantNavigation />
+        </div>
+
         {/* Header */}
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold text-gray-900">

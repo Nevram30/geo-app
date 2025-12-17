@@ -9,7 +9,7 @@ const MainHeader = async () => {
         <>
             {/* Header */}
             <header className="border-b border-slate-200 bg-white/80 shadow-sm backdrop-blur-sm">
-                <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+                <div className="px-4 py-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-blue-600 to-blue-700 shadow-lg shadow-blue-500/30">

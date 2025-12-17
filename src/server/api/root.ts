@@ -5,6 +5,7 @@ import { categoryRouter } from "~/server/api/routers/category";
 import { zoneRouter } from "~/server/api/routers/zone";
 import { hazardRouter } from "~/server/api/routers/hazard";
 import { analyticsRouter } from "~/server/api/routers/analytics";
+import { zoningApplicationRouter } from "~/server/api/routers/zoningApplication";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 
 /**
@@ -20,6 +21,7 @@ export const appRouter = createTRPCRouter({
   zone: zoneRouter,
   hazard: hazardRouter,
   analytics: analyticsRouter,
+  zoningApplication: zoningApplicationRouter,
 });
 
 // export type definition of API

@@ -283,7 +283,7 @@ model ZoningApplication {
   representativeId    String?
 
   // Application Status
-  status      ZoningApplicationStatus @default(PENDING)
+  status      ZoningApplicationStatus @default(SUBMITTED)
   submittedAt DateTime                @default(now())
   reviewedAt  DateTime?
   approvedAt  DateTime?
@@ -317,11 +317,11 @@ enum LotOwnershipType {
 }
 
 enum ZoningApplicationStatus {
-  PENDING
-  UNDER_REVIEW
-  APPROVED
+  SUBMITTED
+  REVIEWING
   REJECTED
-  REQUIRES_REVISION
+  APPROVED
+  FOR_EVALUATION
 }
 
 // ============================================
