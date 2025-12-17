@@ -14,44 +14,13 @@ export default async function ComplianceDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50 to-slate-50">
-      {/* Header */}
-      <header className="border-b border-slate-200 bg-white/80 shadow-sm backdrop-blur-sm">
-        <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-green-600 to-green-700 shadow-lg shadow-green-500/30">
-                <svg className="h-7 w-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                </svg>
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-slate-900">ZoniTrack+</h1>
-                <p className="text-xs font-medium text-slate-500">Compliance Dashboard</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="hidden sm:block text-right">
-                <p className="text-sm font-medium text-slate-900">{session.user.name}</p>
-                <p className="text-xs text-slate-500">{session.user.email}</p>
-              </div>
-              <Link
-                href="/api/auth/signout"
-                className="rounded-lg bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-200"
-              >
-                Sign Out
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
-
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-green-50 to-slate-50">
       {/* Main Content */}
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Welcome Section */}
         <div className="mb-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-lg">
           <div className="flex items-start gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-green-500 to-green-600 text-white shadow-lg">
               <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -92,7 +61,7 @@ export default async function ComplianceDashboard() {
 
             {/* View Applications */}
             <Link
-              href="/applications"
+              href="/compliance/applications"
               className="group rounded-2xl border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100 p-6 shadow-lg transition-all hover:border-blue-300 hover:shadow-xl"
             >
               <div className="flex items-start gap-4">

@@ -5,6 +5,7 @@ import { Geist } from "next/font/google";
 import { SessionProvider } from "next-auth/react";
 
 import { TRPCReactProvider } from "~/trpc/react";
+import MainHeader from "./_components/header";
 
 export const metadata: Metadata = {
   title: "ZoniTrack+ | Geo-Intelligent Decision Support System",
@@ -31,7 +32,10 @@ export default function RootLayout({
     <html lang="en" className={`${geist.variable}`}>
       <body>
         <SessionProvider>
-          <TRPCReactProvider>{children}</TRPCReactProvider>
+          <MainHeader />
+          <TRPCReactProvider>
+            {children}
+          </TRPCReactProvider>
         </SessionProvider>
       </body>
     </html>

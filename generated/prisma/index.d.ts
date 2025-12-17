@@ -59,6 +59,11 @@ export type PointOfInterest = $Result.DefaultSelection<Prisma.$PointOfInterestPa
  */
 export type AnalyticsReport = $Result.DefaultSelection<Prisma.$AnalyticsReportPayload>
 /**
+ * Model ZoningApplication
+ * 
+ */
+export type ZoningApplication = $Result.DefaultSelection<Prisma.$ZoningApplicationPayload>
+/**
  * Model Post
  * 
  */
@@ -121,6 +126,30 @@ export const HazardSeverity: {
 export type HazardSeverity = (typeof HazardSeverity)[keyof typeof HazardSeverity]
 
 
+export const LotOwnershipType: {
+  TRANSFER_CERTIFICATE_OF_TITLE: 'TRANSFER_CERTIFICATE_OF_TITLE',
+  LEASE_CONTRACT: 'LEASE_CONTRACT',
+  AWARD_NOTICE: 'AWARD_NOTICE',
+  DEED_OF_SALE: 'DEED_OF_SALE',
+  MEMORANDUM_OF_AGREEMENT: 'MEMORANDUM_OF_AGREEMENT',
+  AFFIDAVIT_OF_CONSENT: 'AFFIDAVIT_OF_CONSENT',
+  SPECIAL_POWER_OF_ATTORNEY: 'SPECIAL_POWER_OF_ATTORNEY'
+};
+
+export type LotOwnershipType = (typeof LotOwnershipType)[keyof typeof LotOwnershipType]
+
+
+export const ZoningApplicationStatus: {
+  PENDING: 'PENDING',
+  UNDER_REVIEW: 'UNDER_REVIEW',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  REQUIRES_REVISION: 'REQUIRES_REVISION'
+};
+
+export type ZoningApplicationStatus = (typeof ZoningApplicationStatus)[keyof typeof ZoningApplicationStatus]
+
+
 export const UserRole: {
   ADMIN: 'ADMIN',
   COMPLIANCE: 'COMPLIANCE',
@@ -142,6 +171,14 @@ export const HazardType: typeof $Enums.HazardType
 export type HazardSeverity = $Enums.HazardSeverity
 
 export const HazardSeverity: typeof $Enums.HazardSeverity
+
+export type LotOwnershipType = $Enums.LotOwnershipType
+
+export const LotOwnershipType: typeof $Enums.LotOwnershipType
+
+export type ZoningApplicationStatus = $Enums.ZoningApplicationStatus
+
+export const ZoningApplicationStatus: typeof $Enums.ZoningApplicationStatus
 
 export type UserRole = $Enums.UserRole
 
@@ -354,6 +391,16 @@ export class PrismaClient<
     * ```
     */
   get analyticsReport(): Prisma.AnalyticsReportDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.zoningApplication`: Exposes CRUD operations for the **ZoningApplication** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ZoningApplications
+    * const zoningApplications = await prisma.zoningApplication.findMany()
+    * ```
+    */
+  get zoningApplication(): Prisma.ZoningApplicationDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.post`: Exposes CRUD operations for the **Post** model.
@@ -854,6 +901,7 @@ export namespace Prisma {
     ProximityRule: 'ProximityRule',
     PointOfInterest: 'PointOfInterest',
     AnalyticsReport: 'AnalyticsReport',
+    ZoningApplication: 'ZoningApplication',
     Post: 'Post',
     Account: 'Account',
     Session: 'Session',
@@ -877,7 +925,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "barangay" | "zoneType" | "zone" | "businessCategory" | "business" | "hazardZone" | "proximityRule" | "pointOfInterest" | "analyticsReport" | "post" | "account" | "session" | "user" | "verificationToken"
+      modelProps: "barangay" | "zoneType" | "zone" | "businessCategory" | "business" | "hazardZone" | "proximityRule" | "pointOfInterest" | "analyticsReport" | "zoningApplication" | "post" | "account" | "session" | "user" | "verificationToken"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1547,6 +1595,80 @@ export namespace Prisma {
           }
         }
       }
+      ZoningApplication: {
+        payload: Prisma.$ZoningApplicationPayload<ExtArgs>
+        fields: Prisma.ZoningApplicationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ZoningApplicationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZoningApplicationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ZoningApplicationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZoningApplicationPayload>
+          }
+          findFirst: {
+            args: Prisma.ZoningApplicationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZoningApplicationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ZoningApplicationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZoningApplicationPayload>
+          }
+          findMany: {
+            args: Prisma.ZoningApplicationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZoningApplicationPayload>[]
+          }
+          create: {
+            args: Prisma.ZoningApplicationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZoningApplicationPayload>
+          }
+          createMany: {
+            args: Prisma.ZoningApplicationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ZoningApplicationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZoningApplicationPayload>[]
+          }
+          delete: {
+            args: Prisma.ZoningApplicationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZoningApplicationPayload>
+          }
+          update: {
+            args: Prisma.ZoningApplicationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZoningApplicationPayload>
+          }
+          deleteMany: {
+            args: Prisma.ZoningApplicationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ZoningApplicationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ZoningApplicationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZoningApplicationPayload>[]
+          }
+          upsert: {
+            args: Prisma.ZoningApplicationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ZoningApplicationPayload>
+          }
+          aggregate: {
+            args: Prisma.ZoningApplicationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateZoningApplication>
+          }
+          groupBy: {
+            args: Prisma.ZoningApplicationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ZoningApplicationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ZoningApplicationCountArgs<ExtArgs>
+            result: $Utils.Optional<ZoningApplicationCountAggregateOutputType> | number
+          }
+        }
+      }
       Post: {
         payload: Prisma.$PostPayload<ExtArgs>
         fields: Prisma.PostFieldRefs
@@ -2022,6 +2144,7 @@ export namespace Prisma {
     proximityRule?: ProximityRuleOmit
     pointOfInterest?: PointOfInterestOmit
     analyticsReport?: AnalyticsReportOmit
+    zoningApplication?: ZoningApplicationOmit
     post?: PostOmit
     account?: AccountOmit
     session?: SessionOmit
@@ -2245,6 +2368,8 @@ export namespace Prisma {
     posts: number
     reviewedBusinesses: number
     reports: number
+    zoningApplications: number
+    reviewedZoningApplications: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2253,6 +2378,8 @@ export namespace Prisma {
     posts?: boolean | UserCountOutputTypeCountPostsArgs
     reviewedBusinesses?: boolean | UserCountOutputTypeCountReviewedBusinessesArgs
     reports?: boolean | UserCountOutputTypeCountReportsArgs
+    zoningApplications?: boolean | UserCountOutputTypeCountZoningApplicationsArgs
+    reviewedZoningApplications?: boolean | UserCountOutputTypeCountReviewedZoningApplicationsArgs
   }
 
   // Custom InputTypes
@@ -2299,6 +2426,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AnalyticsReportWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountZoningApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ZoningApplicationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountReviewedZoningApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ZoningApplicationWhereInput
   }
 
 
@@ -12648,6 +12789,1572 @@ export namespace Prisma {
 
 
   /**
+   * Model ZoningApplication
+   */
+
+  export type AggregateZoningApplication = {
+    _count: ZoningApplicationCountAggregateOutputType | null
+    _min: ZoningApplicationMinAggregateOutputType | null
+    _max: ZoningApplicationMaxAggregateOutputType | null
+  }
+
+  export type ZoningApplicationMinAggregateOutputType = {
+    id: string | null
+    applicationNo: string | null
+    applicantName: string | null
+    applicantAddress: string | null
+    applicantContact: string | null
+    applicantEmail: string | null
+    projectDescription: string | null
+    projectBoundaries: string | null
+    projectObjectives: string | null
+    zoningExceptionReason: string | null
+    isRepresentative: boolean | null
+    representativeName: string | null
+    lotOwnershipType: $Enums.LotOwnershipType | null
+    taxClearanceOriginal: string | null
+    taxClearancePhotocopy: string | null
+    transferCertificateOfTitle: string | null
+    leaseContract: string | null
+    awardNotice: string | null
+    deedOfSale: string | null
+    memorandumOfAgreement: string | null
+    affidavitOfConsent: string | null
+    specialPowerOfAttorney: string | null
+    authorityToSign: string | null
+    lotPlan: string | null
+    architecturalPlan: string | null
+    professionalTaxReceipt: string | null
+    longFolder: boolean | null
+    projectDescriptionDoc: string | null
+    projectDescriptionPhotocopy: string | null
+    authorizationLetter: string | null
+    representedPersonId: string | null
+    representativeId: string | null
+    status: $Enums.ZoningApplicationStatus | null
+    submittedAt: Date | null
+    reviewedAt: Date | null
+    approvedAt: Date | null
+    rejectedAt: Date | null
+    reviewedBy: string | null
+    remarks: string | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ZoningApplicationMaxAggregateOutputType = {
+    id: string | null
+    applicationNo: string | null
+    applicantName: string | null
+    applicantAddress: string | null
+    applicantContact: string | null
+    applicantEmail: string | null
+    projectDescription: string | null
+    projectBoundaries: string | null
+    projectObjectives: string | null
+    zoningExceptionReason: string | null
+    isRepresentative: boolean | null
+    representativeName: string | null
+    lotOwnershipType: $Enums.LotOwnershipType | null
+    taxClearanceOriginal: string | null
+    taxClearancePhotocopy: string | null
+    transferCertificateOfTitle: string | null
+    leaseContract: string | null
+    awardNotice: string | null
+    deedOfSale: string | null
+    memorandumOfAgreement: string | null
+    affidavitOfConsent: string | null
+    specialPowerOfAttorney: string | null
+    authorityToSign: string | null
+    lotPlan: string | null
+    architecturalPlan: string | null
+    professionalTaxReceipt: string | null
+    longFolder: boolean | null
+    projectDescriptionDoc: string | null
+    projectDescriptionPhotocopy: string | null
+    authorizationLetter: string | null
+    representedPersonId: string | null
+    representativeId: string | null
+    status: $Enums.ZoningApplicationStatus | null
+    submittedAt: Date | null
+    reviewedAt: Date | null
+    approvedAt: Date | null
+    rejectedAt: Date | null
+    reviewedBy: string | null
+    remarks: string | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ZoningApplicationCountAggregateOutputType = {
+    id: number
+    applicationNo: number
+    applicantName: number
+    applicantAddress: number
+    applicantContact: number
+    applicantEmail: number
+    projectDescription: number
+    projectBoundaries: number
+    projectObjectives: number
+    zoningExceptionReason: number
+    isRepresentative: number
+    representativeName: number
+    lotOwnershipType: number
+    taxClearanceOriginal: number
+    taxClearancePhotocopy: number
+    transferCertificateOfTitle: number
+    leaseContract: number
+    awardNotice: number
+    deedOfSale: number
+    memorandumOfAgreement: number
+    affidavitOfConsent: number
+    specialPowerOfAttorney: number
+    authorityToSign: number
+    lotPlan: number
+    architecturalPlan: number
+    professionalTaxReceipt: number
+    longFolder: number
+    projectDescriptionDoc: number
+    projectDescriptionPhotocopy: number
+    authorizationLetter: number
+    representedPersonId: number
+    representativeId: number
+    status: number
+    submittedAt: number
+    reviewedAt: number
+    approvedAt: number
+    rejectedAt: number
+    reviewedBy: number
+    remarks: number
+    userId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ZoningApplicationMinAggregateInputType = {
+    id?: true
+    applicationNo?: true
+    applicantName?: true
+    applicantAddress?: true
+    applicantContact?: true
+    applicantEmail?: true
+    projectDescription?: true
+    projectBoundaries?: true
+    projectObjectives?: true
+    zoningExceptionReason?: true
+    isRepresentative?: true
+    representativeName?: true
+    lotOwnershipType?: true
+    taxClearanceOriginal?: true
+    taxClearancePhotocopy?: true
+    transferCertificateOfTitle?: true
+    leaseContract?: true
+    awardNotice?: true
+    deedOfSale?: true
+    memorandumOfAgreement?: true
+    affidavitOfConsent?: true
+    specialPowerOfAttorney?: true
+    authorityToSign?: true
+    lotPlan?: true
+    architecturalPlan?: true
+    professionalTaxReceipt?: true
+    longFolder?: true
+    projectDescriptionDoc?: true
+    projectDescriptionPhotocopy?: true
+    authorizationLetter?: true
+    representedPersonId?: true
+    representativeId?: true
+    status?: true
+    submittedAt?: true
+    reviewedAt?: true
+    approvedAt?: true
+    rejectedAt?: true
+    reviewedBy?: true
+    remarks?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ZoningApplicationMaxAggregateInputType = {
+    id?: true
+    applicationNo?: true
+    applicantName?: true
+    applicantAddress?: true
+    applicantContact?: true
+    applicantEmail?: true
+    projectDescription?: true
+    projectBoundaries?: true
+    projectObjectives?: true
+    zoningExceptionReason?: true
+    isRepresentative?: true
+    representativeName?: true
+    lotOwnershipType?: true
+    taxClearanceOriginal?: true
+    taxClearancePhotocopy?: true
+    transferCertificateOfTitle?: true
+    leaseContract?: true
+    awardNotice?: true
+    deedOfSale?: true
+    memorandumOfAgreement?: true
+    affidavitOfConsent?: true
+    specialPowerOfAttorney?: true
+    authorityToSign?: true
+    lotPlan?: true
+    architecturalPlan?: true
+    professionalTaxReceipt?: true
+    longFolder?: true
+    projectDescriptionDoc?: true
+    projectDescriptionPhotocopy?: true
+    authorizationLetter?: true
+    representedPersonId?: true
+    representativeId?: true
+    status?: true
+    submittedAt?: true
+    reviewedAt?: true
+    approvedAt?: true
+    rejectedAt?: true
+    reviewedBy?: true
+    remarks?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ZoningApplicationCountAggregateInputType = {
+    id?: true
+    applicationNo?: true
+    applicantName?: true
+    applicantAddress?: true
+    applicantContact?: true
+    applicantEmail?: true
+    projectDescription?: true
+    projectBoundaries?: true
+    projectObjectives?: true
+    zoningExceptionReason?: true
+    isRepresentative?: true
+    representativeName?: true
+    lotOwnershipType?: true
+    taxClearanceOriginal?: true
+    taxClearancePhotocopy?: true
+    transferCertificateOfTitle?: true
+    leaseContract?: true
+    awardNotice?: true
+    deedOfSale?: true
+    memorandumOfAgreement?: true
+    affidavitOfConsent?: true
+    specialPowerOfAttorney?: true
+    authorityToSign?: true
+    lotPlan?: true
+    architecturalPlan?: true
+    professionalTaxReceipt?: true
+    longFolder?: true
+    projectDescriptionDoc?: true
+    projectDescriptionPhotocopy?: true
+    authorizationLetter?: true
+    representedPersonId?: true
+    representativeId?: true
+    status?: true
+    submittedAt?: true
+    reviewedAt?: true
+    approvedAt?: true
+    rejectedAt?: true
+    reviewedBy?: true
+    remarks?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ZoningApplicationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ZoningApplication to aggregate.
+     */
+    where?: ZoningApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ZoningApplications to fetch.
+     */
+    orderBy?: ZoningApplicationOrderByWithRelationInput | ZoningApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ZoningApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ZoningApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ZoningApplications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ZoningApplications
+    **/
+    _count?: true | ZoningApplicationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ZoningApplicationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ZoningApplicationMaxAggregateInputType
+  }
+
+  export type GetZoningApplicationAggregateType<T extends ZoningApplicationAggregateArgs> = {
+        [P in keyof T & keyof AggregateZoningApplication]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateZoningApplication[P]>
+      : GetScalarType<T[P], AggregateZoningApplication[P]>
+  }
+
+
+
+
+  export type ZoningApplicationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ZoningApplicationWhereInput
+    orderBy?: ZoningApplicationOrderByWithAggregationInput | ZoningApplicationOrderByWithAggregationInput[]
+    by: ZoningApplicationScalarFieldEnum[] | ZoningApplicationScalarFieldEnum
+    having?: ZoningApplicationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ZoningApplicationCountAggregateInputType | true
+    _min?: ZoningApplicationMinAggregateInputType
+    _max?: ZoningApplicationMaxAggregateInputType
+  }
+
+  export type ZoningApplicationGroupByOutputType = {
+    id: string
+    applicationNo: string
+    applicantName: string
+    applicantAddress: string
+    applicantContact: string
+    applicantEmail: string
+    projectDescription: string | null
+    projectBoundaries: string | null
+    projectObjectives: string | null
+    zoningExceptionReason: string | null
+    isRepresentative: boolean
+    representativeName: string | null
+    lotOwnershipType: $Enums.LotOwnershipType | null
+    taxClearanceOriginal: string | null
+    taxClearancePhotocopy: string | null
+    transferCertificateOfTitle: string | null
+    leaseContract: string | null
+    awardNotice: string | null
+    deedOfSale: string | null
+    memorandumOfAgreement: string | null
+    affidavitOfConsent: string | null
+    specialPowerOfAttorney: string | null
+    authorityToSign: string | null
+    lotPlan: string | null
+    architecturalPlan: string | null
+    professionalTaxReceipt: string | null
+    longFolder: boolean
+    projectDescriptionDoc: string | null
+    projectDescriptionPhotocopy: string | null
+    authorizationLetter: string | null
+    representedPersonId: string | null
+    representativeId: string | null
+    status: $Enums.ZoningApplicationStatus
+    submittedAt: Date
+    reviewedAt: Date | null
+    approvedAt: Date | null
+    rejectedAt: Date | null
+    reviewedBy: string | null
+    remarks: string | null
+    userId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ZoningApplicationCountAggregateOutputType | null
+    _min: ZoningApplicationMinAggregateOutputType | null
+    _max: ZoningApplicationMaxAggregateOutputType | null
+  }
+
+  type GetZoningApplicationGroupByPayload<T extends ZoningApplicationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ZoningApplicationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ZoningApplicationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ZoningApplicationGroupByOutputType[P]>
+            : GetScalarType<T[P], ZoningApplicationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ZoningApplicationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    applicationNo?: boolean
+    applicantName?: boolean
+    applicantAddress?: boolean
+    applicantContact?: boolean
+    applicantEmail?: boolean
+    projectDescription?: boolean
+    projectBoundaries?: boolean
+    projectObjectives?: boolean
+    zoningExceptionReason?: boolean
+    isRepresentative?: boolean
+    representativeName?: boolean
+    lotOwnershipType?: boolean
+    taxClearanceOriginal?: boolean
+    taxClearancePhotocopy?: boolean
+    transferCertificateOfTitle?: boolean
+    leaseContract?: boolean
+    awardNotice?: boolean
+    deedOfSale?: boolean
+    memorandumOfAgreement?: boolean
+    affidavitOfConsent?: boolean
+    specialPowerOfAttorney?: boolean
+    authorityToSign?: boolean
+    lotPlan?: boolean
+    architecturalPlan?: boolean
+    professionalTaxReceipt?: boolean
+    longFolder?: boolean
+    projectDescriptionDoc?: boolean
+    projectDescriptionPhotocopy?: boolean
+    authorizationLetter?: boolean
+    representedPersonId?: boolean
+    representativeId?: boolean
+    status?: boolean
+    submittedAt?: boolean
+    reviewedAt?: boolean
+    approvedAt?: boolean
+    rejectedAt?: boolean
+    reviewedBy?: boolean
+    remarks?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    reviewedByUser?: boolean | ZoningApplication$reviewedByUserArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["zoningApplication"]>
+
+  export type ZoningApplicationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    applicationNo?: boolean
+    applicantName?: boolean
+    applicantAddress?: boolean
+    applicantContact?: boolean
+    applicantEmail?: boolean
+    projectDescription?: boolean
+    projectBoundaries?: boolean
+    projectObjectives?: boolean
+    zoningExceptionReason?: boolean
+    isRepresentative?: boolean
+    representativeName?: boolean
+    lotOwnershipType?: boolean
+    taxClearanceOriginal?: boolean
+    taxClearancePhotocopy?: boolean
+    transferCertificateOfTitle?: boolean
+    leaseContract?: boolean
+    awardNotice?: boolean
+    deedOfSale?: boolean
+    memorandumOfAgreement?: boolean
+    affidavitOfConsent?: boolean
+    specialPowerOfAttorney?: boolean
+    authorityToSign?: boolean
+    lotPlan?: boolean
+    architecturalPlan?: boolean
+    professionalTaxReceipt?: boolean
+    longFolder?: boolean
+    projectDescriptionDoc?: boolean
+    projectDescriptionPhotocopy?: boolean
+    authorizationLetter?: boolean
+    representedPersonId?: boolean
+    representativeId?: boolean
+    status?: boolean
+    submittedAt?: boolean
+    reviewedAt?: boolean
+    approvedAt?: boolean
+    rejectedAt?: boolean
+    reviewedBy?: boolean
+    remarks?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    reviewedByUser?: boolean | ZoningApplication$reviewedByUserArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["zoningApplication"]>
+
+  export type ZoningApplicationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    applicationNo?: boolean
+    applicantName?: boolean
+    applicantAddress?: boolean
+    applicantContact?: boolean
+    applicantEmail?: boolean
+    projectDescription?: boolean
+    projectBoundaries?: boolean
+    projectObjectives?: boolean
+    zoningExceptionReason?: boolean
+    isRepresentative?: boolean
+    representativeName?: boolean
+    lotOwnershipType?: boolean
+    taxClearanceOriginal?: boolean
+    taxClearancePhotocopy?: boolean
+    transferCertificateOfTitle?: boolean
+    leaseContract?: boolean
+    awardNotice?: boolean
+    deedOfSale?: boolean
+    memorandumOfAgreement?: boolean
+    affidavitOfConsent?: boolean
+    specialPowerOfAttorney?: boolean
+    authorityToSign?: boolean
+    lotPlan?: boolean
+    architecturalPlan?: boolean
+    professionalTaxReceipt?: boolean
+    longFolder?: boolean
+    projectDescriptionDoc?: boolean
+    projectDescriptionPhotocopy?: boolean
+    authorizationLetter?: boolean
+    representedPersonId?: boolean
+    representativeId?: boolean
+    status?: boolean
+    submittedAt?: boolean
+    reviewedAt?: boolean
+    approvedAt?: boolean
+    rejectedAt?: boolean
+    reviewedBy?: boolean
+    remarks?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    reviewedByUser?: boolean | ZoningApplication$reviewedByUserArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["zoningApplication"]>
+
+  export type ZoningApplicationSelectScalar = {
+    id?: boolean
+    applicationNo?: boolean
+    applicantName?: boolean
+    applicantAddress?: boolean
+    applicantContact?: boolean
+    applicantEmail?: boolean
+    projectDescription?: boolean
+    projectBoundaries?: boolean
+    projectObjectives?: boolean
+    zoningExceptionReason?: boolean
+    isRepresentative?: boolean
+    representativeName?: boolean
+    lotOwnershipType?: boolean
+    taxClearanceOriginal?: boolean
+    taxClearancePhotocopy?: boolean
+    transferCertificateOfTitle?: boolean
+    leaseContract?: boolean
+    awardNotice?: boolean
+    deedOfSale?: boolean
+    memorandumOfAgreement?: boolean
+    affidavitOfConsent?: boolean
+    specialPowerOfAttorney?: boolean
+    authorityToSign?: boolean
+    lotPlan?: boolean
+    architecturalPlan?: boolean
+    professionalTaxReceipt?: boolean
+    longFolder?: boolean
+    projectDescriptionDoc?: boolean
+    projectDescriptionPhotocopy?: boolean
+    authorizationLetter?: boolean
+    representedPersonId?: boolean
+    representativeId?: boolean
+    status?: boolean
+    submittedAt?: boolean
+    reviewedAt?: boolean
+    approvedAt?: boolean
+    rejectedAt?: boolean
+    reviewedBy?: boolean
+    remarks?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ZoningApplicationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "applicationNo" | "applicantName" | "applicantAddress" | "applicantContact" | "applicantEmail" | "projectDescription" | "projectBoundaries" | "projectObjectives" | "zoningExceptionReason" | "isRepresentative" | "representativeName" | "lotOwnershipType" | "taxClearanceOriginal" | "taxClearancePhotocopy" | "transferCertificateOfTitle" | "leaseContract" | "awardNotice" | "deedOfSale" | "memorandumOfAgreement" | "affidavitOfConsent" | "specialPowerOfAttorney" | "authorityToSign" | "lotPlan" | "architecturalPlan" | "professionalTaxReceipt" | "longFolder" | "projectDescriptionDoc" | "projectDescriptionPhotocopy" | "authorizationLetter" | "representedPersonId" | "representativeId" | "status" | "submittedAt" | "reviewedAt" | "approvedAt" | "rejectedAt" | "reviewedBy" | "remarks" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["zoningApplication"]>
+  export type ZoningApplicationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reviewedByUser?: boolean | ZoningApplication$reviewedByUserArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ZoningApplicationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reviewedByUser?: boolean | ZoningApplication$reviewedByUserArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ZoningApplicationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reviewedByUser?: boolean | ZoningApplication$reviewedByUserArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ZoningApplicationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ZoningApplication"
+    objects: {
+      reviewedByUser: Prisma.$UserPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      applicationNo: string
+      applicantName: string
+      applicantAddress: string
+      applicantContact: string
+      applicantEmail: string
+      projectDescription: string | null
+      projectBoundaries: string | null
+      projectObjectives: string | null
+      zoningExceptionReason: string | null
+      isRepresentative: boolean
+      representativeName: string | null
+      lotOwnershipType: $Enums.LotOwnershipType | null
+      taxClearanceOriginal: string | null
+      taxClearancePhotocopy: string | null
+      transferCertificateOfTitle: string | null
+      leaseContract: string | null
+      awardNotice: string | null
+      deedOfSale: string | null
+      memorandumOfAgreement: string | null
+      affidavitOfConsent: string | null
+      specialPowerOfAttorney: string | null
+      authorityToSign: string | null
+      lotPlan: string | null
+      architecturalPlan: string | null
+      professionalTaxReceipt: string | null
+      longFolder: boolean
+      projectDescriptionDoc: string | null
+      projectDescriptionPhotocopy: string | null
+      authorizationLetter: string | null
+      representedPersonId: string | null
+      representativeId: string | null
+      status: $Enums.ZoningApplicationStatus
+      submittedAt: Date
+      reviewedAt: Date | null
+      approvedAt: Date | null
+      rejectedAt: Date | null
+      reviewedBy: string | null
+      remarks: string | null
+      userId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["zoningApplication"]>
+    composites: {}
+  }
+
+  type ZoningApplicationGetPayload<S extends boolean | null | undefined | ZoningApplicationDefaultArgs> = $Result.GetResult<Prisma.$ZoningApplicationPayload, S>
+
+  type ZoningApplicationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ZoningApplicationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ZoningApplicationCountAggregateInputType | true
+    }
+
+  export interface ZoningApplicationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ZoningApplication'], meta: { name: 'ZoningApplication' } }
+    /**
+     * Find zero or one ZoningApplication that matches the filter.
+     * @param {ZoningApplicationFindUniqueArgs} args - Arguments to find a ZoningApplication
+     * @example
+     * // Get one ZoningApplication
+     * const zoningApplication = await prisma.zoningApplication.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ZoningApplicationFindUniqueArgs>(args: SelectSubset<T, ZoningApplicationFindUniqueArgs<ExtArgs>>): Prisma__ZoningApplicationClient<$Result.GetResult<Prisma.$ZoningApplicationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ZoningApplication that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ZoningApplicationFindUniqueOrThrowArgs} args - Arguments to find a ZoningApplication
+     * @example
+     * // Get one ZoningApplication
+     * const zoningApplication = await prisma.zoningApplication.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ZoningApplicationFindUniqueOrThrowArgs>(args: SelectSubset<T, ZoningApplicationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ZoningApplicationClient<$Result.GetResult<Prisma.$ZoningApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ZoningApplication that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZoningApplicationFindFirstArgs} args - Arguments to find a ZoningApplication
+     * @example
+     * // Get one ZoningApplication
+     * const zoningApplication = await prisma.zoningApplication.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ZoningApplicationFindFirstArgs>(args?: SelectSubset<T, ZoningApplicationFindFirstArgs<ExtArgs>>): Prisma__ZoningApplicationClient<$Result.GetResult<Prisma.$ZoningApplicationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ZoningApplication that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZoningApplicationFindFirstOrThrowArgs} args - Arguments to find a ZoningApplication
+     * @example
+     * // Get one ZoningApplication
+     * const zoningApplication = await prisma.zoningApplication.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ZoningApplicationFindFirstOrThrowArgs>(args?: SelectSubset<T, ZoningApplicationFindFirstOrThrowArgs<ExtArgs>>): Prisma__ZoningApplicationClient<$Result.GetResult<Prisma.$ZoningApplicationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ZoningApplications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZoningApplicationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ZoningApplications
+     * const zoningApplications = await prisma.zoningApplication.findMany()
+     * 
+     * // Get first 10 ZoningApplications
+     * const zoningApplications = await prisma.zoningApplication.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const zoningApplicationWithIdOnly = await prisma.zoningApplication.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ZoningApplicationFindManyArgs>(args?: SelectSubset<T, ZoningApplicationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZoningApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ZoningApplication.
+     * @param {ZoningApplicationCreateArgs} args - Arguments to create a ZoningApplication.
+     * @example
+     * // Create one ZoningApplication
+     * const ZoningApplication = await prisma.zoningApplication.create({
+     *   data: {
+     *     // ... data to create a ZoningApplication
+     *   }
+     * })
+     * 
+     */
+    create<T extends ZoningApplicationCreateArgs>(args: SelectSubset<T, ZoningApplicationCreateArgs<ExtArgs>>): Prisma__ZoningApplicationClient<$Result.GetResult<Prisma.$ZoningApplicationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ZoningApplications.
+     * @param {ZoningApplicationCreateManyArgs} args - Arguments to create many ZoningApplications.
+     * @example
+     * // Create many ZoningApplications
+     * const zoningApplication = await prisma.zoningApplication.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ZoningApplicationCreateManyArgs>(args?: SelectSubset<T, ZoningApplicationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ZoningApplications and returns the data saved in the database.
+     * @param {ZoningApplicationCreateManyAndReturnArgs} args - Arguments to create many ZoningApplications.
+     * @example
+     * // Create many ZoningApplications
+     * const zoningApplication = await prisma.zoningApplication.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ZoningApplications and only return the `id`
+     * const zoningApplicationWithIdOnly = await prisma.zoningApplication.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ZoningApplicationCreateManyAndReturnArgs>(args?: SelectSubset<T, ZoningApplicationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZoningApplicationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ZoningApplication.
+     * @param {ZoningApplicationDeleteArgs} args - Arguments to delete one ZoningApplication.
+     * @example
+     * // Delete one ZoningApplication
+     * const ZoningApplication = await prisma.zoningApplication.delete({
+     *   where: {
+     *     // ... filter to delete one ZoningApplication
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ZoningApplicationDeleteArgs>(args: SelectSubset<T, ZoningApplicationDeleteArgs<ExtArgs>>): Prisma__ZoningApplicationClient<$Result.GetResult<Prisma.$ZoningApplicationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ZoningApplication.
+     * @param {ZoningApplicationUpdateArgs} args - Arguments to update one ZoningApplication.
+     * @example
+     * // Update one ZoningApplication
+     * const zoningApplication = await prisma.zoningApplication.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ZoningApplicationUpdateArgs>(args: SelectSubset<T, ZoningApplicationUpdateArgs<ExtArgs>>): Prisma__ZoningApplicationClient<$Result.GetResult<Prisma.$ZoningApplicationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ZoningApplications.
+     * @param {ZoningApplicationDeleteManyArgs} args - Arguments to filter ZoningApplications to delete.
+     * @example
+     * // Delete a few ZoningApplications
+     * const { count } = await prisma.zoningApplication.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ZoningApplicationDeleteManyArgs>(args?: SelectSubset<T, ZoningApplicationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ZoningApplications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZoningApplicationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ZoningApplications
+     * const zoningApplication = await prisma.zoningApplication.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ZoningApplicationUpdateManyArgs>(args: SelectSubset<T, ZoningApplicationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ZoningApplications and returns the data updated in the database.
+     * @param {ZoningApplicationUpdateManyAndReturnArgs} args - Arguments to update many ZoningApplications.
+     * @example
+     * // Update many ZoningApplications
+     * const zoningApplication = await prisma.zoningApplication.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ZoningApplications and only return the `id`
+     * const zoningApplicationWithIdOnly = await prisma.zoningApplication.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ZoningApplicationUpdateManyAndReturnArgs>(args: SelectSubset<T, ZoningApplicationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZoningApplicationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ZoningApplication.
+     * @param {ZoningApplicationUpsertArgs} args - Arguments to update or create a ZoningApplication.
+     * @example
+     * // Update or create a ZoningApplication
+     * const zoningApplication = await prisma.zoningApplication.upsert({
+     *   create: {
+     *     // ... data to create a ZoningApplication
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ZoningApplication we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ZoningApplicationUpsertArgs>(args: SelectSubset<T, ZoningApplicationUpsertArgs<ExtArgs>>): Prisma__ZoningApplicationClient<$Result.GetResult<Prisma.$ZoningApplicationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ZoningApplications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZoningApplicationCountArgs} args - Arguments to filter ZoningApplications to count.
+     * @example
+     * // Count the number of ZoningApplications
+     * const count = await prisma.zoningApplication.count({
+     *   where: {
+     *     // ... the filter for the ZoningApplications we want to count
+     *   }
+     * })
+    **/
+    count<T extends ZoningApplicationCountArgs>(
+      args?: Subset<T, ZoningApplicationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ZoningApplicationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ZoningApplication.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZoningApplicationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ZoningApplicationAggregateArgs>(args: Subset<T, ZoningApplicationAggregateArgs>): Prisma.PrismaPromise<GetZoningApplicationAggregateType<T>>
+
+    /**
+     * Group by ZoningApplication.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ZoningApplicationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ZoningApplicationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ZoningApplicationGroupByArgs['orderBy'] }
+        : { orderBy?: ZoningApplicationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ZoningApplicationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetZoningApplicationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ZoningApplication model
+   */
+  readonly fields: ZoningApplicationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ZoningApplication.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ZoningApplicationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    reviewedByUser<T extends ZoningApplication$reviewedByUserArgs<ExtArgs> = {}>(args?: Subset<T, ZoningApplication$reviewedByUserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ZoningApplication model
+   */
+  interface ZoningApplicationFieldRefs {
+    readonly id: FieldRef<"ZoningApplication", 'String'>
+    readonly applicationNo: FieldRef<"ZoningApplication", 'String'>
+    readonly applicantName: FieldRef<"ZoningApplication", 'String'>
+    readonly applicantAddress: FieldRef<"ZoningApplication", 'String'>
+    readonly applicantContact: FieldRef<"ZoningApplication", 'String'>
+    readonly applicantEmail: FieldRef<"ZoningApplication", 'String'>
+    readonly projectDescription: FieldRef<"ZoningApplication", 'String'>
+    readonly projectBoundaries: FieldRef<"ZoningApplication", 'String'>
+    readonly projectObjectives: FieldRef<"ZoningApplication", 'String'>
+    readonly zoningExceptionReason: FieldRef<"ZoningApplication", 'String'>
+    readonly isRepresentative: FieldRef<"ZoningApplication", 'Boolean'>
+    readonly representativeName: FieldRef<"ZoningApplication", 'String'>
+    readonly lotOwnershipType: FieldRef<"ZoningApplication", 'LotOwnershipType'>
+    readonly taxClearanceOriginal: FieldRef<"ZoningApplication", 'String'>
+    readonly taxClearancePhotocopy: FieldRef<"ZoningApplication", 'String'>
+    readonly transferCertificateOfTitle: FieldRef<"ZoningApplication", 'String'>
+    readonly leaseContract: FieldRef<"ZoningApplication", 'String'>
+    readonly awardNotice: FieldRef<"ZoningApplication", 'String'>
+    readonly deedOfSale: FieldRef<"ZoningApplication", 'String'>
+    readonly memorandumOfAgreement: FieldRef<"ZoningApplication", 'String'>
+    readonly affidavitOfConsent: FieldRef<"ZoningApplication", 'String'>
+    readonly specialPowerOfAttorney: FieldRef<"ZoningApplication", 'String'>
+    readonly authorityToSign: FieldRef<"ZoningApplication", 'String'>
+    readonly lotPlan: FieldRef<"ZoningApplication", 'String'>
+    readonly architecturalPlan: FieldRef<"ZoningApplication", 'String'>
+    readonly professionalTaxReceipt: FieldRef<"ZoningApplication", 'String'>
+    readonly longFolder: FieldRef<"ZoningApplication", 'Boolean'>
+    readonly projectDescriptionDoc: FieldRef<"ZoningApplication", 'String'>
+    readonly projectDescriptionPhotocopy: FieldRef<"ZoningApplication", 'String'>
+    readonly authorizationLetter: FieldRef<"ZoningApplication", 'String'>
+    readonly representedPersonId: FieldRef<"ZoningApplication", 'String'>
+    readonly representativeId: FieldRef<"ZoningApplication", 'String'>
+    readonly status: FieldRef<"ZoningApplication", 'ZoningApplicationStatus'>
+    readonly submittedAt: FieldRef<"ZoningApplication", 'DateTime'>
+    readonly reviewedAt: FieldRef<"ZoningApplication", 'DateTime'>
+    readonly approvedAt: FieldRef<"ZoningApplication", 'DateTime'>
+    readonly rejectedAt: FieldRef<"ZoningApplication", 'DateTime'>
+    readonly reviewedBy: FieldRef<"ZoningApplication", 'String'>
+    readonly remarks: FieldRef<"ZoningApplication", 'String'>
+    readonly userId: FieldRef<"ZoningApplication", 'String'>
+    readonly createdAt: FieldRef<"ZoningApplication", 'DateTime'>
+    readonly updatedAt: FieldRef<"ZoningApplication", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ZoningApplication findUnique
+   */
+  export type ZoningApplicationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ZoningApplication
+     */
+    select?: ZoningApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ZoningApplication
+     */
+    omit?: ZoningApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZoningApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which ZoningApplication to fetch.
+     */
+    where: ZoningApplicationWhereUniqueInput
+  }
+
+  /**
+   * ZoningApplication findUniqueOrThrow
+   */
+  export type ZoningApplicationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ZoningApplication
+     */
+    select?: ZoningApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ZoningApplication
+     */
+    omit?: ZoningApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZoningApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which ZoningApplication to fetch.
+     */
+    where: ZoningApplicationWhereUniqueInput
+  }
+
+  /**
+   * ZoningApplication findFirst
+   */
+  export type ZoningApplicationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ZoningApplication
+     */
+    select?: ZoningApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ZoningApplication
+     */
+    omit?: ZoningApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZoningApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which ZoningApplication to fetch.
+     */
+    where?: ZoningApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ZoningApplications to fetch.
+     */
+    orderBy?: ZoningApplicationOrderByWithRelationInput | ZoningApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ZoningApplications.
+     */
+    cursor?: ZoningApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ZoningApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ZoningApplications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ZoningApplications.
+     */
+    distinct?: ZoningApplicationScalarFieldEnum | ZoningApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * ZoningApplication findFirstOrThrow
+   */
+  export type ZoningApplicationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ZoningApplication
+     */
+    select?: ZoningApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ZoningApplication
+     */
+    omit?: ZoningApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZoningApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which ZoningApplication to fetch.
+     */
+    where?: ZoningApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ZoningApplications to fetch.
+     */
+    orderBy?: ZoningApplicationOrderByWithRelationInput | ZoningApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ZoningApplications.
+     */
+    cursor?: ZoningApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ZoningApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ZoningApplications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ZoningApplications.
+     */
+    distinct?: ZoningApplicationScalarFieldEnum | ZoningApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * ZoningApplication findMany
+   */
+  export type ZoningApplicationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ZoningApplication
+     */
+    select?: ZoningApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ZoningApplication
+     */
+    omit?: ZoningApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZoningApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which ZoningApplications to fetch.
+     */
+    where?: ZoningApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ZoningApplications to fetch.
+     */
+    orderBy?: ZoningApplicationOrderByWithRelationInput | ZoningApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ZoningApplications.
+     */
+    cursor?: ZoningApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ZoningApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ZoningApplications.
+     */
+    skip?: number
+    distinct?: ZoningApplicationScalarFieldEnum | ZoningApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * ZoningApplication create
+   */
+  export type ZoningApplicationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ZoningApplication
+     */
+    select?: ZoningApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ZoningApplication
+     */
+    omit?: ZoningApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZoningApplicationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ZoningApplication.
+     */
+    data: XOR<ZoningApplicationCreateInput, ZoningApplicationUncheckedCreateInput>
+  }
+
+  /**
+   * ZoningApplication createMany
+   */
+  export type ZoningApplicationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ZoningApplications.
+     */
+    data: ZoningApplicationCreateManyInput | ZoningApplicationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ZoningApplication createManyAndReturn
+   */
+  export type ZoningApplicationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ZoningApplication
+     */
+    select?: ZoningApplicationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ZoningApplication
+     */
+    omit?: ZoningApplicationOmit<ExtArgs> | null
+    /**
+     * The data used to create many ZoningApplications.
+     */
+    data: ZoningApplicationCreateManyInput | ZoningApplicationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZoningApplicationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ZoningApplication update
+   */
+  export type ZoningApplicationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ZoningApplication
+     */
+    select?: ZoningApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ZoningApplication
+     */
+    omit?: ZoningApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZoningApplicationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ZoningApplication.
+     */
+    data: XOR<ZoningApplicationUpdateInput, ZoningApplicationUncheckedUpdateInput>
+    /**
+     * Choose, which ZoningApplication to update.
+     */
+    where: ZoningApplicationWhereUniqueInput
+  }
+
+  /**
+   * ZoningApplication updateMany
+   */
+  export type ZoningApplicationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ZoningApplications.
+     */
+    data: XOR<ZoningApplicationUpdateManyMutationInput, ZoningApplicationUncheckedUpdateManyInput>
+    /**
+     * Filter which ZoningApplications to update
+     */
+    where?: ZoningApplicationWhereInput
+    /**
+     * Limit how many ZoningApplications to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ZoningApplication updateManyAndReturn
+   */
+  export type ZoningApplicationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ZoningApplication
+     */
+    select?: ZoningApplicationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ZoningApplication
+     */
+    omit?: ZoningApplicationOmit<ExtArgs> | null
+    /**
+     * The data used to update ZoningApplications.
+     */
+    data: XOR<ZoningApplicationUpdateManyMutationInput, ZoningApplicationUncheckedUpdateManyInput>
+    /**
+     * Filter which ZoningApplications to update
+     */
+    where?: ZoningApplicationWhereInput
+    /**
+     * Limit how many ZoningApplications to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZoningApplicationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ZoningApplication upsert
+   */
+  export type ZoningApplicationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ZoningApplication
+     */
+    select?: ZoningApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ZoningApplication
+     */
+    omit?: ZoningApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZoningApplicationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ZoningApplication to update in case it exists.
+     */
+    where: ZoningApplicationWhereUniqueInput
+    /**
+     * In case the ZoningApplication found by the `where` argument doesn't exist, create a new ZoningApplication with this data.
+     */
+    create: XOR<ZoningApplicationCreateInput, ZoningApplicationUncheckedCreateInput>
+    /**
+     * In case the ZoningApplication was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ZoningApplicationUpdateInput, ZoningApplicationUncheckedUpdateInput>
+  }
+
+  /**
+   * ZoningApplication delete
+   */
+  export type ZoningApplicationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ZoningApplication
+     */
+    select?: ZoningApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ZoningApplication
+     */
+    omit?: ZoningApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZoningApplicationInclude<ExtArgs> | null
+    /**
+     * Filter which ZoningApplication to delete.
+     */
+    where: ZoningApplicationWhereUniqueInput
+  }
+
+  /**
+   * ZoningApplication deleteMany
+   */
+  export type ZoningApplicationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ZoningApplications to delete
+     */
+    where?: ZoningApplicationWhereInput
+    /**
+     * Limit how many ZoningApplications to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ZoningApplication.reviewedByUser
+   */
+  export type ZoningApplication$reviewedByUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * ZoningApplication without action
+   */
+  export type ZoningApplicationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ZoningApplication
+     */
+    select?: ZoningApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ZoningApplication
+     */
+    omit?: ZoningApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZoningApplicationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Post
    */
 
@@ -16185,6 +17892,8 @@ export namespace Prisma {
     posts?: boolean | User$postsArgs<ExtArgs>
     reviewedBusinesses?: boolean | User$reviewedBusinessesArgs<ExtArgs>
     reports?: boolean | User$reportsArgs<ExtArgs>
+    zoningApplications?: boolean | User$zoningApplicationsArgs<ExtArgs>
+    reviewedZoningApplications?: boolean | User$reviewedZoningApplicationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -16231,6 +17940,8 @@ export namespace Prisma {
     posts?: boolean | User$postsArgs<ExtArgs>
     reviewedBusinesses?: boolean | User$reviewedBusinessesArgs<ExtArgs>
     reports?: boolean | User$reportsArgs<ExtArgs>
+    zoningApplications?: boolean | User$zoningApplicationsArgs<ExtArgs>
+    reviewedZoningApplications?: boolean | User$reviewedZoningApplicationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -16244,6 +17955,8 @@ export namespace Prisma {
       posts: Prisma.$PostPayload<ExtArgs>[]
       reviewedBusinesses: Prisma.$BusinessPayload<ExtArgs>[]
       reports: Prisma.$AnalyticsReportPayload<ExtArgs>[]
+      zoningApplications: Prisma.$ZoningApplicationPayload<ExtArgs>[]
+      reviewedZoningApplications: Prisma.$ZoningApplicationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -16654,6 +18367,8 @@ export namespace Prisma {
     posts<T extends User$postsArgs<ExtArgs> = {}>(args?: Subset<T, User$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviewedBusinesses<T extends User$reviewedBusinessesArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewedBusinessesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reports<T extends User$reportsArgs<ExtArgs> = {}>(args?: Subset<T, User$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnalyticsReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    zoningApplications<T extends User$zoningApplicationsArgs<ExtArgs> = {}>(args?: Subset<T, User$zoningApplicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZoningApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reviewedZoningApplications<T extends User$reviewedZoningApplicationsArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewedZoningApplicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ZoningApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -17197,6 +18912,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AnalyticsReportScalarFieldEnum | AnalyticsReportScalarFieldEnum[]
+  }
+
+  /**
+   * User.zoningApplications
+   */
+  export type User$zoningApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ZoningApplication
+     */
+    select?: ZoningApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ZoningApplication
+     */
+    omit?: ZoningApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZoningApplicationInclude<ExtArgs> | null
+    where?: ZoningApplicationWhereInput
+    orderBy?: ZoningApplicationOrderByWithRelationInput | ZoningApplicationOrderByWithRelationInput[]
+    cursor?: ZoningApplicationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ZoningApplicationScalarFieldEnum | ZoningApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * User.reviewedZoningApplications
+   */
+  export type User$reviewedZoningApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ZoningApplication
+     */
+    select?: ZoningApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ZoningApplication
+     */
+    omit?: ZoningApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ZoningApplicationInclude<ExtArgs> | null
+    where?: ZoningApplicationWhereInput
+    orderBy?: ZoningApplicationOrderByWithRelationInput | ZoningApplicationOrderByWithRelationInput[]
+    cursor?: ZoningApplicationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ZoningApplicationScalarFieldEnum | ZoningApplicationScalarFieldEnum[]
   }
 
   /**
@@ -18346,6 +20109,54 @@ export namespace Prisma {
   export type AnalyticsReportScalarFieldEnum = (typeof AnalyticsReportScalarFieldEnum)[keyof typeof AnalyticsReportScalarFieldEnum]
 
 
+  export const ZoningApplicationScalarFieldEnum: {
+    id: 'id',
+    applicationNo: 'applicationNo',
+    applicantName: 'applicantName',
+    applicantAddress: 'applicantAddress',
+    applicantContact: 'applicantContact',
+    applicantEmail: 'applicantEmail',
+    projectDescription: 'projectDescription',
+    projectBoundaries: 'projectBoundaries',
+    projectObjectives: 'projectObjectives',
+    zoningExceptionReason: 'zoningExceptionReason',
+    isRepresentative: 'isRepresentative',
+    representativeName: 'representativeName',
+    lotOwnershipType: 'lotOwnershipType',
+    taxClearanceOriginal: 'taxClearanceOriginal',
+    taxClearancePhotocopy: 'taxClearancePhotocopy',
+    transferCertificateOfTitle: 'transferCertificateOfTitle',
+    leaseContract: 'leaseContract',
+    awardNotice: 'awardNotice',
+    deedOfSale: 'deedOfSale',
+    memorandumOfAgreement: 'memorandumOfAgreement',
+    affidavitOfConsent: 'affidavitOfConsent',
+    specialPowerOfAttorney: 'specialPowerOfAttorney',
+    authorityToSign: 'authorityToSign',
+    lotPlan: 'lotPlan',
+    architecturalPlan: 'architecturalPlan',
+    professionalTaxReceipt: 'professionalTaxReceipt',
+    longFolder: 'longFolder',
+    projectDescriptionDoc: 'projectDescriptionDoc',
+    projectDescriptionPhotocopy: 'projectDescriptionPhotocopy',
+    authorizationLetter: 'authorizationLetter',
+    representedPersonId: 'representedPersonId',
+    representativeId: 'representativeId',
+    status: 'status',
+    submittedAt: 'submittedAt',
+    reviewedAt: 'reviewedAt',
+    approvedAt: 'approvedAt',
+    rejectedAt: 'rejectedAt',
+    reviewedBy: 'reviewedBy',
+    remarks: 'remarks',
+    userId: 'userId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ZoningApplicationScalarFieldEnum = (typeof ZoningApplicationScalarFieldEnum)[keyof typeof ZoningApplicationScalarFieldEnum]
+
+
   export const PostScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -18579,6 +20390,34 @@ export namespace Prisma {
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'LotOwnershipType'
+   */
+  export type EnumLotOwnershipTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LotOwnershipType'>
+    
+
+
+  /**
+   * Reference to a field of type 'LotOwnershipType[]'
+   */
+  export type ListEnumLotOwnershipTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LotOwnershipType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ZoningApplicationStatus'
+   */
+  export type EnumZoningApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ZoningApplicationStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ZoningApplicationStatus[]'
+   */
+  export type ListEnumZoningApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ZoningApplicationStatus[]'>
     
 
 
@@ -19345,6 +21184,249 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"AnalyticsReport"> | Date | string
   }
 
+  export type ZoningApplicationWhereInput = {
+    AND?: ZoningApplicationWhereInput | ZoningApplicationWhereInput[]
+    OR?: ZoningApplicationWhereInput[]
+    NOT?: ZoningApplicationWhereInput | ZoningApplicationWhereInput[]
+    id?: StringFilter<"ZoningApplication"> | string
+    applicationNo?: StringFilter<"ZoningApplication"> | string
+    applicantName?: StringFilter<"ZoningApplication"> | string
+    applicantAddress?: StringFilter<"ZoningApplication"> | string
+    applicantContact?: StringFilter<"ZoningApplication"> | string
+    applicantEmail?: StringFilter<"ZoningApplication"> | string
+    projectDescription?: StringNullableFilter<"ZoningApplication"> | string | null
+    projectBoundaries?: StringNullableFilter<"ZoningApplication"> | string | null
+    projectObjectives?: StringNullableFilter<"ZoningApplication"> | string | null
+    zoningExceptionReason?: StringNullableFilter<"ZoningApplication"> | string | null
+    isRepresentative?: BoolFilter<"ZoningApplication"> | boolean
+    representativeName?: StringNullableFilter<"ZoningApplication"> | string | null
+    lotOwnershipType?: EnumLotOwnershipTypeNullableFilter<"ZoningApplication"> | $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: StringNullableFilter<"ZoningApplication"> | string | null
+    taxClearancePhotocopy?: StringNullableFilter<"ZoningApplication"> | string | null
+    transferCertificateOfTitle?: StringNullableFilter<"ZoningApplication"> | string | null
+    leaseContract?: StringNullableFilter<"ZoningApplication"> | string | null
+    awardNotice?: StringNullableFilter<"ZoningApplication"> | string | null
+    deedOfSale?: StringNullableFilter<"ZoningApplication"> | string | null
+    memorandumOfAgreement?: StringNullableFilter<"ZoningApplication"> | string | null
+    affidavitOfConsent?: StringNullableFilter<"ZoningApplication"> | string | null
+    specialPowerOfAttorney?: StringNullableFilter<"ZoningApplication"> | string | null
+    authorityToSign?: StringNullableFilter<"ZoningApplication"> | string | null
+    lotPlan?: StringNullableFilter<"ZoningApplication"> | string | null
+    architecturalPlan?: StringNullableFilter<"ZoningApplication"> | string | null
+    professionalTaxReceipt?: StringNullableFilter<"ZoningApplication"> | string | null
+    longFolder?: BoolFilter<"ZoningApplication"> | boolean
+    projectDescriptionDoc?: StringNullableFilter<"ZoningApplication"> | string | null
+    projectDescriptionPhotocopy?: StringNullableFilter<"ZoningApplication"> | string | null
+    authorizationLetter?: StringNullableFilter<"ZoningApplication"> | string | null
+    representedPersonId?: StringNullableFilter<"ZoningApplication"> | string | null
+    representativeId?: StringNullableFilter<"ZoningApplication"> | string | null
+    status?: EnumZoningApplicationStatusFilter<"ZoningApplication"> | $Enums.ZoningApplicationStatus
+    submittedAt?: DateTimeFilter<"ZoningApplication"> | Date | string
+    reviewedAt?: DateTimeNullableFilter<"ZoningApplication"> | Date | string | null
+    approvedAt?: DateTimeNullableFilter<"ZoningApplication"> | Date | string | null
+    rejectedAt?: DateTimeNullableFilter<"ZoningApplication"> | Date | string | null
+    reviewedBy?: StringNullableFilter<"ZoningApplication"> | string | null
+    remarks?: StringNullableFilter<"ZoningApplication"> | string | null
+    userId?: StringFilter<"ZoningApplication"> | string
+    createdAt?: DateTimeFilter<"ZoningApplication"> | Date | string
+    updatedAt?: DateTimeFilter<"ZoningApplication"> | Date | string
+    reviewedByUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type ZoningApplicationOrderByWithRelationInput = {
+    id?: SortOrder
+    applicationNo?: SortOrder
+    applicantName?: SortOrder
+    applicantAddress?: SortOrder
+    applicantContact?: SortOrder
+    applicantEmail?: SortOrder
+    projectDescription?: SortOrderInput | SortOrder
+    projectBoundaries?: SortOrderInput | SortOrder
+    projectObjectives?: SortOrderInput | SortOrder
+    zoningExceptionReason?: SortOrderInput | SortOrder
+    isRepresentative?: SortOrder
+    representativeName?: SortOrderInput | SortOrder
+    lotOwnershipType?: SortOrderInput | SortOrder
+    taxClearanceOriginal?: SortOrderInput | SortOrder
+    taxClearancePhotocopy?: SortOrderInput | SortOrder
+    transferCertificateOfTitle?: SortOrderInput | SortOrder
+    leaseContract?: SortOrderInput | SortOrder
+    awardNotice?: SortOrderInput | SortOrder
+    deedOfSale?: SortOrderInput | SortOrder
+    memorandumOfAgreement?: SortOrderInput | SortOrder
+    affidavitOfConsent?: SortOrderInput | SortOrder
+    specialPowerOfAttorney?: SortOrderInput | SortOrder
+    authorityToSign?: SortOrderInput | SortOrder
+    lotPlan?: SortOrderInput | SortOrder
+    architecturalPlan?: SortOrderInput | SortOrder
+    professionalTaxReceipt?: SortOrderInput | SortOrder
+    longFolder?: SortOrder
+    projectDescriptionDoc?: SortOrderInput | SortOrder
+    projectDescriptionPhotocopy?: SortOrderInput | SortOrder
+    authorizationLetter?: SortOrderInput | SortOrder
+    representedPersonId?: SortOrderInput | SortOrder
+    representativeId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    submittedAt?: SortOrder
+    reviewedAt?: SortOrderInput | SortOrder
+    approvedAt?: SortOrderInput | SortOrder
+    rejectedAt?: SortOrderInput | SortOrder
+    reviewedBy?: SortOrderInput | SortOrder
+    remarks?: SortOrderInput | SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    reviewedByUser?: UserOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type ZoningApplicationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    applicationNo?: string
+    AND?: ZoningApplicationWhereInput | ZoningApplicationWhereInput[]
+    OR?: ZoningApplicationWhereInput[]
+    NOT?: ZoningApplicationWhereInput | ZoningApplicationWhereInput[]
+    applicantName?: StringFilter<"ZoningApplication"> | string
+    applicantAddress?: StringFilter<"ZoningApplication"> | string
+    applicantContact?: StringFilter<"ZoningApplication"> | string
+    applicantEmail?: StringFilter<"ZoningApplication"> | string
+    projectDescription?: StringNullableFilter<"ZoningApplication"> | string | null
+    projectBoundaries?: StringNullableFilter<"ZoningApplication"> | string | null
+    projectObjectives?: StringNullableFilter<"ZoningApplication"> | string | null
+    zoningExceptionReason?: StringNullableFilter<"ZoningApplication"> | string | null
+    isRepresentative?: BoolFilter<"ZoningApplication"> | boolean
+    representativeName?: StringNullableFilter<"ZoningApplication"> | string | null
+    lotOwnershipType?: EnumLotOwnershipTypeNullableFilter<"ZoningApplication"> | $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: StringNullableFilter<"ZoningApplication"> | string | null
+    taxClearancePhotocopy?: StringNullableFilter<"ZoningApplication"> | string | null
+    transferCertificateOfTitle?: StringNullableFilter<"ZoningApplication"> | string | null
+    leaseContract?: StringNullableFilter<"ZoningApplication"> | string | null
+    awardNotice?: StringNullableFilter<"ZoningApplication"> | string | null
+    deedOfSale?: StringNullableFilter<"ZoningApplication"> | string | null
+    memorandumOfAgreement?: StringNullableFilter<"ZoningApplication"> | string | null
+    affidavitOfConsent?: StringNullableFilter<"ZoningApplication"> | string | null
+    specialPowerOfAttorney?: StringNullableFilter<"ZoningApplication"> | string | null
+    authorityToSign?: StringNullableFilter<"ZoningApplication"> | string | null
+    lotPlan?: StringNullableFilter<"ZoningApplication"> | string | null
+    architecturalPlan?: StringNullableFilter<"ZoningApplication"> | string | null
+    professionalTaxReceipt?: StringNullableFilter<"ZoningApplication"> | string | null
+    longFolder?: BoolFilter<"ZoningApplication"> | boolean
+    projectDescriptionDoc?: StringNullableFilter<"ZoningApplication"> | string | null
+    projectDescriptionPhotocopy?: StringNullableFilter<"ZoningApplication"> | string | null
+    authorizationLetter?: StringNullableFilter<"ZoningApplication"> | string | null
+    representedPersonId?: StringNullableFilter<"ZoningApplication"> | string | null
+    representativeId?: StringNullableFilter<"ZoningApplication"> | string | null
+    status?: EnumZoningApplicationStatusFilter<"ZoningApplication"> | $Enums.ZoningApplicationStatus
+    submittedAt?: DateTimeFilter<"ZoningApplication"> | Date | string
+    reviewedAt?: DateTimeNullableFilter<"ZoningApplication"> | Date | string | null
+    approvedAt?: DateTimeNullableFilter<"ZoningApplication"> | Date | string | null
+    rejectedAt?: DateTimeNullableFilter<"ZoningApplication"> | Date | string | null
+    reviewedBy?: StringNullableFilter<"ZoningApplication"> | string | null
+    remarks?: StringNullableFilter<"ZoningApplication"> | string | null
+    userId?: StringFilter<"ZoningApplication"> | string
+    createdAt?: DateTimeFilter<"ZoningApplication"> | Date | string
+    updatedAt?: DateTimeFilter<"ZoningApplication"> | Date | string
+    reviewedByUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "applicationNo">
+
+  export type ZoningApplicationOrderByWithAggregationInput = {
+    id?: SortOrder
+    applicationNo?: SortOrder
+    applicantName?: SortOrder
+    applicantAddress?: SortOrder
+    applicantContact?: SortOrder
+    applicantEmail?: SortOrder
+    projectDescription?: SortOrderInput | SortOrder
+    projectBoundaries?: SortOrderInput | SortOrder
+    projectObjectives?: SortOrderInput | SortOrder
+    zoningExceptionReason?: SortOrderInput | SortOrder
+    isRepresentative?: SortOrder
+    representativeName?: SortOrderInput | SortOrder
+    lotOwnershipType?: SortOrderInput | SortOrder
+    taxClearanceOriginal?: SortOrderInput | SortOrder
+    taxClearancePhotocopy?: SortOrderInput | SortOrder
+    transferCertificateOfTitle?: SortOrderInput | SortOrder
+    leaseContract?: SortOrderInput | SortOrder
+    awardNotice?: SortOrderInput | SortOrder
+    deedOfSale?: SortOrderInput | SortOrder
+    memorandumOfAgreement?: SortOrderInput | SortOrder
+    affidavitOfConsent?: SortOrderInput | SortOrder
+    specialPowerOfAttorney?: SortOrderInput | SortOrder
+    authorityToSign?: SortOrderInput | SortOrder
+    lotPlan?: SortOrderInput | SortOrder
+    architecturalPlan?: SortOrderInput | SortOrder
+    professionalTaxReceipt?: SortOrderInput | SortOrder
+    longFolder?: SortOrder
+    projectDescriptionDoc?: SortOrderInput | SortOrder
+    projectDescriptionPhotocopy?: SortOrderInput | SortOrder
+    authorizationLetter?: SortOrderInput | SortOrder
+    representedPersonId?: SortOrderInput | SortOrder
+    representativeId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    submittedAt?: SortOrder
+    reviewedAt?: SortOrderInput | SortOrder
+    approvedAt?: SortOrderInput | SortOrder
+    rejectedAt?: SortOrderInput | SortOrder
+    reviewedBy?: SortOrderInput | SortOrder
+    remarks?: SortOrderInput | SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ZoningApplicationCountOrderByAggregateInput
+    _max?: ZoningApplicationMaxOrderByAggregateInput
+    _min?: ZoningApplicationMinOrderByAggregateInput
+  }
+
+  export type ZoningApplicationScalarWhereWithAggregatesInput = {
+    AND?: ZoningApplicationScalarWhereWithAggregatesInput | ZoningApplicationScalarWhereWithAggregatesInput[]
+    OR?: ZoningApplicationScalarWhereWithAggregatesInput[]
+    NOT?: ZoningApplicationScalarWhereWithAggregatesInput | ZoningApplicationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ZoningApplication"> | string
+    applicationNo?: StringWithAggregatesFilter<"ZoningApplication"> | string
+    applicantName?: StringWithAggregatesFilter<"ZoningApplication"> | string
+    applicantAddress?: StringWithAggregatesFilter<"ZoningApplication"> | string
+    applicantContact?: StringWithAggregatesFilter<"ZoningApplication"> | string
+    applicantEmail?: StringWithAggregatesFilter<"ZoningApplication"> | string
+    projectDescription?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    projectBoundaries?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    projectObjectives?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    zoningExceptionReason?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    isRepresentative?: BoolWithAggregatesFilter<"ZoningApplication"> | boolean
+    representativeName?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    lotOwnershipType?: EnumLotOwnershipTypeNullableWithAggregatesFilter<"ZoningApplication"> | $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    taxClearancePhotocopy?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    transferCertificateOfTitle?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    leaseContract?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    awardNotice?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    deedOfSale?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    memorandumOfAgreement?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    affidavitOfConsent?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    specialPowerOfAttorney?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    authorityToSign?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    lotPlan?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    architecturalPlan?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    professionalTaxReceipt?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    longFolder?: BoolWithAggregatesFilter<"ZoningApplication"> | boolean
+    projectDescriptionDoc?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    projectDescriptionPhotocopy?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    authorizationLetter?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    representedPersonId?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    representativeId?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    status?: EnumZoningApplicationStatusWithAggregatesFilter<"ZoningApplication"> | $Enums.ZoningApplicationStatus
+    submittedAt?: DateTimeWithAggregatesFilter<"ZoningApplication"> | Date | string
+    reviewedAt?: DateTimeNullableWithAggregatesFilter<"ZoningApplication"> | Date | string | null
+    approvedAt?: DateTimeNullableWithAggregatesFilter<"ZoningApplication"> | Date | string | null
+    rejectedAt?: DateTimeNullableWithAggregatesFilter<"ZoningApplication"> | Date | string | null
+    reviewedBy?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    remarks?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    userId?: StringWithAggregatesFilter<"ZoningApplication"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ZoningApplication"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ZoningApplication"> | Date | string
+  }
+
   export type PostWhereInput = {
     AND?: PostWhereInput | PostWhereInput[]
     OR?: PostWhereInput[]
@@ -19568,6 +21650,8 @@ export namespace Prisma {
     posts?: PostListRelationFilter
     reviewedBusinesses?: BusinessListRelationFilter
     reports?: AnalyticsReportListRelationFilter
+    zoningApplications?: ZoningApplicationListRelationFilter
+    reviewedZoningApplications?: ZoningApplicationListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -19585,6 +21669,8 @@ export namespace Prisma {
     posts?: PostOrderByRelationAggregateInput
     reviewedBusinesses?: BusinessOrderByRelationAggregateInput
     reports?: AnalyticsReportOrderByRelationAggregateInput
+    zoningApplications?: ZoningApplicationOrderByRelationAggregateInput
+    reviewedZoningApplications?: ZoningApplicationOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -19605,6 +21691,8 @@ export namespace Prisma {
     posts?: PostListRelationFilter
     reviewedBusinesses?: BusinessListRelationFilter
     reports?: AnalyticsReportListRelationFilter
+    zoningApplications?: ZoningApplicationListRelationFilter
+    reviewedZoningApplications?: ZoningApplicationListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -20519,6 +22607,319 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ZoningApplicationCreateInput = {
+    id?: string
+    applicationNo: string
+    applicantName: string
+    applicantAddress: string
+    applicantContact: string
+    applicantEmail: string
+    projectDescription?: string | null
+    projectBoundaries?: string | null
+    projectObjectives?: string | null
+    zoningExceptionReason?: string | null
+    isRepresentative?: boolean
+    representativeName?: string | null
+    lotOwnershipType?: $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: string | null
+    taxClearancePhotocopy?: string | null
+    transferCertificateOfTitle?: string | null
+    leaseContract?: string | null
+    awardNotice?: string | null
+    deedOfSale?: string | null
+    memorandumOfAgreement?: string | null
+    affidavitOfConsent?: string | null
+    specialPowerOfAttorney?: string | null
+    authorityToSign?: string | null
+    lotPlan?: string | null
+    architecturalPlan?: string | null
+    professionalTaxReceipt?: string | null
+    longFolder?: boolean
+    projectDescriptionDoc?: string | null
+    projectDescriptionPhotocopy?: string | null
+    authorizationLetter?: string | null
+    representedPersonId?: string | null
+    representativeId?: string | null
+    status?: $Enums.ZoningApplicationStatus
+    submittedAt?: Date | string
+    reviewedAt?: Date | string | null
+    approvedAt?: Date | string | null
+    rejectedAt?: Date | string | null
+    remarks?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviewedByUser?: UserCreateNestedOneWithoutReviewedZoningApplicationsInput
+    user: UserCreateNestedOneWithoutZoningApplicationsInput
+  }
+
+  export type ZoningApplicationUncheckedCreateInput = {
+    id?: string
+    applicationNo: string
+    applicantName: string
+    applicantAddress: string
+    applicantContact: string
+    applicantEmail: string
+    projectDescription?: string | null
+    projectBoundaries?: string | null
+    projectObjectives?: string | null
+    zoningExceptionReason?: string | null
+    isRepresentative?: boolean
+    representativeName?: string | null
+    lotOwnershipType?: $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: string | null
+    taxClearancePhotocopy?: string | null
+    transferCertificateOfTitle?: string | null
+    leaseContract?: string | null
+    awardNotice?: string | null
+    deedOfSale?: string | null
+    memorandumOfAgreement?: string | null
+    affidavitOfConsent?: string | null
+    specialPowerOfAttorney?: string | null
+    authorityToSign?: string | null
+    lotPlan?: string | null
+    architecturalPlan?: string | null
+    professionalTaxReceipt?: string | null
+    longFolder?: boolean
+    projectDescriptionDoc?: string | null
+    projectDescriptionPhotocopy?: string | null
+    authorizationLetter?: string | null
+    representedPersonId?: string | null
+    representativeId?: string | null
+    status?: $Enums.ZoningApplicationStatus
+    submittedAt?: Date | string
+    reviewedAt?: Date | string | null
+    approvedAt?: Date | string | null
+    rejectedAt?: Date | string | null
+    reviewedBy?: string | null
+    remarks?: string | null
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ZoningApplicationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationNo?: StringFieldUpdateOperationsInput | string
+    applicantName?: StringFieldUpdateOperationsInput | string
+    applicantAddress?: StringFieldUpdateOperationsInput | string
+    applicantContact?: StringFieldUpdateOperationsInput | string
+    applicantEmail?: StringFieldUpdateOperationsInput | string
+    projectDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    projectBoundaries?: NullableStringFieldUpdateOperationsInput | string | null
+    projectObjectives?: NullableStringFieldUpdateOperationsInput | string | null
+    zoningExceptionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isRepresentative?: BoolFieldUpdateOperationsInput | boolean
+    representativeName?: NullableStringFieldUpdateOperationsInput | string | null
+    lotOwnershipType?: NullableEnumLotOwnershipTypeFieldUpdateOperationsInput | $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: NullableStringFieldUpdateOperationsInput | string | null
+    taxClearancePhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    transferCertificateOfTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    leaseContract?: NullableStringFieldUpdateOperationsInput | string | null
+    awardNotice?: NullableStringFieldUpdateOperationsInput | string | null
+    deedOfSale?: NullableStringFieldUpdateOperationsInput | string | null
+    memorandumOfAgreement?: NullableStringFieldUpdateOperationsInput | string | null
+    affidavitOfConsent?: NullableStringFieldUpdateOperationsInput | string | null
+    specialPowerOfAttorney?: NullableStringFieldUpdateOperationsInput | string | null
+    authorityToSign?: NullableStringFieldUpdateOperationsInput | string | null
+    lotPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    architecturalPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    professionalTaxReceipt?: NullableStringFieldUpdateOperationsInput | string | null
+    longFolder?: BoolFieldUpdateOperationsInput | boolean
+    projectDescriptionDoc?: NullableStringFieldUpdateOperationsInput | string | null
+    projectDescriptionPhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
+    representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
+    representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedByUser?: UserUpdateOneWithoutReviewedZoningApplicationsNestedInput
+    user?: UserUpdateOneRequiredWithoutZoningApplicationsNestedInput
+  }
+
+  export type ZoningApplicationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationNo?: StringFieldUpdateOperationsInput | string
+    applicantName?: StringFieldUpdateOperationsInput | string
+    applicantAddress?: StringFieldUpdateOperationsInput | string
+    applicantContact?: StringFieldUpdateOperationsInput | string
+    applicantEmail?: StringFieldUpdateOperationsInput | string
+    projectDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    projectBoundaries?: NullableStringFieldUpdateOperationsInput | string | null
+    projectObjectives?: NullableStringFieldUpdateOperationsInput | string | null
+    zoningExceptionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isRepresentative?: BoolFieldUpdateOperationsInput | boolean
+    representativeName?: NullableStringFieldUpdateOperationsInput | string | null
+    lotOwnershipType?: NullableEnumLotOwnershipTypeFieldUpdateOperationsInput | $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: NullableStringFieldUpdateOperationsInput | string | null
+    taxClearancePhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    transferCertificateOfTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    leaseContract?: NullableStringFieldUpdateOperationsInput | string | null
+    awardNotice?: NullableStringFieldUpdateOperationsInput | string | null
+    deedOfSale?: NullableStringFieldUpdateOperationsInput | string | null
+    memorandumOfAgreement?: NullableStringFieldUpdateOperationsInput | string | null
+    affidavitOfConsent?: NullableStringFieldUpdateOperationsInput | string | null
+    specialPowerOfAttorney?: NullableStringFieldUpdateOperationsInput | string | null
+    authorityToSign?: NullableStringFieldUpdateOperationsInput | string | null
+    lotPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    architecturalPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    professionalTaxReceipt?: NullableStringFieldUpdateOperationsInput | string | null
+    longFolder?: BoolFieldUpdateOperationsInput | boolean
+    projectDescriptionDoc?: NullableStringFieldUpdateOperationsInput | string | null
+    projectDescriptionPhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
+    representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
+    representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ZoningApplicationCreateManyInput = {
+    id?: string
+    applicationNo: string
+    applicantName: string
+    applicantAddress: string
+    applicantContact: string
+    applicantEmail: string
+    projectDescription?: string | null
+    projectBoundaries?: string | null
+    projectObjectives?: string | null
+    zoningExceptionReason?: string | null
+    isRepresentative?: boolean
+    representativeName?: string | null
+    lotOwnershipType?: $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: string | null
+    taxClearancePhotocopy?: string | null
+    transferCertificateOfTitle?: string | null
+    leaseContract?: string | null
+    awardNotice?: string | null
+    deedOfSale?: string | null
+    memorandumOfAgreement?: string | null
+    affidavitOfConsent?: string | null
+    specialPowerOfAttorney?: string | null
+    authorityToSign?: string | null
+    lotPlan?: string | null
+    architecturalPlan?: string | null
+    professionalTaxReceipt?: string | null
+    longFolder?: boolean
+    projectDescriptionDoc?: string | null
+    projectDescriptionPhotocopy?: string | null
+    authorizationLetter?: string | null
+    representedPersonId?: string | null
+    representativeId?: string | null
+    status?: $Enums.ZoningApplicationStatus
+    submittedAt?: Date | string
+    reviewedAt?: Date | string | null
+    approvedAt?: Date | string | null
+    rejectedAt?: Date | string | null
+    reviewedBy?: string | null
+    remarks?: string | null
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ZoningApplicationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationNo?: StringFieldUpdateOperationsInput | string
+    applicantName?: StringFieldUpdateOperationsInput | string
+    applicantAddress?: StringFieldUpdateOperationsInput | string
+    applicantContact?: StringFieldUpdateOperationsInput | string
+    applicantEmail?: StringFieldUpdateOperationsInput | string
+    projectDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    projectBoundaries?: NullableStringFieldUpdateOperationsInput | string | null
+    projectObjectives?: NullableStringFieldUpdateOperationsInput | string | null
+    zoningExceptionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isRepresentative?: BoolFieldUpdateOperationsInput | boolean
+    representativeName?: NullableStringFieldUpdateOperationsInput | string | null
+    lotOwnershipType?: NullableEnumLotOwnershipTypeFieldUpdateOperationsInput | $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: NullableStringFieldUpdateOperationsInput | string | null
+    taxClearancePhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    transferCertificateOfTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    leaseContract?: NullableStringFieldUpdateOperationsInput | string | null
+    awardNotice?: NullableStringFieldUpdateOperationsInput | string | null
+    deedOfSale?: NullableStringFieldUpdateOperationsInput | string | null
+    memorandumOfAgreement?: NullableStringFieldUpdateOperationsInput | string | null
+    affidavitOfConsent?: NullableStringFieldUpdateOperationsInput | string | null
+    specialPowerOfAttorney?: NullableStringFieldUpdateOperationsInput | string | null
+    authorityToSign?: NullableStringFieldUpdateOperationsInput | string | null
+    lotPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    architecturalPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    professionalTaxReceipt?: NullableStringFieldUpdateOperationsInput | string | null
+    longFolder?: BoolFieldUpdateOperationsInput | boolean
+    projectDescriptionDoc?: NullableStringFieldUpdateOperationsInput | string | null
+    projectDescriptionPhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
+    representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
+    representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ZoningApplicationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationNo?: StringFieldUpdateOperationsInput | string
+    applicantName?: StringFieldUpdateOperationsInput | string
+    applicantAddress?: StringFieldUpdateOperationsInput | string
+    applicantContact?: StringFieldUpdateOperationsInput | string
+    applicantEmail?: StringFieldUpdateOperationsInput | string
+    projectDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    projectBoundaries?: NullableStringFieldUpdateOperationsInput | string | null
+    projectObjectives?: NullableStringFieldUpdateOperationsInput | string | null
+    zoningExceptionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isRepresentative?: BoolFieldUpdateOperationsInput | boolean
+    representativeName?: NullableStringFieldUpdateOperationsInput | string | null
+    lotOwnershipType?: NullableEnumLotOwnershipTypeFieldUpdateOperationsInput | $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: NullableStringFieldUpdateOperationsInput | string | null
+    taxClearancePhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    transferCertificateOfTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    leaseContract?: NullableStringFieldUpdateOperationsInput | string | null
+    awardNotice?: NullableStringFieldUpdateOperationsInput | string | null
+    deedOfSale?: NullableStringFieldUpdateOperationsInput | string | null
+    memorandumOfAgreement?: NullableStringFieldUpdateOperationsInput | string | null
+    affidavitOfConsent?: NullableStringFieldUpdateOperationsInput | string | null
+    specialPowerOfAttorney?: NullableStringFieldUpdateOperationsInput | string | null
+    authorityToSign?: NullableStringFieldUpdateOperationsInput | string | null
+    lotPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    architecturalPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    professionalTaxReceipt?: NullableStringFieldUpdateOperationsInput | string | null
+    longFolder?: BoolFieldUpdateOperationsInput | boolean
+    projectDescriptionDoc?: NullableStringFieldUpdateOperationsInput | string | null
+    projectDescriptionPhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
+    representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
+    representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PostCreateInput = {
     name: string
     createdAt?: Date | string
@@ -20745,6 +23146,8 @@ export namespace Prisma {
     posts?: PostCreateNestedManyWithoutCreatedByInput
     reviewedBusinesses?: BusinessCreateNestedManyWithoutReviewedByUserInput
     reports?: AnalyticsReportCreateNestedManyWithoutUserInput
+    zoningApplications?: ZoningApplicationCreateNestedManyWithoutUserInput
+    reviewedZoningApplications?: ZoningApplicationCreateNestedManyWithoutReviewedByUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -20762,6 +23165,8 @@ export namespace Prisma {
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
     reviewedBusinesses?: BusinessUncheckedCreateNestedManyWithoutReviewedByUserInput
     reports?: AnalyticsReportUncheckedCreateNestedManyWithoutUserInput
+    zoningApplications?: ZoningApplicationUncheckedCreateNestedManyWithoutUserInput
+    reviewedZoningApplications?: ZoningApplicationUncheckedCreateNestedManyWithoutReviewedByUserInput
   }
 
   export type UserUpdateInput = {
@@ -20779,6 +23184,8 @@ export namespace Prisma {
     posts?: PostUpdateManyWithoutCreatedByNestedInput
     reviewedBusinesses?: BusinessUpdateManyWithoutReviewedByUserNestedInput
     reports?: AnalyticsReportUpdateManyWithoutUserNestedInput
+    zoningApplications?: ZoningApplicationUpdateManyWithoutUserNestedInput
+    reviewedZoningApplications?: ZoningApplicationUpdateManyWithoutReviewedByUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -20796,6 +23203,8 @@ export namespace Prisma {
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
     reviewedBusinesses?: BusinessUncheckedUpdateManyWithoutReviewedByUserNestedInput
     reports?: AnalyticsReportUncheckedUpdateManyWithoutUserNestedInput
+    zoningApplications?: ZoningApplicationUncheckedUpdateManyWithoutUserNestedInput
+    reviewedZoningApplications?: ZoningApplicationUncheckedUpdateManyWithoutReviewedByUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -21691,6 +24100,175 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type EnumLotOwnershipTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.LotOwnershipType | EnumLotOwnershipTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.LotOwnershipType[] | ListEnumLotOwnershipTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.LotOwnershipType[] | ListEnumLotOwnershipTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumLotOwnershipTypeNullableFilter<$PrismaModel> | $Enums.LotOwnershipType | null
+  }
+
+  export type EnumZoningApplicationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ZoningApplicationStatus | EnumZoningApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ZoningApplicationStatus[] | ListEnumZoningApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ZoningApplicationStatus[] | ListEnumZoningApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumZoningApplicationStatusFilter<$PrismaModel> | $Enums.ZoningApplicationStatus
+  }
+
+  export type ZoningApplicationCountOrderByAggregateInput = {
+    id?: SortOrder
+    applicationNo?: SortOrder
+    applicantName?: SortOrder
+    applicantAddress?: SortOrder
+    applicantContact?: SortOrder
+    applicantEmail?: SortOrder
+    projectDescription?: SortOrder
+    projectBoundaries?: SortOrder
+    projectObjectives?: SortOrder
+    zoningExceptionReason?: SortOrder
+    isRepresentative?: SortOrder
+    representativeName?: SortOrder
+    lotOwnershipType?: SortOrder
+    taxClearanceOriginal?: SortOrder
+    taxClearancePhotocopy?: SortOrder
+    transferCertificateOfTitle?: SortOrder
+    leaseContract?: SortOrder
+    awardNotice?: SortOrder
+    deedOfSale?: SortOrder
+    memorandumOfAgreement?: SortOrder
+    affidavitOfConsent?: SortOrder
+    specialPowerOfAttorney?: SortOrder
+    authorityToSign?: SortOrder
+    lotPlan?: SortOrder
+    architecturalPlan?: SortOrder
+    professionalTaxReceipt?: SortOrder
+    longFolder?: SortOrder
+    projectDescriptionDoc?: SortOrder
+    projectDescriptionPhotocopy?: SortOrder
+    authorizationLetter?: SortOrder
+    representedPersonId?: SortOrder
+    representativeId?: SortOrder
+    status?: SortOrder
+    submittedAt?: SortOrder
+    reviewedAt?: SortOrder
+    approvedAt?: SortOrder
+    rejectedAt?: SortOrder
+    reviewedBy?: SortOrder
+    remarks?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ZoningApplicationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    applicationNo?: SortOrder
+    applicantName?: SortOrder
+    applicantAddress?: SortOrder
+    applicantContact?: SortOrder
+    applicantEmail?: SortOrder
+    projectDescription?: SortOrder
+    projectBoundaries?: SortOrder
+    projectObjectives?: SortOrder
+    zoningExceptionReason?: SortOrder
+    isRepresentative?: SortOrder
+    representativeName?: SortOrder
+    lotOwnershipType?: SortOrder
+    taxClearanceOriginal?: SortOrder
+    taxClearancePhotocopy?: SortOrder
+    transferCertificateOfTitle?: SortOrder
+    leaseContract?: SortOrder
+    awardNotice?: SortOrder
+    deedOfSale?: SortOrder
+    memorandumOfAgreement?: SortOrder
+    affidavitOfConsent?: SortOrder
+    specialPowerOfAttorney?: SortOrder
+    authorityToSign?: SortOrder
+    lotPlan?: SortOrder
+    architecturalPlan?: SortOrder
+    professionalTaxReceipt?: SortOrder
+    longFolder?: SortOrder
+    projectDescriptionDoc?: SortOrder
+    projectDescriptionPhotocopy?: SortOrder
+    authorizationLetter?: SortOrder
+    representedPersonId?: SortOrder
+    representativeId?: SortOrder
+    status?: SortOrder
+    submittedAt?: SortOrder
+    reviewedAt?: SortOrder
+    approvedAt?: SortOrder
+    rejectedAt?: SortOrder
+    reviewedBy?: SortOrder
+    remarks?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ZoningApplicationMinOrderByAggregateInput = {
+    id?: SortOrder
+    applicationNo?: SortOrder
+    applicantName?: SortOrder
+    applicantAddress?: SortOrder
+    applicantContact?: SortOrder
+    applicantEmail?: SortOrder
+    projectDescription?: SortOrder
+    projectBoundaries?: SortOrder
+    projectObjectives?: SortOrder
+    zoningExceptionReason?: SortOrder
+    isRepresentative?: SortOrder
+    representativeName?: SortOrder
+    lotOwnershipType?: SortOrder
+    taxClearanceOriginal?: SortOrder
+    taxClearancePhotocopy?: SortOrder
+    transferCertificateOfTitle?: SortOrder
+    leaseContract?: SortOrder
+    awardNotice?: SortOrder
+    deedOfSale?: SortOrder
+    memorandumOfAgreement?: SortOrder
+    affidavitOfConsent?: SortOrder
+    specialPowerOfAttorney?: SortOrder
+    authorityToSign?: SortOrder
+    lotPlan?: SortOrder
+    architecturalPlan?: SortOrder
+    professionalTaxReceipt?: SortOrder
+    longFolder?: SortOrder
+    projectDescriptionDoc?: SortOrder
+    projectDescriptionPhotocopy?: SortOrder
+    authorizationLetter?: SortOrder
+    representedPersonId?: SortOrder
+    representativeId?: SortOrder
+    status?: SortOrder
+    submittedAt?: SortOrder
+    reviewedAt?: SortOrder
+    approvedAt?: SortOrder
+    rejectedAt?: SortOrder
+    reviewedBy?: SortOrder
+    remarks?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumLotOwnershipTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LotOwnershipType | EnumLotOwnershipTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.LotOwnershipType[] | ListEnumLotOwnershipTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.LotOwnershipType[] | ListEnumLotOwnershipTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumLotOwnershipTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.LotOwnershipType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumLotOwnershipTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumLotOwnershipTypeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumZoningApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ZoningApplicationStatus | EnumZoningApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ZoningApplicationStatus[] | ListEnumZoningApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ZoningApplicationStatus[] | ListEnumZoningApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumZoningApplicationStatusWithAggregatesFilter<$PrismaModel> | $Enums.ZoningApplicationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumZoningApplicationStatusFilter<$PrismaModel>
+    _max?: NestedEnumZoningApplicationStatusFilter<$PrismaModel>
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -21865,6 +24443,12 @@ export namespace Prisma {
     none?: AnalyticsReportWhereInput
   }
 
+  export type ZoningApplicationListRelationFilter = {
+    every?: ZoningApplicationWhereInput
+    some?: ZoningApplicationWhereInput
+    none?: ZoningApplicationWhereInput
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -21878,6 +24462,10 @@ export namespace Prisma {
   }
 
   export type AnalyticsReportOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ZoningApplicationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -22320,6 +24908,44 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReportsInput, UserUpdateWithoutReportsInput>, UserUncheckedUpdateWithoutReportsInput>
   }
 
+  export type UserCreateNestedOneWithoutReviewedZoningApplicationsInput = {
+    create?: XOR<UserCreateWithoutReviewedZoningApplicationsInput, UserUncheckedCreateWithoutReviewedZoningApplicationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReviewedZoningApplicationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutZoningApplicationsInput = {
+    create?: XOR<UserCreateWithoutZoningApplicationsInput, UserUncheckedCreateWithoutZoningApplicationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutZoningApplicationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type NullableEnumLotOwnershipTypeFieldUpdateOperationsInput = {
+    set?: $Enums.LotOwnershipType | null
+  }
+
+  export type EnumZoningApplicationStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ZoningApplicationStatus
+  }
+
+  export type UserUpdateOneWithoutReviewedZoningApplicationsNestedInput = {
+    create?: XOR<UserCreateWithoutReviewedZoningApplicationsInput, UserUncheckedCreateWithoutReviewedZoningApplicationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReviewedZoningApplicationsInput
+    upsert?: UserUpsertWithoutReviewedZoningApplicationsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReviewedZoningApplicationsInput, UserUpdateWithoutReviewedZoningApplicationsInput>, UserUncheckedUpdateWithoutReviewedZoningApplicationsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutZoningApplicationsNestedInput = {
+    create?: XOR<UserCreateWithoutZoningApplicationsInput, UserUncheckedCreateWithoutZoningApplicationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutZoningApplicationsInput
+    upsert?: UserUpsertWithoutZoningApplicationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutZoningApplicationsInput, UserUpdateWithoutZoningApplicationsInput>, UserUncheckedUpdateWithoutZoningApplicationsInput>
+  }
+
   export type UserCreateNestedOneWithoutPostsInput = {
     create?: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
     connectOrCreate?: UserCreateOrConnectWithoutPostsInput
@@ -22405,6 +25031,20 @@ export namespace Prisma {
     connect?: AnalyticsReportWhereUniqueInput | AnalyticsReportWhereUniqueInput[]
   }
 
+  export type ZoningApplicationCreateNestedManyWithoutUserInput = {
+    create?: XOR<ZoningApplicationCreateWithoutUserInput, ZoningApplicationUncheckedCreateWithoutUserInput> | ZoningApplicationCreateWithoutUserInput[] | ZoningApplicationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ZoningApplicationCreateOrConnectWithoutUserInput | ZoningApplicationCreateOrConnectWithoutUserInput[]
+    createMany?: ZoningApplicationCreateManyUserInputEnvelope
+    connect?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
+  }
+
+  export type ZoningApplicationCreateNestedManyWithoutReviewedByUserInput = {
+    create?: XOR<ZoningApplicationCreateWithoutReviewedByUserInput, ZoningApplicationUncheckedCreateWithoutReviewedByUserInput> | ZoningApplicationCreateWithoutReviewedByUserInput[] | ZoningApplicationUncheckedCreateWithoutReviewedByUserInput[]
+    connectOrCreate?: ZoningApplicationCreateOrConnectWithoutReviewedByUserInput | ZoningApplicationCreateOrConnectWithoutReviewedByUserInput[]
+    createMany?: ZoningApplicationCreateManyReviewedByUserInputEnvelope
+    connect?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -22438,6 +25078,20 @@ export namespace Prisma {
     connectOrCreate?: AnalyticsReportCreateOrConnectWithoutUserInput | AnalyticsReportCreateOrConnectWithoutUserInput[]
     createMany?: AnalyticsReportCreateManyUserInputEnvelope
     connect?: AnalyticsReportWhereUniqueInput | AnalyticsReportWhereUniqueInput[]
+  }
+
+  export type ZoningApplicationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ZoningApplicationCreateWithoutUserInput, ZoningApplicationUncheckedCreateWithoutUserInput> | ZoningApplicationCreateWithoutUserInput[] | ZoningApplicationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ZoningApplicationCreateOrConnectWithoutUserInput | ZoningApplicationCreateOrConnectWithoutUserInput[]
+    createMany?: ZoningApplicationCreateManyUserInputEnvelope
+    connect?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
+  }
+
+  export type ZoningApplicationUncheckedCreateNestedManyWithoutReviewedByUserInput = {
+    create?: XOR<ZoningApplicationCreateWithoutReviewedByUserInput, ZoningApplicationUncheckedCreateWithoutReviewedByUserInput> | ZoningApplicationCreateWithoutReviewedByUserInput[] | ZoningApplicationUncheckedCreateWithoutReviewedByUserInput[]
+    connectOrCreate?: ZoningApplicationCreateOrConnectWithoutReviewedByUserInput | ZoningApplicationCreateOrConnectWithoutReviewedByUserInput[]
+    createMany?: ZoningApplicationCreateManyReviewedByUserInputEnvelope
+    connect?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -22514,6 +25168,34 @@ export namespace Prisma {
     deleteMany?: AnalyticsReportScalarWhereInput | AnalyticsReportScalarWhereInput[]
   }
 
+  export type ZoningApplicationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ZoningApplicationCreateWithoutUserInput, ZoningApplicationUncheckedCreateWithoutUserInput> | ZoningApplicationCreateWithoutUserInput[] | ZoningApplicationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ZoningApplicationCreateOrConnectWithoutUserInput | ZoningApplicationCreateOrConnectWithoutUserInput[]
+    upsert?: ZoningApplicationUpsertWithWhereUniqueWithoutUserInput | ZoningApplicationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ZoningApplicationCreateManyUserInputEnvelope
+    set?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
+    disconnect?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
+    delete?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
+    connect?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
+    update?: ZoningApplicationUpdateWithWhereUniqueWithoutUserInput | ZoningApplicationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ZoningApplicationUpdateManyWithWhereWithoutUserInput | ZoningApplicationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ZoningApplicationScalarWhereInput | ZoningApplicationScalarWhereInput[]
+  }
+
+  export type ZoningApplicationUpdateManyWithoutReviewedByUserNestedInput = {
+    create?: XOR<ZoningApplicationCreateWithoutReviewedByUserInput, ZoningApplicationUncheckedCreateWithoutReviewedByUserInput> | ZoningApplicationCreateWithoutReviewedByUserInput[] | ZoningApplicationUncheckedCreateWithoutReviewedByUserInput[]
+    connectOrCreate?: ZoningApplicationCreateOrConnectWithoutReviewedByUserInput | ZoningApplicationCreateOrConnectWithoutReviewedByUserInput[]
+    upsert?: ZoningApplicationUpsertWithWhereUniqueWithoutReviewedByUserInput | ZoningApplicationUpsertWithWhereUniqueWithoutReviewedByUserInput[]
+    createMany?: ZoningApplicationCreateManyReviewedByUserInputEnvelope
+    set?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
+    disconnect?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
+    delete?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
+    connect?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
+    update?: ZoningApplicationUpdateWithWhereUniqueWithoutReviewedByUserInput | ZoningApplicationUpdateWithWhereUniqueWithoutReviewedByUserInput[]
+    updateMany?: ZoningApplicationUpdateManyWithWhereWithoutReviewedByUserInput | ZoningApplicationUpdateManyWithWhereWithoutReviewedByUserInput[]
+    deleteMany?: ZoningApplicationScalarWhereInput | ZoningApplicationScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -22582,6 +25264,34 @@ export namespace Prisma {
     update?: AnalyticsReportUpdateWithWhereUniqueWithoutUserInput | AnalyticsReportUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: AnalyticsReportUpdateManyWithWhereWithoutUserInput | AnalyticsReportUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: AnalyticsReportScalarWhereInput | AnalyticsReportScalarWhereInput[]
+  }
+
+  export type ZoningApplicationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ZoningApplicationCreateWithoutUserInput, ZoningApplicationUncheckedCreateWithoutUserInput> | ZoningApplicationCreateWithoutUserInput[] | ZoningApplicationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ZoningApplicationCreateOrConnectWithoutUserInput | ZoningApplicationCreateOrConnectWithoutUserInput[]
+    upsert?: ZoningApplicationUpsertWithWhereUniqueWithoutUserInput | ZoningApplicationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ZoningApplicationCreateManyUserInputEnvelope
+    set?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
+    disconnect?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
+    delete?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
+    connect?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
+    update?: ZoningApplicationUpdateWithWhereUniqueWithoutUserInput | ZoningApplicationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ZoningApplicationUpdateManyWithWhereWithoutUserInput | ZoningApplicationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ZoningApplicationScalarWhereInput | ZoningApplicationScalarWhereInput[]
+  }
+
+  export type ZoningApplicationUncheckedUpdateManyWithoutReviewedByUserNestedInput = {
+    create?: XOR<ZoningApplicationCreateWithoutReviewedByUserInput, ZoningApplicationUncheckedCreateWithoutReviewedByUserInput> | ZoningApplicationCreateWithoutReviewedByUserInput[] | ZoningApplicationUncheckedCreateWithoutReviewedByUserInput[]
+    connectOrCreate?: ZoningApplicationCreateOrConnectWithoutReviewedByUserInput | ZoningApplicationCreateOrConnectWithoutReviewedByUserInput[]
+    upsert?: ZoningApplicationUpsertWithWhereUniqueWithoutReviewedByUserInput | ZoningApplicationUpsertWithWhereUniqueWithoutReviewedByUserInput[]
+    createMany?: ZoningApplicationCreateManyReviewedByUserInputEnvelope
+    set?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
+    disconnect?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
+    delete?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
+    connect?: ZoningApplicationWhereUniqueInput | ZoningApplicationWhereUniqueInput[]
+    update?: ZoningApplicationUpdateWithWhereUniqueWithoutReviewedByUserInput | ZoningApplicationUpdateWithWhereUniqueWithoutReviewedByUserInput[]
+    updateMany?: ZoningApplicationUpdateManyWithWhereWithoutReviewedByUserInput | ZoningApplicationUpdateManyWithWhereWithoutReviewedByUserInput[]
+    deleteMany?: ZoningApplicationScalarWhereInput | ZoningApplicationScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -22896,6 +25606,40 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedEnumLotOwnershipTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.LotOwnershipType | EnumLotOwnershipTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.LotOwnershipType[] | ListEnumLotOwnershipTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.LotOwnershipType[] | ListEnumLotOwnershipTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumLotOwnershipTypeNullableFilter<$PrismaModel> | $Enums.LotOwnershipType | null
+  }
+
+  export type NestedEnumZoningApplicationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ZoningApplicationStatus | EnumZoningApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ZoningApplicationStatus[] | ListEnumZoningApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ZoningApplicationStatus[] | ListEnumZoningApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumZoningApplicationStatusFilter<$PrismaModel> | $Enums.ZoningApplicationStatus
+  }
+
+  export type NestedEnumLotOwnershipTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LotOwnershipType | EnumLotOwnershipTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.LotOwnershipType[] | ListEnumLotOwnershipTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.LotOwnershipType[] | ListEnumLotOwnershipTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumLotOwnershipTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.LotOwnershipType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumLotOwnershipTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumLotOwnershipTypeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumZoningApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ZoningApplicationStatus | EnumZoningApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ZoningApplicationStatus[] | ListEnumZoningApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ZoningApplicationStatus[] | ListEnumZoningApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumZoningApplicationStatusWithAggregatesFilter<$PrismaModel> | $Enums.ZoningApplicationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumZoningApplicationStatusFilter<$PrismaModel>
+    _max?: NestedEnumZoningApplicationStatusFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -23476,6 +26220,8 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
     reports?: AnalyticsReportCreateNestedManyWithoutUserInput
+    zoningApplications?: ZoningApplicationCreateNestedManyWithoutUserInput
+    reviewedZoningApplications?: ZoningApplicationCreateNestedManyWithoutReviewedByUserInput
   }
 
   export type UserUncheckedCreateWithoutReviewedBusinessesInput = {
@@ -23492,6 +26238,8 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
     reports?: AnalyticsReportUncheckedCreateNestedManyWithoutUserInput
+    zoningApplications?: ZoningApplicationUncheckedCreateNestedManyWithoutUserInput
+    reviewedZoningApplications?: ZoningApplicationUncheckedCreateNestedManyWithoutReviewedByUserInput
   }
 
   export type UserCreateOrConnectWithoutReviewedBusinessesInput = {
@@ -23625,6 +26373,8 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutCreatedByNestedInput
     reports?: AnalyticsReportUpdateManyWithoutUserNestedInput
+    zoningApplications?: ZoningApplicationUpdateManyWithoutUserNestedInput
+    reviewedZoningApplications?: ZoningApplicationUpdateManyWithoutReviewedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewedBusinessesInput = {
@@ -23641,6 +26391,8 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
     reports?: AnalyticsReportUncheckedUpdateManyWithoutUserNestedInput
+    zoningApplications?: ZoningApplicationUncheckedUpdateManyWithoutUserNestedInput
+    reviewedZoningApplications?: ZoningApplicationUncheckedUpdateManyWithoutReviewedByUserNestedInput
   }
 
   export type BarangayCreateWithoutHazardZonesInput = {
@@ -23721,6 +26473,8 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutCreatedByInput
     reviewedBusinesses?: BusinessCreateNestedManyWithoutReviewedByUserInput
+    zoningApplications?: ZoningApplicationCreateNestedManyWithoutUserInput
+    reviewedZoningApplications?: ZoningApplicationCreateNestedManyWithoutReviewedByUserInput
   }
 
   export type UserUncheckedCreateWithoutReportsInput = {
@@ -23737,6 +26491,8 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
     reviewedBusinesses?: BusinessUncheckedCreateNestedManyWithoutReviewedByUserInput
+    zoningApplications?: ZoningApplicationUncheckedCreateNestedManyWithoutUserInput
+    reviewedZoningApplications?: ZoningApplicationUncheckedCreateNestedManyWithoutReviewedByUserInput
   }
 
   export type UserCreateOrConnectWithoutReportsInput = {
@@ -23769,6 +26525,8 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutCreatedByNestedInput
     reviewedBusinesses?: BusinessUpdateManyWithoutReviewedByUserNestedInput
+    zoningApplications?: ZoningApplicationUpdateManyWithoutUserNestedInput
+    reviewedZoningApplications?: ZoningApplicationUpdateManyWithoutReviewedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportsInput = {
@@ -23785,6 +26543,184 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
     reviewedBusinesses?: BusinessUncheckedUpdateManyWithoutReviewedByUserNestedInput
+    zoningApplications?: ZoningApplicationUncheckedUpdateManyWithoutUserNestedInput
+    reviewedZoningApplications?: ZoningApplicationUncheckedUpdateManyWithoutReviewedByUserNestedInput
+  }
+
+  export type UserCreateWithoutReviewedZoningApplicationsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    posts?: PostCreateNestedManyWithoutCreatedByInput
+    reviewedBusinesses?: BusinessCreateNestedManyWithoutReviewedByUserInput
+    reports?: AnalyticsReportCreateNestedManyWithoutUserInput
+    zoningApplications?: ZoningApplicationCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutReviewedZoningApplicationsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    reviewedBusinesses?: BusinessUncheckedCreateNestedManyWithoutReviewedByUserInput
+    reports?: AnalyticsReportUncheckedCreateNestedManyWithoutUserInput
+    zoningApplications?: ZoningApplicationUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutReviewedZoningApplicationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReviewedZoningApplicationsInput, UserUncheckedCreateWithoutReviewedZoningApplicationsInput>
+  }
+
+  export type UserCreateWithoutZoningApplicationsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    posts?: PostCreateNestedManyWithoutCreatedByInput
+    reviewedBusinesses?: BusinessCreateNestedManyWithoutReviewedByUserInput
+    reports?: AnalyticsReportCreateNestedManyWithoutUserInput
+    reviewedZoningApplications?: ZoningApplicationCreateNestedManyWithoutReviewedByUserInput
+  }
+
+  export type UserUncheckedCreateWithoutZoningApplicationsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    password?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    reviewedBusinesses?: BusinessUncheckedCreateNestedManyWithoutReviewedByUserInput
+    reports?: AnalyticsReportUncheckedCreateNestedManyWithoutUserInput
+    reviewedZoningApplications?: ZoningApplicationUncheckedCreateNestedManyWithoutReviewedByUserInput
+  }
+
+  export type UserCreateOrConnectWithoutZoningApplicationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutZoningApplicationsInput, UserUncheckedCreateWithoutZoningApplicationsInput>
+  }
+
+  export type UserUpsertWithoutReviewedZoningApplicationsInput = {
+    update: XOR<UserUpdateWithoutReviewedZoningApplicationsInput, UserUncheckedUpdateWithoutReviewedZoningApplicationsInput>
+    create: XOR<UserCreateWithoutReviewedZoningApplicationsInput, UserUncheckedCreateWithoutReviewedZoningApplicationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReviewedZoningApplicationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReviewedZoningApplicationsInput, UserUncheckedUpdateWithoutReviewedZoningApplicationsInput>
+  }
+
+  export type UserUpdateWithoutReviewedZoningApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    posts?: PostUpdateManyWithoutCreatedByNestedInput
+    reviewedBusinesses?: BusinessUpdateManyWithoutReviewedByUserNestedInput
+    reports?: AnalyticsReportUpdateManyWithoutUserNestedInput
+    zoningApplications?: ZoningApplicationUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReviewedZoningApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    reviewedBusinesses?: BusinessUncheckedUpdateManyWithoutReviewedByUserNestedInput
+    reports?: AnalyticsReportUncheckedUpdateManyWithoutUserNestedInput
+    zoningApplications?: ZoningApplicationUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUpsertWithoutZoningApplicationsInput = {
+    update: XOR<UserUpdateWithoutZoningApplicationsInput, UserUncheckedUpdateWithoutZoningApplicationsInput>
+    create: XOR<UserCreateWithoutZoningApplicationsInput, UserUncheckedCreateWithoutZoningApplicationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutZoningApplicationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutZoningApplicationsInput, UserUncheckedUpdateWithoutZoningApplicationsInput>
+  }
+
+  export type UserUpdateWithoutZoningApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    posts?: PostUpdateManyWithoutCreatedByNestedInput
+    reviewedBusinesses?: BusinessUpdateManyWithoutReviewedByUserNestedInput
+    reports?: AnalyticsReportUpdateManyWithoutUserNestedInput
+    reviewedZoningApplications?: ZoningApplicationUpdateManyWithoutReviewedByUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutZoningApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    reviewedBusinesses?: BusinessUncheckedUpdateManyWithoutReviewedByUserNestedInput
+    reports?: AnalyticsReportUncheckedUpdateManyWithoutUserNestedInput
+    reviewedZoningApplications?: ZoningApplicationUncheckedUpdateManyWithoutReviewedByUserNestedInput
   }
 
   export type UserCreateWithoutPostsInput = {
@@ -23801,6 +26737,8 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     reviewedBusinesses?: BusinessCreateNestedManyWithoutReviewedByUserInput
     reports?: AnalyticsReportCreateNestedManyWithoutUserInput
+    zoningApplications?: ZoningApplicationCreateNestedManyWithoutUserInput
+    reviewedZoningApplications?: ZoningApplicationCreateNestedManyWithoutReviewedByUserInput
   }
 
   export type UserUncheckedCreateWithoutPostsInput = {
@@ -23817,6 +26755,8 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     reviewedBusinesses?: BusinessUncheckedCreateNestedManyWithoutReviewedByUserInput
     reports?: AnalyticsReportUncheckedCreateNestedManyWithoutUserInput
+    zoningApplications?: ZoningApplicationUncheckedCreateNestedManyWithoutUserInput
+    reviewedZoningApplications?: ZoningApplicationUncheckedCreateNestedManyWithoutReviewedByUserInput
   }
 
   export type UserCreateOrConnectWithoutPostsInput = {
@@ -23849,6 +26789,8 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     reviewedBusinesses?: BusinessUpdateManyWithoutReviewedByUserNestedInput
     reports?: AnalyticsReportUpdateManyWithoutUserNestedInput
+    zoningApplications?: ZoningApplicationUpdateManyWithoutUserNestedInput
+    reviewedZoningApplications?: ZoningApplicationUpdateManyWithoutReviewedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPostsInput = {
@@ -23865,6 +26807,8 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     reviewedBusinesses?: BusinessUncheckedUpdateManyWithoutReviewedByUserNestedInput
     reports?: AnalyticsReportUncheckedUpdateManyWithoutUserNestedInput
+    zoningApplications?: ZoningApplicationUncheckedUpdateManyWithoutUserNestedInput
+    reviewedZoningApplications?: ZoningApplicationUncheckedUpdateManyWithoutReviewedByUserNestedInput
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -23881,6 +26825,8 @@ export namespace Prisma {
     posts?: PostCreateNestedManyWithoutCreatedByInput
     reviewedBusinesses?: BusinessCreateNestedManyWithoutReviewedByUserInput
     reports?: AnalyticsReportCreateNestedManyWithoutUserInput
+    zoningApplications?: ZoningApplicationCreateNestedManyWithoutUserInput
+    reviewedZoningApplications?: ZoningApplicationCreateNestedManyWithoutReviewedByUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -23897,6 +26843,8 @@ export namespace Prisma {
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
     reviewedBusinesses?: BusinessUncheckedCreateNestedManyWithoutReviewedByUserInput
     reports?: AnalyticsReportUncheckedCreateNestedManyWithoutUserInput
+    zoningApplications?: ZoningApplicationUncheckedCreateNestedManyWithoutUserInput
+    reviewedZoningApplications?: ZoningApplicationUncheckedCreateNestedManyWithoutReviewedByUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -23929,6 +26877,8 @@ export namespace Prisma {
     posts?: PostUpdateManyWithoutCreatedByNestedInput
     reviewedBusinesses?: BusinessUpdateManyWithoutReviewedByUserNestedInput
     reports?: AnalyticsReportUpdateManyWithoutUserNestedInput
+    zoningApplications?: ZoningApplicationUpdateManyWithoutUserNestedInput
+    reviewedZoningApplications?: ZoningApplicationUpdateManyWithoutReviewedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -23945,6 +26895,8 @@ export namespace Prisma {
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
     reviewedBusinesses?: BusinessUncheckedUpdateManyWithoutReviewedByUserNestedInput
     reports?: AnalyticsReportUncheckedUpdateManyWithoutUserNestedInput
+    zoningApplications?: ZoningApplicationUncheckedUpdateManyWithoutUserNestedInput
+    reviewedZoningApplications?: ZoningApplicationUncheckedUpdateManyWithoutReviewedByUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -23961,6 +26913,8 @@ export namespace Prisma {
     posts?: PostCreateNestedManyWithoutCreatedByInput
     reviewedBusinesses?: BusinessCreateNestedManyWithoutReviewedByUserInput
     reports?: AnalyticsReportCreateNestedManyWithoutUserInput
+    zoningApplications?: ZoningApplicationCreateNestedManyWithoutUserInput
+    reviewedZoningApplications?: ZoningApplicationCreateNestedManyWithoutReviewedByUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -23977,6 +26931,8 @@ export namespace Prisma {
     posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
     reviewedBusinesses?: BusinessUncheckedCreateNestedManyWithoutReviewedByUserInput
     reports?: AnalyticsReportUncheckedCreateNestedManyWithoutUserInput
+    zoningApplications?: ZoningApplicationUncheckedCreateNestedManyWithoutUserInput
+    reviewedZoningApplications?: ZoningApplicationUncheckedCreateNestedManyWithoutReviewedByUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -24009,6 +26965,8 @@ export namespace Prisma {
     posts?: PostUpdateManyWithoutCreatedByNestedInput
     reviewedBusinesses?: BusinessUpdateManyWithoutReviewedByUserNestedInput
     reports?: AnalyticsReportUpdateManyWithoutUserNestedInput
+    zoningApplications?: ZoningApplicationUpdateManyWithoutUserNestedInput
+    reviewedZoningApplications?: ZoningApplicationUpdateManyWithoutReviewedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -24025,6 +26983,8 @@ export namespace Prisma {
     posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
     reviewedBusinesses?: BusinessUncheckedUpdateManyWithoutReviewedByUserNestedInput
     reports?: AnalyticsReportUncheckedUpdateManyWithoutUserNestedInput
+    zoningApplications?: ZoningApplicationUncheckedUpdateManyWithoutUserNestedInput
+    reviewedZoningApplications?: ZoningApplicationUncheckedUpdateManyWithoutReviewedByUserNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -24200,6 +27160,202 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ZoningApplicationCreateWithoutUserInput = {
+    id?: string
+    applicationNo: string
+    applicantName: string
+    applicantAddress: string
+    applicantContact: string
+    applicantEmail: string
+    projectDescription?: string | null
+    projectBoundaries?: string | null
+    projectObjectives?: string | null
+    zoningExceptionReason?: string | null
+    isRepresentative?: boolean
+    representativeName?: string | null
+    lotOwnershipType?: $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: string | null
+    taxClearancePhotocopy?: string | null
+    transferCertificateOfTitle?: string | null
+    leaseContract?: string | null
+    awardNotice?: string | null
+    deedOfSale?: string | null
+    memorandumOfAgreement?: string | null
+    affidavitOfConsent?: string | null
+    specialPowerOfAttorney?: string | null
+    authorityToSign?: string | null
+    lotPlan?: string | null
+    architecturalPlan?: string | null
+    professionalTaxReceipt?: string | null
+    longFolder?: boolean
+    projectDescriptionDoc?: string | null
+    projectDescriptionPhotocopy?: string | null
+    authorizationLetter?: string | null
+    representedPersonId?: string | null
+    representativeId?: string | null
+    status?: $Enums.ZoningApplicationStatus
+    submittedAt?: Date | string
+    reviewedAt?: Date | string | null
+    approvedAt?: Date | string | null
+    rejectedAt?: Date | string | null
+    remarks?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reviewedByUser?: UserCreateNestedOneWithoutReviewedZoningApplicationsInput
+  }
+
+  export type ZoningApplicationUncheckedCreateWithoutUserInput = {
+    id?: string
+    applicationNo: string
+    applicantName: string
+    applicantAddress: string
+    applicantContact: string
+    applicantEmail: string
+    projectDescription?: string | null
+    projectBoundaries?: string | null
+    projectObjectives?: string | null
+    zoningExceptionReason?: string | null
+    isRepresentative?: boolean
+    representativeName?: string | null
+    lotOwnershipType?: $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: string | null
+    taxClearancePhotocopy?: string | null
+    transferCertificateOfTitle?: string | null
+    leaseContract?: string | null
+    awardNotice?: string | null
+    deedOfSale?: string | null
+    memorandumOfAgreement?: string | null
+    affidavitOfConsent?: string | null
+    specialPowerOfAttorney?: string | null
+    authorityToSign?: string | null
+    lotPlan?: string | null
+    architecturalPlan?: string | null
+    professionalTaxReceipt?: string | null
+    longFolder?: boolean
+    projectDescriptionDoc?: string | null
+    projectDescriptionPhotocopy?: string | null
+    authorizationLetter?: string | null
+    representedPersonId?: string | null
+    representativeId?: string | null
+    status?: $Enums.ZoningApplicationStatus
+    submittedAt?: Date | string
+    reviewedAt?: Date | string | null
+    approvedAt?: Date | string | null
+    rejectedAt?: Date | string | null
+    reviewedBy?: string | null
+    remarks?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ZoningApplicationCreateOrConnectWithoutUserInput = {
+    where: ZoningApplicationWhereUniqueInput
+    create: XOR<ZoningApplicationCreateWithoutUserInput, ZoningApplicationUncheckedCreateWithoutUserInput>
+  }
+
+  export type ZoningApplicationCreateManyUserInputEnvelope = {
+    data: ZoningApplicationCreateManyUserInput | ZoningApplicationCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ZoningApplicationCreateWithoutReviewedByUserInput = {
+    id?: string
+    applicationNo: string
+    applicantName: string
+    applicantAddress: string
+    applicantContact: string
+    applicantEmail: string
+    projectDescription?: string | null
+    projectBoundaries?: string | null
+    projectObjectives?: string | null
+    zoningExceptionReason?: string | null
+    isRepresentative?: boolean
+    representativeName?: string | null
+    lotOwnershipType?: $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: string | null
+    taxClearancePhotocopy?: string | null
+    transferCertificateOfTitle?: string | null
+    leaseContract?: string | null
+    awardNotice?: string | null
+    deedOfSale?: string | null
+    memorandumOfAgreement?: string | null
+    affidavitOfConsent?: string | null
+    specialPowerOfAttorney?: string | null
+    authorityToSign?: string | null
+    lotPlan?: string | null
+    architecturalPlan?: string | null
+    professionalTaxReceipt?: string | null
+    longFolder?: boolean
+    projectDescriptionDoc?: string | null
+    projectDescriptionPhotocopy?: string | null
+    authorizationLetter?: string | null
+    representedPersonId?: string | null
+    representativeId?: string | null
+    status?: $Enums.ZoningApplicationStatus
+    submittedAt?: Date | string
+    reviewedAt?: Date | string | null
+    approvedAt?: Date | string | null
+    rejectedAt?: Date | string | null
+    remarks?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutZoningApplicationsInput
+  }
+
+  export type ZoningApplicationUncheckedCreateWithoutReviewedByUserInput = {
+    id?: string
+    applicationNo: string
+    applicantName: string
+    applicantAddress: string
+    applicantContact: string
+    applicantEmail: string
+    projectDescription?: string | null
+    projectBoundaries?: string | null
+    projectObjectives?: string | null
+    zoningExceptionReason?: string | null
+    isRepresentative?: boolean
+    representativeName?: string | null
+    lotOwnershipType?: $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: string | null
+    taxClearancePhotocopy?: string | null
+    transferCertificateOfTitle?: string | null
+    leaseContract?: string | null
+    awardNotice?: string | null
+    deedOfSale?: string | null
+    memorandumOfAgreement?: string | null
+    affidavitOfConsent?: string | null
+    specialPowerOfAttorney?: string | null
+    authorityToSign?: string | null
+    lotPlan?: string | null
+    architecturalPlan?: string | null
+    professionalTaxReceipt?: string | null
+    longFolder?: boolean
+    projectDescriptionDoc?: string | null
+    projectDescriptionPhotocopy?: string | null
+    authorizationLetter?: string | null
+    representedPersonId?: string | null
+    representativeId?: string | null
+    status?: $Enums.ZoningApplicationStatus
+    submittedAt?: Date | string
+    reviewedAt?: Date | string | null
+    approvedAt?: Date | string | null
+    rejectedAt?: Date | string | null
+    remarks?: string | null
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ZoningApplicationCreateOrConnectWithoutReviewedByUserInput = {
+    where: ZoningApplicationWhereUniqueInput
+    create: XOR<ZoningApplicationCreateWithoutReviewedByUserInput, ZoningApplicationUncheckedCreateWithoutReviewedByUserInput>
+  }
+
+  export type ZoningApplicationCreateManyReviewedByUserInputEnvelope = {
+    data: ZoningApplicationCreateManyReviewedByUserInput | ZoningApplicationCreateManyReviewedByUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -24331,6 +27487,86 @@ export namespace Prisma {
     parameters?: JsonNullableFilter<"AnalyticsReport">
     generatedBy?: StringFilter<"AnalyticsReport"> | string
     createdAt?: DateTimeFilter<"AnalyticsReport"> | Date | string
+  }
+
+  export type ZoningApplicationUpsertWithWhereUniqueWithoutUserInput = {
+    where: ZoningApplicationWhereUniqueInput
+    update: XOR<ZoningApplicationUpdateWithoutUserInput, ZoningApplicationUncheckedUpdateWithoutUserInput>
+    create: XOR<ZoningApplicationCreateWithoutUserInput, ZoningApplicationUncheckedCreateWithoutUserInput>
+  }
+
+  export type ZoningApplicationUpdateWithWhereUniqueWithoutUserInput = {
+    where: ZoningApplicationWhereUniqueInput
+    data: XOR<ZoningApplicationUpdateWithoutUserInput, ZoningApplicationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ZoningApplicationUpdateManyWithWhereWithoutUserInput = {
+    where: ZoningApplicationScalarWhereInput
+    data: XOR<ZoningApplicationUpdateManyMutationInput, ZoningApplicationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ZoningApplicationScalarWhereInput = {
+    AND?: ZoningApplicationScalarWhereInput | ZoningApplicationScalarWhereInput[]
+    OR?: ZoningApplicationScalarWhereInput[]
+    NOT?: ZoningApplicationScalarWhereInput | ZoningApplicationScalarWhereInput[]
+    id?: StringFilter<"ZoningApplication"> | string
+    applicationNo?: StringFilter<"ZoningApplication"> | string
+    applicantName?: StringFilter<"ZoningApplication"> | string
+    applicantAddress?: StringFilter<"ZoningApplication"> | string
+    applicantContact?: StringFilter<"ZoningApplication"> | string
+    applicantEmail?: StringFilter<"ZoningApplication"> | string
+    projectDescription?: StringNullableFilter<"ZoningApplication"> | string | null
+    projectBoundaries?: StringNullableFilter<"ZoningApplication"> | string | null
+    projectObjectives?: StringNullableFilter<"ZoningApplication"> | string | null
+    zoningExceptionReason?: StringNullableFilter<"ZoningApplication"> | string | null
+    isRepresentative?: BoolFilter<"ZoningApplication"> | boolean
+    representativeName?: StringNullableFilter<"ZoningApplication"> | string | null
+    lotOwnershipType?: EnumLotOwnershipTypeNullableFilter<"ZoningApplication"> | $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: StringNullableFilter<"ZoningApplication"> | string | null
+    taxClearancePhotocopy?: StringNullableFilter<"ZoningApplication"> | string | null
+    transferCertificateOfTitle?: StringNullableFilter<"ZoningApplication"> | string | null
+    leaseContract?: StringNullableFilter<"ZoningApplication"> | string | null
+    awardNotice?: StringNullableFilter<"ZoningApplication"> | string | null
+    deedOfSale?: StringNullableFilter<"ZoningApplication"> | string | null
+    memorandumOfAgreement?: StringNullableFilter<"ZoningApplication"> | string | null
+    affidavitOfConsent?: StringNullableFilter<"ZoningApplication"> | string | null
+    specialPowerOfAttorney?: StringNullableFilter<"ZoningApplication"> | string | null
+    authorityToSign?: StringNullableFilter<"ZoningApplication"> | string | null
+    lotPlan?: StringNullableFilter<"ZoningApplication"> | string | null
+    architecturalPlan?: StringNullableFilter<"ZoningApplication"> | string | null
+    professionalTaxReceipt?: StringNullableFilter<"ZoningApplication"> | string | null
+    longFolder?: BoolFilter<"ZoningApplication"> | boolean
+    projectDescriptionDoc?: StringNullableFilter<"ZoningApplication"> | string | null
+    projectDescriptionPhotocopy?: StringNullableFilter<"ZoningApplication"> | string | null
+    authorizationLetter?: StringNullableFilter<"ZoningApplication"> | string | null
+    representedPersonId?: StringNullableFilter<"ZoningApplication"> | string | null
+    representativeId?: StringNullableFilter<"ZoningApplication"> | string | null
+    status?: EnumZoningApplicationStatusFilter<"ZoningApplication"> | $Enums.ZoningApplicationStatus
+    submittedAt?: DateTimeFilter<"ZoningApplication"> | Date | string
+    reviewedAt?: DateTimeNullableFilter<"ZoningApplication"> | Date | string | null
+    approvedAt?: DateTimeNullableFilter<"ZoningApplication"> | Date | string | null
+    rejectedAt?: DateTimeNullableFilter<"ZoningApplication"> | Date | string | null
+    reviewedBy?: StringNullableFilter<"ZoningApplication"> | string | null
+    remarks?: StringNullableFilter<"ZoningApplication"> | string | null
+    userId?: StringFilter<"ZoningApplication"> | string
+    createdAt?: DateTimeFilter<"ZoningApplication"> | Date | string
+    updatedAt?: DateTimeFilter<"ZoningApplication"> | Date | string
+  }
+
+  export type ZoningApplicationUpsertWithWhereUniqueWithoutReviewedByUserInput = {
+    where: ZoningApplicationWhereUniqueInput
+    update: XOR<ZoningApplicationUpdateWithoutReviewedByUserInput, ZoningApplicationUncheckedUpdateWithoutReviewedByUserInput>
+    create: XOR<ZoningApplicationCreateWithoutReviewedByUserInput, ZoningApplicationUncheckedCreateWithoutReviewedByUserInput>
+  }
+
+  export type ZoningApplicationUpdateWithWhereUniqueWithoutReviewedByUserInput = {
+    where: ZoningApplicationWhereUniqueInput
+    data: XOR<ZoningApplicationUpdateWithoutReviewedByUserInput, ZoningApplicationUncheckedUpdateWithoutReviewedByUserInput>
+  }
+
+  export type ZoningApplicationUpdateManyWithWhereWithoutReviewedByUserInput = {
+    where: ZoningApplicationScalarWhereInput
+    data: XOR<ZoningApplicationUpdateManyMutationInput, ZoningApplicationUncheckedUpdateManyWithoutReviewedByUserInput>
   }
 
   export type BusinessCreateManyBarangayInput = {
@@ -24789,6 +28025,94 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type ZoningApplicationCreateManyUserInput = {
+    id?: string
+    applicationNo: string
+    applicantName: string
+    applicantAddress: string
+    applicantContact: string
+    applicantEmail: string
+    projectDescription?: string | null
+    projectBoundaries?: string | null
+    projectObjectives?: string | null
+    zoningExceptionReason?: string | null
+    isRepresentative?: boolean
+    representativeName?: string | null
+    lotOwnershipType?: $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: string | null
+    taxClearancePhotocopy?: string | null
+    transferCertificateOfTitle?: string | null
+    leaseContract?: string | null
+    awardNotice?: string | null
+    deedOfSale?: string | null
+    memorandumOfAgreement?: string | null
+    affidavitOfConsent?: string | null
+    specialPowerOfAttorney?: string | null
+    authorityToSign?: string | null
+    lotPlan?: string | null
+    architecturalPlan?: string | null
+    professionalTaxReceipt?: string | null
+    longFolder?: boolean
+    projectDescriptionDoc?: string | null
+    projectDescriptionPhotocopy?: string | null
+    authorizationLetter?: string | null
+    representedPersonId?: string | null
+    representativeId?: string | null
+    status?: $Enums.ZoningApplicationStatus
+    submittedAt?: Date | string
+    reviewedAt?: Date | string | null
+    approvedAt?: Date | string | null
+    rejectedAt?: Date | string | null
+    reviewedBy?: string | null
+    remarks?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ZoningApplicationCreateManyReviewedByUserInput = {
+    id?: string
+    applicationNo: string
+    applicantName: string
+    applicantAddress: string
+    applicantContact: string
+    applicantEmail: string
+    projectDescription?: string | null
+    projectBoundaries?: string | null
+    projectObjectives?: string | null
+    zoningExceptionReason?: string | null
+    isRepresentative?: boolean
+    representativeName?: string | null
+    lotOwnershipType?: $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: string | null
+    taxClearancePhotocopy?: string | null
+    transferCertificateOfTitle?: string | null
+    leaseContract?: string | null
+    awardNotice?: string | null
+    deedOfSale?: string | null
+    memorandumOfAgreement?: string | null
+    affidavitOfConsent?: string | null
+    specialPowerOfAttorney?: string | null
+    authorityToSign?: string | null
+    lotPlan?: string | null
+    architecturalPlan?: string | null
+    professionalTaxReceipt?: string | null
+    longFolder?: boolean
+    projectDescriptionDoc?: string | null
+    projectDescriptionPhotocopy?: string | null
+    authorizationLetter?: string | null
+    representedPersonId?: string | null
+    representativeId?: string | null
+    status?: $Enums.ZoningApplicationStatus
+    submittedAt?: Date | string
+    reviewedAt?: Date | string | null
+    approvedAt?: Date | string | null
+    rejectedAt?: Date | string | null
+    remarks?: string | null
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type AccountUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
@@ -24972,6 +28296,270 @@ export namespace Prisma {
     data?: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ZoningApplicationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationNo?: StringFieldUpdateOperationsInput | string
+    applicantName?: StringFieldUpdateOperationsInput | string
+    applicantAddress?: StringFieldUpdateOperationsInput | string
+    applicantContact?: StringFieldUpdateOperationsInput | string
+    applicantEmail?: StringFieldUpdateOperationsInput | string
+    projectDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    projectBoundaries?: NullableStringFieldUpdateOperationsInput | string | null
+    projectObjectives?: NullableStringFieldUpdateOperationsInput | string | null
+    zoningExceptionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isRepresentative?: BoolFieldUpdateOperationsInput | boolean
+    representativeName?: NullableStringFieldUpdateOperationsInput | string | null
+    lotOwnershipType?: NullableEnumLotOwnershipTypeFieldUpdateOperationsInput | $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: NullableStringFieldUpdateOperationsInput | string | null
+    taxClearancePhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    transferCertificateOfTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    leaseContract?: NullableStringFieldUpdateOperationsInput | string | null
+    awardNotice?: NullableStringFieldUpdateOperationsInput | string | null
+    deedOfSale?: NullableStringFieldUpdateOperationsInput | string | null
+    memorandumOfAgreement?: NullableStringFieldUpdateOperationsInput | string | null
+    affidavitOfConsent?: NullableStringFieldUpdateOperationsInput | string | null
+    specialPowerOfAttorney?: NullableStringFieldUpdateOperationsInput | string | null
+    authorityToSign?: NullableStringFieldUpdateOperationsInput | string | null
+    lotPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    architecturalPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    professionalTaxReceipt?: NullableStringFieldUpdateOperationsInput | string | null
+    longFolder?: BoolFieldUpdateOperationsInput | boolean
+    projectDescriptionDoc?: NullableStringFieldUpdateOperationsInput | string | null
+    projectDescriptionPhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
+    representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
+    representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedByUser?: UserUpdateOneWithoutReviewedZoningApplicationsNestedInput
+  }
+
+  export type ZoningApplicationUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationNo?: StringFieldUpdateOperationsInput | string
+    applicantName?: StringFieldUpdateOperationsInput | string
+    applicantAddress?: StringFieldUpdateOperationsInput | string
+    applicantContact?: StringFieldUpdateOperationsInput | string
+    applicantEmail?: StringFieldUpdateOperationsInput | string
+    projectDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    projectBoundaries?: NullableStringFieldUpdateOperationsInput | string | null
+    projectObjectives?: NullableStringFieldUpdateOperationsInput | string | null
+    zoningExceptionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isRepresentative?: BoolFieldUpdateOperationsInput | boolean
+    representativeName?: NullableStringFieldUpdateOperationsInput | string | null
+    lotOwnershipType?: NullableEnumLotOwnershipTypeFieldUpdateOperationsInput | $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: NullableStringFieldUpdateOperationsInput | string | null
+    taxClearancePhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    transferCertificateOfTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    leaseContract?: NullableStringFieldUpdateOperationsInput | string | null
+    awardNotice?: NullableStringFieldUpdateOperationsInput | string | null
+    deedOfSale?: NullableStringFieldUpdateOperationsInput | string | null
+    memorandumOfAgreement?: NullableStringFieldUpdateOperationsInput | string | null
+    affidavitOfConsent?: NullableStringFieldUpdateOperationsInput | string | null
+    specialPowerOfAttorney?: NullableStringFieldUpdateOperationsInput | string | null
+    authorityToSign?: NullableStringFieldUpdateOperationsInput | string | null
+    lotPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    architecturalPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    professionalTaxReceipt?: NullableStringFieldUpdateOperationsInput | string | null
+    longFolder?: BoolFieldUpdateOperationsInput | boolean
+    projectDescriptionDoc?: NullableStringFieldUpdateOperationsInput | string | null
+    projectDescriptionPhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
+    representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
+    representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ZoningApplicationUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationNo?: StringFieldUpdateOperationsInput | string
+    applicantName?: StringFieldUpdateOperationsInput | string
+    applicantAddress?: StringFieldUpdateOperationsInput | string
+    applicantContact?: StringFieldUpdateOperationsInput | string
+    applicantEmail?: StringFieldUpdateOperationsInput | string
+    projectDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    projectBoundaries?: NullableStringFieldUpdateOperationsInput | string | null
+    projectObjectives?: NullableStringFieldUpdateOperationsInput | string | null
+    zoningExceptionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isRepresentative?: BoolFieldUpdateOperationsInput | boolean
+    representativeName?: NullableStringFieldUpdateOperationsInput | string | null
+    lotOwnershipType?: NullableEnumLotOwnershipTypeFieldUpdateOperationsInput | $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: NullableStringFieldUpdateOperationsInput | string | null
+    taxClearancePhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    transferCertificateOfTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    leaseContract?: NullableStringFieldUpdateOperationsInput | string | null
+    awardNotice?: NullableStringFieldUpdateOperationsInput | string | null
+    deedOfSale?: NullableStringFieldUpdateOperationsInput | string | null
+    memorandumOfAgreement?: NullableStringFieldUpdateOperationsInput | string | null
+    affidavitOfConsent?: NullableStringFieldUpdateOperationsInput | string | null
+    specialPowerOfAttorney?: NullableStringFieldUpdateOperationsInput | string | null
+    authorityToSign?: NullableStringFieldUpdateOperationsInput | string | null
+    lotPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    architecturalPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    professionalTaxReceipt?: NullableStringFieldUpdateOperationsInput | string | null
+    longFolder?: BoolFieldUpdateOperationsInput | boolean
+    projectDescriptionDoc?: NullableStringFieldUpdateOperationsInput | string | null
+    projectDescriptionPhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
+    representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
+    representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ZoningApplicationUpdateWithoutReviewedByUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationNo?: StringFieldUpdateOperationsInput | string
+    applicantName?: StringFieldUpdateOperationsInput | string
+    applicantAddress?: StringFieldUpdateOperationsInput | string
+    applicantContact?: StringFieldUpdateOperationsInput | string
+    applicantEmail?: StringFieldUpdateOperationsInput | string
+    projectDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    projectBoundaries?: NullableStringFieldUpdateOperationsInput | string | null
+    projectObjectives?: NullableStringFieldUpdateOperationsInput | string | null
+    zoningExceptionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isRepresentative?: BoolFieldUpdateOperationsInput | boolean
+    representativeName?: NullableStringFieldUpdateOperationsInput | string | null
+    lotOwnershipType?: NullableEnumLotOwnershipTypeFieldUpdateOperationsInput | $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: NullableStringFieldUpdateOperationsInput | string | null
+    taxClearancePhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    transferCertificateOfTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    leaseContract?: NullableStringFieldUpdateOperationsInput | string | null
+    awardNotice?: NullableStringFieldUpdateOperationsInput | string | null
+    deedOfSale?: NullableStringFieldUpdateOperationsInput | string | null
+    memorandumOfAgreement?: NullableStringFieldUpdateOperationsInput | string | null
+    affidavitOfConsent?: NullableStringFieldUpdateOperationsInput | string | null
+    specialPowerOfAttorney?: NullableStringFieldUpdateOperationsInput | string | null
+    authorityToSign?: NullableStringFieldUpdateOperationsInput | string | null
+    lotPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    architecturalPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    professionalTaxReceipt?: NullableStringFieldUpdateOperationsInput | string | null
+    longFolder?: BoolFieldUpdateOperationsInput | boolean
+    projectDescriptionDoc?: NullableStringFieldUpdateOperationsInput | string | null
+    projectDescriptionPhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
+    representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
+    representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutZoningApplicationsNestedInput
+  }
+
+  export type ZoningApplicationUncheckedUpdateWithoutReviewedByUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationNo?: StringFieldUpdateOperationsInput | string
+    applicantName?: StringFieldUpdateOperationsInput | string
+    applicantAddress?: StringFieldUpdateOperationsInput | string
+    applicantContact?: StringFieldUpdateOperationsInput | string
+    applicantEmail?: StringFieldUpdateOperationsInput | string
+    projectDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    projectBoundaries?: NullableStringFieldUpdateOperationsInput | string | null
+    projectObjectives?: NullableStringFieldUpdateOperationsInput | string | null
+    zoningExceptionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isRepresentative?: BoolFieldUpdateOperationsInput | boolean
+    representativeName?: NullableStringFieldUpdateOperationsInput | string | null
+    lotOwnershipType?: NullableEnumLotOwnershipTypeFieldUpdateOperationsInput | $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: NullableStringFieldUpdateOperationsInput | string | null
+    taxClearancePhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    transferCertificateOfTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    leaseContract?: NullableStringFieldUpdateOperationsInput | string | null
+    awardNotice?: NullableStringFieldUpdateOperationsInput | string | null
+    deedOfSale?: NullableStringFieldUpdateOperationsInput | string | null
+    memorandumOfAgreement?: NullableStringFieldUpdateOperationsInput | string | null
+    affidavitOfConsent?: NullableStringFieldUpdateOperationsInput | string | null
+    specialPowerOfAttorney?: NullableStringFieldUpdateOperationsInput | string | null
+    authorityToSign?: NullableStringFieldUpdateOperationsInput | string | null
+    lotPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    architecturalPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    professionalTaxReceipt?: NullableStringFieldUpdateOperationsInput | string | null
+    longFolder?: BoolFieldUpdateOperationsInput | boolean
+    projectDescriptionDoc?: NullableStringFieldUpdateOperationsInput | string | null
+    projectDescriptionPhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
+    representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
+    representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ZoningApplicationUncheckedUpdateManyWithoutReviewedByUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationNo?: StringFieldUpdateOperationsInput | string
+    applicantName?: StringFieldUpdateOperationsInput | string
+    applicantAddress?: StringFieldUpdateOperationsInput | string
+    applicantContact?: StringFieldUpdateOperationsInput | string
+    applicantEmail?: StringFieldUpdateOperationsInput | string
+    projectDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    projectBoundaries?: NullableStringFieldUpdateOperationsInput | string | null
+    projectObjectives?: NullableStringFieldUpdateOperationsInput | string | null
+    zoningExceptionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isRepresentative?: BoolFieldUpdateOperationsInput | boolean
+    representativeName?: NullableStringFieldUpdateOperationsInput | string | null
+    lotOwnershipType?: NullableEnumLotOwnershipTypeFieldUpdateOperationsInput | $Enums.LotOwnershipType | null
+    taxClearanceOriginal?: NullableStringFieldUpdateOperationsInput | string | null
+    taxClearancePhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    transferCertificateOfTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    leaseContract?: NullableStringFieldUpdateOperationsInput | string | null
+    awardNotice?: NullableStringFieldUpdateOperationsInput | string | null
+    deedOfSale?: NullableStringFieldUpdateOperationsInput | string | null
+    memorandumOfAgreement?: NullableStringFieldUpdateOperationsInput | string | null
+    affidavitOfConsent?: NullableStringFieldUpdateOperationsInput | string | null
+    specialPowerOfAttorney?: NullableStringFieldUpdateOperationsInput | string | null
+    authorityToSign?: NullableStringFieldUpdateOperationsInput | string | null
+    lotPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    architecturalPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    professionalTaxReceipt?: NullableStringFieldUpdateOperationsInput | string | null
+    longFolder?: BoolFieldUpdateOperationsInput | boolean
+    projectDescriptionDoc?: NullableStringFieldUpdateOperationsInput | string | null
+    projectDescriptionPhotocopy?: NullableStringFieldUpdateOperationsInput | string | null
+    authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
+    representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
+    representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    approvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

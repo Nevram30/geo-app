@@ -239,6 +239,51 @@ exports.Prisma.AnalyticsReportScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ZoningApplicationScalarFieldEnum = {
+  id: 'id',
+  applicationNo: 'applicationNo',
+  applicantName: 'applicantName',
+  applicantAddress: 'applicantAddress',
+  applicantContact: 'applicantContact',
+  applicantEmail: 'applicantEmail',
+  projectDescription: 'projectDescription',
+  projectBoundaries: 'projectBoundaries',
+  projectObjectives: 'projectObjectives',
+  zoningExceptionReason: 'zoningExceptionReason',
+  isRepresentative: 'isRepresentative',
+  representativeName: 'representativeName',
+  lotOwnershipType: 'lotOwnershipType',
+  taxClearanceOriginal: 'taxClearanceOriginal',
+  taxClearancePhotocopy: 'taxClearancePhotocopy',
+  transferCertificateOfTitle: 'transferCertificateOfTitle',
+  leaseContract: 'leaseContract',
+  awardNotice: 'awardNotice',
+  deedOfSale: 'deedOfSale',
+  memorandumOfAgreement: 'memorandumOfAgreement',
+  affidavitOfConsent: 'affidavitOfConsent',
+  specialPowerOfAttorney: 'specialPowerOfAttorney',
+  authorityToSign: 'authorityToSign',
+  lotPlan: 'lotPlan',
+  architecturalPlan: 'architecturalPlan',
+  professionalTaxReceipt: 'professionalTaxReceipt',
+  longFolder: 'longFolder',
+  projectDescriptionDoc: 'projectDescriptionDoc',
+  projectDescriptionPhotocopy: 'projectDescriptionPhotocopy',
+  authorizationLetter: 'authorizationLetter',
+  representedPersonId: 'representedPersonId',
+  representativeId: 'representativeId',
+  status: 'status',
+  submittedAt: 'submittedAt',
+  reviewedAt: 'reviewedAt',
+  approvedAt: 'approvedAt',
+  rejectedAt: 'rejectedAt',
+  reviewedBy: 'reviewedBy',
+  remarks: 'remarks',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.PostScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -341,6 +386,24 @@ exports.HazardSeverity = exports.$Enums.HazardSeverity = {
   VERY_HIGH: 'VERY_HIGH'
 };
 
+exports.LotOwnershipType = exports.$Enums.LotOwnershipType = {
+  TRANSFER_CERTIFICATE_OF_TITLE: 'TRANSFER_CERTIFICATE_OF_TITLE',
+  LEASE_CONTRACT: 'LEASE_CONTRACT',
+  AWARD_NOTICE: 'AWARD_NOTICE',
+  DEED_OF_SALE: 'DEED_OF_SALE',
+  MEMORANDUM_OF_AGREEMENT: 'MEMORANDUM_OF_AGREEMENT',
+  AFFIDAVIT_OF_CONSENT: 'AFFIDAVIT_OF_CONSENT',
+  SPECIAL_POWER_OF_ATTORNEY: 'SPECIAL_POWER_OF_ATTORNEY'
+};
+
+exports.ZoningApplicationStatus = exports.$Enums.ZoningApplicationStatus = {
+  PENDING: 'PENDING',
+  UNDER_REVIEW: 'UNDER_REVIEW',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  REQUIRES_REVISION: 'REQUIRES_REVISION'
+};
+
 exports.UserRole = exports.$Enums.UserRole = {
   ADMIN: 'ADMIN',
   COMPLIANCE: 'COMPLIANCE',
@@ -357,6 +420,7 @@ exports.Prisma.ModelName = {
   ProximityRule: 'ProximityRule',
   PointOfInterest: 'PointOfInterest',
   AnalyticsReport: 'AnalyticsReport',
+  ZoningApplication: 'ZoningApplication',
   Post: 'Post',
   Account: 'Account',
   Session: 'Session',

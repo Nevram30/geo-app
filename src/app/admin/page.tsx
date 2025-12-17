@@ -1,78 +1,20 @@
-import { redirect } from "next/navigation";
-import { auth } from "~/server/auth";
 import Link from "next/link";
 
 export default async function AdminDashboard() {
-  const session = await auth();
 
-  if (!session?.user) {
-    redirect("/auth/signin");
-  }
-
-  if (session.user.role !== "ADMIN") {
-    redirect("/");
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-slate-50">
-      {/* Header */}
-      <header className="border-b border-slate-200 bg-white/80 shadow-sm backdrop-blur-sm">
-        <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-600 to-purple-700 shadow-lg shadow-purple-500/30">
-                <svg className="h-7 w-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-slate-900">ZoniTrack+</h1>
-                <p className="text-xs font-medium text-slate-500">Admin Dashboard</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="hidden sm:block text-right">
-                <p className="text-sm font-medium text-slate-900">{session.user.name}</p>
-                <p className="text-xs text-slate-500">{session.user.email}</p>
-              </div>
-              <Link
-                href="/api/auth/signout"
-                className="rounded-lg bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-200"
-              >
-                Sign Out
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
 
       {/* Main Content */}
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Welcome Section */}
-        <div className="mb-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-lg">
-          <div className="flex items-start gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-lg">
-              <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-            </div>
-            <div className="flex-1">
-              <h2 className="text-2xl font-bold text-slate-900">Welcome, {session.user.name}!</h2>
-              <p className="mt-2 text-slate-600">
-                You are logged in as an <span className="font-semibold text-purple-600">Admin User</span>. 
-                You have full access to review documents, manage applications, and oversee the entire system.
-              </p>
-            </div>
-          </div>
-        </div>
-
         {/* Quick Actions */}
         <div className="mb-8">
           <h3 className="mb-4 text-lg font-bold text-slate-900">Quick Actions</h3>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {/* Review Applications */}
             <Link
-              href="/applications"
+              href="/admin/applications"
               className="group rounded-2xl border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-purple-100 p-6 shadow-lg transition-all hover:border-purple-300 hover:shadow-xl"
             >
               <div className="flex items-start gap-4">

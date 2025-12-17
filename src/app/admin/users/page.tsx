@@ -138,7 +138,7 @@ export default function UserManagementPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-slate-50">
       {/* Header */}
-      <header className="border-b border-slate-200 bg-white/80 shadow-sm backdrop-blur-sm">
+      <header className="backdrop-blur-sm">
         <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">

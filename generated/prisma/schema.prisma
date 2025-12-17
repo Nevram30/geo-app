@@ -228,6 +228,102 @@ model AnalyticsReport {
   @@index([generatedBy])
 }
 
+// Zoning Application (COE - Certificate of Exception)
+model ZoningApplication {
+  id            String @id @default(cuid())
+  applicationNo String @unique
+
+  // Applicant Information
+  applicantName    String
+  applicantAddress String
+  applicantContact String
+  applicantEmail   String
+
+  // Project Information
+  projectDescription    String? @db.Text
+  projectBoundaries     String? @db.Text
+  projectObjectives     String? @db.Text
+  zoningExceptionReason String? @db.Text
+
+  // Representative Information
+  isRepresentative   Boolean @default(false)
+  representativeName String?
+
+  // Proof of Lot Ownership Type
+  lotOwnershipType LotOwnershipType?
+
+  // Document URLs (stored file paths/URLs)
+  // Required Documents
+  taxClearanceOriginal  String?
+  taxClearancePhotocopy String?
+
+  // Proof of Lot Ownership (one of these based on lotOwnershipType)
+  transferCertificateOfTitle String?
+  leaseContract              String?
+  awardNotice                String?
+  deedOfSale                 String?
+  memorandumOfAgreement      String?
+  affidavitOfConsent         String?
+  specialPowerOfAttorney     String?
+
+  // Other Required Documents
+  authorityToSign        String?
+  lotPlan                String?
+  architecturalPlan      String?
+  professionalTaxReceipt String?
+  longFolder             Boolean @default(false)
+
+  // COE Mandatory Requirements
+  projectDescriptionDoc       String?
+  projectDescriptionPhotocopy String?
+
+  // Representative Documents
+  authorizationLetter String?
+  representedPersonId String?
+  representativeId    String?
+
+  // Application Status
+  status      ZoningApplicationStatus @default(PENDING)
+  submittedAt DateTime                @default(now())
+  reviewedAt  DateTime?
+  approvedAt  DateTime?
+  rejectedAt  DateTime?
+
+  // Reviewer
+  reviewedBy     String?
+  reviewedByUser User?   @relation(fields: [reviewedBy], references: [id])
+  remarks        String? @db.Text
+
+  // User who submitted
+  userId String
+  user   User   @relation("UserApplications", fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([userId])
+  @@index([applicationNo])
+}
+
+enum LotOwnershipType {
+  TRANSFER_CERTIFICATE_OF_TITLE
+  LEASE_CONTRACT
+  AWARD_NOTICE
+  DEED_OF_SALE
+  MEMORANDUM_OF_AGREEMENT
+  AFFIDAVIT_OF_CONSENT
+  SPECIAL_POWER_OF_ATTORNEY
+}
+
+enum ZoningApplicationStatus {
+  PENDING
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  REQUIRES_REVISION
+}
+
 // ============================================
 // AUTHENTICATION MODELS (Next Auth)
 // ============================================
@@ -288,6 +384,10 @@ model User {
   // ZoniTrack+ relations
   reviewedBusinesses Business[]
   reports            AnalyticsReport[]
+
+  // Zoning Applications
+  zoningApplications         ZoningApplication[] @relation("UserApplications")
+  reviewedZoningApplications ZoningApplication[]
 }
 
 enum UserRole {
