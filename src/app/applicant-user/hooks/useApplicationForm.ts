@@ -49,6 +49,8 @@ export function useApplicationForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [submittedApplicationNo, setSubmittedApplicationNo] = useState<string | null>(null);
 
   // Handle applicant details change
   const handleApplicantDetailsChange = useCallback(
@@ -221,9 +223,9 @@ export function useApplicationForm() {
     [fieldErrors]
   );
 
-  // Handle file selection
+  // Handle file selection and upload to S3
   const handleFileSelect = useCallback(
-    (fieldKey: DocumentFieldKey, file: File) => {
+    async (fieldKey: DocumentFieldKey, file: File) => {
       const validation = fileSchema.safeParse(file);
 
       if (!validation.success) {
@@ -243,15 +245,63 @@ export function useApplicationForm() {
         preview = URL.createObjectURL(file);
       }
 
+      // Set uploading state
       setDocuments((prev) => ({
         ...prev,
         [fieldKey]: {
           file,
           preview,
           error: null,
-          isUploading: false,
+          isUploading: true,
+          uploadProgress: 0,
+          s3Url: null,
+          s3Key: null,
         },
       }));
+
+      try {
+        // Upload file through server API (avoids CORS issues)
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("fieldName", fieldKey);
+
+        const uploadResponse = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!uploadResponse.ok) {
+          const errorData = await uploadResponse.json().catch(() => ({})) as { error?: string };
+          throw new Error(errorData.error ?? `Upload failed (${uploadResponse.status})`);
+        }
+
+        const { key, url } = await uploadResponse.json() as {
+          key: string;
+          url: string;
+        };
+
+        // Update state with S3 URL
+        setDocuments((prev) => ({
+          ...prev,
+          [fieldKey]: {
+            ...prev[fieldKey],
+            isUploading: false,
+            uploadProgress: 100,
+            s3Url: url,
+            s3Key: key,
+          },
+        }));
+      } catch (error) {
+        setDocuments((prev) => ({
+          ...prev,
+          [fieldKey]: {
+            ...prev[fieldKey],
+            isUploading: false,
+            uploadProgress: 0,
+            error: error instanceof Error ? error.message : "Upload failed",
+          },
+        }));
+      }
     },
     []
   );
@@ -484,10 +534,10 @@ export function useApplicationForm() {
       }
       formData.append("signatureConfirmed", String(decisionDelivery.signatureConfirmed));
 
-      // Add documents
+      // Add document S3 URLs (files are already uploaded to S3)
       Object.entries(documents).forEach(([key, value]) => {
-        if (value.file) {
-          formData.append(key, value.file);
+        if (value.s3Url) {
+          formData.append(key, value.s3Url);
         }
       });
 
@@ -504,13 +554,9 @@ export function useApplicationForm() {
 
       const result = (await response.json()) as { applicationNo: string };
 
-      // Success
-      alert(
-        `Application submitted successfully! Application No: ${result.applicationNo}`
-      );
-
-      // Reset form or redirect
-      window.location.href = "/applicant-user/success";
+      // Success - set state for modal display
+      setSubmittedApplicationNo(result.applicationNo);
+      setIsSuccess(true);
     } catch (error) {
       setSubmitError(
         error instanceof Error ? error.message : "Failed to submit application"
@@ -535,6 +581,21 @@ export function useApplicationForm() {
   // Check if ready to submit
   const isReadyToSubmit = decisionDelivery.signatureConfirmed;
 
+  // Reset success state (for submitting another application)
+  const resetSuccess = useCallback(() => {
+    setIsSuccess(false);
+    setSubmittedApplicationNo(null);
+    setCurrentStep(1);
+    setApplicantDetails(initialApplicantDetails);
+    setProjectInformation(initialProjectInformation);
+    setZoningNotice(initialZoningNotice);
+    setSimilarApplication(initialSimilarApplication);
+    setDecisionDelivery(initialDecisionDelivery);
+    setDocuments(initialDocumentsState);
+    setSubmitError(null);
+    setFieldErrors({});
+  }, []);
+
   return {
     // State
     currentStep,
@@ -547,6 +608,8 @@ export function useApplicationForm() {
     isSubmitting,
     submitError,
     fieldErrors,
+    isSuccess,
+    submittedApplicationNo,
 
     // Handlers
     handleApplicantDetailsChange,
@@ -564,6 +627,7 @@ export function useApplicationForm() {
     nextStep,
     prevStep,
     handleSubmit,
+    resetSuccess,
 
     // Computed
     isReadyToSubmit,

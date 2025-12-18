@@ -12832,6 +12832,11 @@ export namespace Prisma {
     authorizationLetter: string | null
     representedPersonId: string | null
     representativeId: string | null
+    proofOfOwnership: string | null
+    taxDeclaration: string | null
+    vicinityMap: string | null
+    siteDevelopmentPlan: string | null
+    otherDocuments: string | null
     status: $Enums.ZoningApplicationStatus | null
     submittedAt: Date | null
     reviewedAt: Date | null
@@ -12877,6 +12882,11 @@ export namespace Prisma {
     authorizationLetter: string | null
     representedPersonId: string | null
     representativeId: string | null
+    proofOfOwnership: string | null
+    taxDeclaration: string | null
+    vicinityMap: string | null
+    siteDevelopmentPlan: string | null
+    otherDocuments: string | null
     status: $Enums.ZoningApplicationStatus | null
     submittedAt: Date | null
     reviewedAt: Date | null
@@ -12922,6 +12932,11 @@ export namespace Prisma {
     authorizationLetter: number
     representedPersonId: number
     representativeId: number
+    proofOfOwnership: number
+    taxDeclaration: number
+    vicinityMap: number
+    siteDevelopmentPlan: number
+    otherDocuments: number
     status: number
     submittedAt: number
     reviewedAt: number
@@ -12969,6 +12984,11 @@ export namespace Prisma {
     authorizationLetter?: true
     representedPersonId?: true
     representativeId?: true
+    proofOfOwnership?: true
+    taxDeclaration?: true
+    vicinityMap?: true
+    siteDevelopmentPlan?: true
+    otherDocuments?: true
     status?: true
     submittedAt?: true
     reviewedAt?: true
@@ -13014,6 +13034,11 @@ export namespace Prisma {
     authorizationLetter?: true
     representedPersonId?: true
     representativeId?: true
+    proofOfOwnership?: true
+    taxDeclaration?: true
+    vicinityMap?: true
+    siteDevelopmentPlan?: true
+    otherDocuments?: true
     status?: true
     submittedAt?: true
     reviewedAt?: true
@@ -13059,6 +13084,11 @@ export namespace Prisma {
     authorizationLetter?: true
     representedPersonId?: true
     representativeId?: true
+    proofOfOwnership?: true
+    taxDeclaration?: true
+    vicinityMap?: true
+    siteDevelopmentPlan?: true
+    otherDocuments?: true
     status?: true
     submittedAt?: true
     reviewedAt?: true
@@ -13177,6 +13207,11 @@ export namespace Prisma {
     authorizationLetter: string | null
     representedPersonId: string | null
     representativeId: string | null
+    proofOfOwnership: string | null
+    taxDeclaration: string | null
+    vicinityMap: string | null
+    siteDevelopmentPlan: string | null
+    otherDocuments: string | null
     status: $Enums.ZoningApplicationStatus
     submittedAt: Date
     reviewedAt: Date | null
@@ -13239,6 +13274,11 @@ export namespace Prisma {
     authorizationLetter?: boolean
     representedPersonId?: boolean
     representativeId?: boolean
+    proofOfOwnership?: boolean
+    taxDeclaration?: boolean
+    vicinityMap?: boolean
+    siteDevelopmentPlan?: boolean
+    otherDocuments?: boolean
     status?: boolean
     submittedAt?: boolean
     reviewedAt?: boolean
@@ -13286,6 +13326,11 @@ export namespace Prisma {
     authorizationLetter?: boolean
     representedPersonId?: boolean
     representativeId?: boolean
+    proofOfOwnership?: boolean
+    taxDeclaration?: boolean
+    vicinityMap?: boolean
+    siteDevelopmentPlan?: boolean
+    otherDocuments?: boolean
     status?: boolean
     submittedAt?: boolean
     reviewedAt?: boolean
@@ -13333,6 +13378,11 @@ export namespace Prisma {
     authorizationLetter?: boolean
     representedPersonId?: boolean
     representativeId?: boolean
+    proofOfOwnership?: boolean
+    taxDeclaration?: boolean
+    vicinityMap?: boolean
+    siteDevelopmentPlan?: boolean
+    otherDocuments?: boolean
     status?: boolean
     submittedAt?: boolean
     reviewedAt?: boolean
@@ -13380,6 +13430,11 @@ export namespace Prisma {
     authorizationLetter?: boolean
     representedPersonId?: boolean
     representativeId?: boolean
+    proofOfOwnership?: boolean
+    taxDeclaration?: boolean
+    vicinityMap?: boolean
+    siteDevelopmentPlan?: boolean
+    otherDocuments?: boolean
     status?: boolean
     submittedAt?: boolean
     reviewedAt?: boolean
@@ -13392,7 +13447,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type ZoningApplicationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "applicationNo" | "applicantName" | "applicantAddress" | "applicantContact" | "applicantEmail" | "projectDescription" | "projectBoundaries" | "projectObjectives" | "zoningExceptionReason" | "isRepresentative" | "representativeName" | "lotOwnershipType" | "taxClearanceOriginal" | "taxClearancePhotocopy" | "transferCertificateOfTitle" | "leaseContract" | "awardNotice" | "deedOfSale" | "memorandumOfAgreement" | "affidavitOfConsent" | "specialPowerOfAttorney" | "authorityToSign" | "lotPlan" | "architecturalPlan" | "professionalTaxReceipt" | "longFolder" | "projectDescriptionDoc" | "projectDescriptionPhotocopy" | "authorizationLetter" | "representedPersonId" | "representativeId" | "status" | "submittedAt" | "reviewedAt" | "approvedAt" | "rejectedAt" | "reviewedBy" | "remarks" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["zoningApplication"]>
+  export type ZoningApplicationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "applicationNo" | "applicantName" | "applicantAddress" | "applicantContact" | "applicantEmail" | "projectDescription" | "projectBoundaries" | "projectObjectives" | "zoningExceptionReason" | "isRepresentative" | "representativeName" | "lotOwnershipType" | "taxClearanceOriginal" | "taxClearancePhotocopy" | "transferCertificateOfTitle" | "leaseContract" | "awardNotice" | "deedOfSale" | "memorandumOfAgreement" | "affidavitOfConsent" | "specialPowerOfAttorney" | "authorityToSign" | "lotPlan" | "architecturalPlan" | "professionalTaxReceipt" | "longFolder" | "projectDescriptionDoc" | "projectDescriptionPhotocopy" | "authorizationLetter" | "representedPersonId" | "representativeId" | "proofOfOwnership" | "taxDeclaration" | "vicinityMap" | "siteDevelopmentPlan" | "otherDocuments" | "status" | "submittedAt" | "reviewedAt" | "approvedAt" | "rejectedAt" | "reviewedBy" | "remarks" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["zoningApplication"]>
   export type ZoningApplicationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reviewedByUser?: boolean | ZoningApplication$reviewedByUserArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -13445,6 +13500,11 @@ export namespace Prisma {
       authorizationLetter: string | null
       representedPersonId: string | null
       representativeId: string | null
+      proofOfOwnership: string | null
+      taxDeclaration: string | null
+      vicinityMap: string | null
+      siteDevelopmentPlan: string | null
+      otherDocuments: string | null
       status: $Enums.ZoningApplicationStatus
       submittedAt: Date
       reviewedAt: Date | null
@@ -13912,6 +13972,11 @@ export namespace Prisma {
     readonly authorizationLetter: FieldRef<"ZoningApplication", 'String'>
     readonly representedPersonId: FieldRef<"ZoningApplication", 'String'>
     readonly representativeId: FieldRef<"ZoningApplication", 'String'>
+    readonly proofOfOwnership: FieldRef<"ZoningApplication", 'String'>
+    readonly taxDeclaration: FieldRef<"ZoningApplication", 'String'>
+    readonly vicinityMap: FieldRef<"ZoningApplication", 'String'>
+    readonly siteDevelopmentPlan: FieldRef<"ZoningApplication", 'String'>
+    readonly otherDocuments: FieldRef<"ZoningApplication", 'String'>
     readonly status: FieldRef<"ZoningApplication", 'ZoningApplicationStatus'>
     readonly submittedAt: FieldRef<"ZoningApplication", 'DateTime'>
     readonly reviewedAt: FieldRef<"ZoningApplication", 'DateTime'>
@@ -20143,6 +20208,11 @@ export namespace Prisma {
     authorizationLetter: 'authorizationLetter',
     representedPersonId: 'representedPersonId',
     representativeId: 'representativeId',
+    proofOfOwnership: 'proofOfOwnership',
+    taxDeclaration: 'taxDeclaration',
+    vicinityMap: 'vicinityMap',
+    siteDevelopmentPlan: 'siteDevelopmentPlan',
+    otherDocuments: 'otherDocuments',
     status: 'status',
     submittedAt: 'submittedAt',
     reviewedAt: 'reviewedAt',
@@ -21221,6 +21291,11 @@ export namespace Prisma {
     authorizationLetter?: StringNullableFilter<"ZoningApplication"> | string | null
     representedPersonId?: StringNullableFilter<"ZoningApplication"> | string | null
     representativeId?: StringNullableFilter<"ZoningApplication"> | string | null
+    proofOfOwnership?: StringNullableFilter<"ZoningApplication"> | string | null
+    taxDeclaration?: StringNullableFilter<"ZoningApplication"> | string | null
+    vicinityMap?: StringNullableFilter<"ZoningApplication"> | string | null
+    siteDevelopmentPlan?: StringNullableFilter<"ZoningApplication"> | string | null
+    otherDocuments?: StringNullableFilter<"ZoningApplication"> | string | null
     status?: EnumZoningApplicationStatusFilter<"ZoningApplication"> | $Enums.ZoningApplicationStatus
     submittedAt?: DateTimeFilter<"ZoningApplication"> | Date | string
     reviewedAt?: DateTimeNullableFilter<"ZoningApplication"> | Date | string | null
@@ -21268,6 +21343,11 @@ export namespace Prisma {
     authorizationLetter?: SortOrderInput | SortOrder
     representedPersonId?: SortOrderInput | SortOrder
     representativeId?: SortOrderInput | SortOrder
+    proofOfOwnership?: SortOrderInput | SortOrder
+    taxDeclaration?: SortOrderInput | SortOrder
+    vicinityMap?: SortOrderInput | SortOrder
+    siteDevelopmentPlan?: SortOrderInput | SortOrder
+    otherDocuments?: SortOrderInput | SortOrder
     status?: SortOrder
     submittedAt?: SortOrder
     reviewedAt?: SortOrderInput | SortOrder
@@ -21318,6 +21398,11 @@ export namespace Prisma {
     authorizationLetter?: StringNullableFilter<"ZoningApplication"> | string | null
     representedPersonId?: StringNullableFilter<"ZoningApplication"> | string | null
     representativeId?: StringNullableFilter<"ZoningApplication"> | string | null
+    proofOfOwnership?: StringNullableFilter<"ZoningApplication"> | string | null
+    taxDeclaration?: StringNullableFilter<"ZoningApplication"> | string | null
+    vicinityMap?: StringNullableFilter<"ZoningApplication"> | string | null
+    siteDevelopmentPlan?: StringNullableFilter<"ZoningApplication"> | string | null
+    otherDocuments?: StringNullableFilter<"ZoningApplication"> | string | null
     status?: EnumZoningApplicationStatusFilter<"ZoningApplication"> | $Enums.ZoningApplicationStatus
     submittedAt?: DateTimeFilter<"ZoningApplication"> | Date | string
     reviewedAt?: DateTimeNullableFilter<"ZoningApplication"> | Date | string | null
@@ -21365,6 +21450,11 @@ export namespace Prisma {
     authorizationLetter?: SortOrderInput | SortOrder
     representedPersonId?: SortOrderInput | SortOrder
     representativeId?: SortOrderInput | SortOrder
+    proofOfOwnership?: SortOrderInput | SortOrder
+    taxDeclaration?: SortOrderInput | SortOrder
+    vicinityMap?: SortOrderInput | SortOrder
+    siteDevelopmentPlan?: SortOrderInput | SortOrder
+    otherDocuments?: SortOrderInput | SortOrder
     status?: SortOrder
     submittedAt?: SortOrder
     reviewedAt?: SortOrderInput | SortOrder
@@ -21416,6 +21506,11 @@ export namespace Prisma {
     authorizationLetter?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
     representedPersonId?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
     representativeId?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    proofOfOwnership?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    taxDeclaration?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    vicinityMap?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    siteDevelopmentPlan?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
+    otherDocuments?: StringNullableWithAggregatesFilter<"ZoningApplication"> | string | null
     status?: EnumZoningApplicationStatusWithAggregatesFilter<"ZoningApplication"> | $Enums.ZoningApplicationStatus
     submittedAt?: DateTimeWithAggregatesFilter<"ZoningApplication"> | Date | string
     reviewedAt?: DateTimeNullableWithAggregatesFilter<"ZoningApplication"> | Date | string | null
@@ -22641,6 +22736,11 @@ export namespace Prisma {
     authorizationLetter?: string | null
     representedPersonId?: string | null
     representativeId?: string | null
+    proofOfOwnership?: string | null
+    taxDeclaration?: string | null
+    vicinityMap?: string | null
+    siteDevelopmentPlan?: string | null
+    otherDocuments?: string | null
     status?: $Enums.ZoningApplicationStatus
     submittedAt?: Date | string
     reviewedAt?: Date | string | null
@@ -22686,6 +22786,11 @@ export namespace Prisma {
     authorizationLetter?: string | null
     representedPersonId?: string | null
     representativeId?: string | null
+    proofOfOwnership?: string | null
+    taxDeclaration?: string | null
+    vicinityMap?: string | null
+    siteDevelopmentPlan?: string | null
+    otherDocuments?: string | null
     status?: $Enums.ZoningApplicationStatus
     submittedAt?: Date | string
     reviewedAt?: Date | string | null
@@ -22731,6 +22836,11 @@ export namespace Prisma {
     authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
     representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
     representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfOwnership?: NullableStringFieldUpdateOperationsInput | string | null
+    taxDeclaration?: NullableStringFieldUpdateOperationsInput | string | null
+    vicinityMap?: NullableStringFieldUpdateOperationsInput | string | null
+    siteDevelopmentPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    otherDocuments?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22776,6 +22886,11 @@ export namespace Prisma {
     authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
     representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
     representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfOwnership?: NullableStringFieldUpdateOperationsInput | string | null
+    taxDeclaration?: NullableStringFieldUpdateOperationsInput | string | null
+    vicinityMap?: NullableStringFieldUpdateOperationsInput | string | null
+    siteDevelopmentPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    otherDocuments?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22821,6 +22936,11 @@ export namespace Prisma {
     authorizationLetter?: string | null
     representedPersonId?: string | null
     representativeId?: string | null
+    proofOfOwnership?: string | null
+    taxDeclaration?: string | null
+    vicinityMap?: string | null
+    siteDevelopmentPlan?: string | null
+    otherDocuments?: string | null
     status?: $Enums.ZoningApplicationStatus
     submittedAt?: Date | string
     reviewedAt?: Date | string | null
@@ -22866,6 +22986,11 @@ export namespace Prisma {
     authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
     representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
     representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfOwnership?: NullableStringFieldUpdateOperationsInput | string | null
+    taxDeclaration?: NullableStringFieldUpdateOperationsInput | string | null
+    vicinityMap?: NullableStringFieldUpdateOperationsInput | string | null
+    siteDevelopmentPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    otherDocuments?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22909,6 +23034,11 @@ export namespace Prisma {
     authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
     representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
     representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfOwnership?: NullableStringFieldUpdateOperationsInput | string | null
+    taxDeclaration?: NullableStringFieldUpdateOperationsInput | string | null
+    vicinityMap?: NullableStringFieldUpdateOperationsInput | string | null
+    siteDevelopmentPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    otherDocuments?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -24148,6 +24278,11 @@ export namespace Prisma {
     authorizationLetter?: SortOrder
     representedPersonId?: SortOrder
     representativeId?: SortOrder
+    proofOfOwnership?: SortOrder
+    taxDeclaration?: SortOrder
+    vicinityMap?: SortOrder
+    siteDevelopmentPlan?: SortOrder
+    otherDocuments?: SortOrder
     status?: SortOrder
     submittedAt?: SortOrder
     reviewedAt?: SortOrder
@@ -24193,6 +24328,11 @@ export namespace Prisma {
     authorizationLetter?: SortOrder
     representedPersonId?: SortOrder
     representativeId?: SortOrder
+    proofOfOwnership?: SortOrder
+    taxDeclaration?: SortOrder
+    vicinityMap?: SortOrder
+    siteDevelopmentPlan?: SortOrder
+    otherDocuments?: SortOrder
     status?: SortOrder
     submittedAt?: SortOrder
     reviewedAt?: SortOrder
@@ -24238,6 +24378,11 @@ export namespace Prisma {
     authorizationLetter?: SortOrder
     representedPersonId?: SortOrder
     representativeId?: SortOrder
+    proofOfOwnership?: SortOrder
+    taxDeclaration?: SortOrder
+    vicinityMap?: SortOrder
+    siteDevelopmentPlan?: SortOrder
+    otherDocuments?: SortOrder
     status?: SortOrder
     submittedAt?: SortOrder
     reviewedAt?: SortOrder
@@ -27194,6 +27339,11 @@ export namespace Prisma {
     authorizationLetter?: string | null
     representedPersonId?: string | null
     representativeId?: string | null
+    proofOfOwnership?: string | null
+    taxDeclaration?: string | null
+    vicinityMap?: string | null
+    siteDevelopmentPlan?: string | null
+    otherDocuments?: string | null
     status?: $Enums.ZoningApplicationStatus
     submittedAt?: Date | string
     reviewedAt?: Date | string | null
@@ -27238,6 +27388,11 @@ export namespace Prisma {
     authorizationLetter?: string | null
     representedPersonId?: string | null
     representativeId?: string | null
+    proofOfOwnership?: string | null
+    taxDeclaration?: string | null
+    vicinityMap?: string | null
+    siteDevelopmentPlan?: string | null
+    otherDocuments?: string | null
     status?: $Enums.ZoningApplicationStatus
     submittedAt?: Date | string
     reviewedAt?: Date | string | null
@@ -27292,6 +27447,11 @@ export namespace Prisma {
     authorizationLetter?: string | null
     representedPersonId?: string | null
     representativeId?: string | null
+    proofOfOwnership?: string | null
+    taxDeclaration?: string | null
+    vicinityMap?: string | null
+    siteDevelopmentPlan?: string | null
+    otherDocuments?: string | null
     status?: $Enums.ZoningApplicationStatus
     submittedAt?: Date | string
     reviewedAt?: Date | string | null
@@ -27336,6 +27496,11 @@ export namespace Prisma {
     authorizationLetter?: string | null
     representedPersonId?: string | null
     representativeId?: string | null
+    proofOfOwnership?: string | null
+    taxDeclaration?: string | null
+    vicinityMap?: string | null
+    siteDevelopmentPlan?: string | null
+    otherDocuments?: string | null
     status?: $Enums.ZoningApplicationStatus
     submittedAt?: Date | string
     reviewedAt?: Date | string | null
@@ -27542,6 +27707,11 @@ export namespace Prisma {
     authorizationLetter?: StringNullableFilter<"ZoningApplication"> | string | null
     representedPersonId?: StringNullableFilter<"ZoningApplication"> | string | null
     representativeId?: StringNullableFilter<"ZoningApplication"> | string | null
+    proofOfOwnership?: StringNullableFilter<"ZoningApplication"> | string | null
+    taxDeclaration?: StringNullableFilter<"ZoningApplication"> | string | null
+    vicinityMap?: StringNullableFilter<"ZoningApplication"> | string | null
+    siteDevelopmentPlan?: StringNullableFilter<"ZoningApplication"> | string | null
+    otherDocuments?: StringNullableFilter<"ZoningApplication"> | string | null
     status?: EnumZoningApplicationStatusFilter<"ZoningApplication"> | $Enums.ZoningApplicationStatus
     submittedAt?: DateTimeFilter<"ZoningApplication"> | Date | string
     reviewedAt?: DateTimeNullableFilter<"ZoningApplication"> | Date | string | null
@@ -28059,6 +28229,11 @@ export namespace Prisma {
     authorizationLetter?: string | null
     representedPersonId?: string | null
     representativeId?: string | null
+    proofOfOwnership?: string | null
+    taxDeclaration?: string | null
+    vicinityMap?: string | null
+    siteDevelopmentPlan?: string | null
+    otherDocuments?: string | null
     status?: $Enums.ZoningApplicationStatus
     submittedAt?: Date | string
     reviewedAt?: Date | string | null
@@ -28103,6 +28278,11 @@ export namespace Prisma {
     authorizationLetter?: string | null
     representedPersonId?: string | null
     representativeId?: string | null
+    proofOfOwnership?: string | null
+    taxDeclaration?: string | null
+    vicinityMap?: string | null
+    siteDevelopmentPlan?: string | null
+    otherDocuments?: string | null
     status?: $Enums.ZoningApplicationStatus
     submittedAt?: Date | string
     reviewedAt?: Date | string | null
@@ -28332,6 +28512,11 @@ export namespace Prisma {
     authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
     representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
     representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfOwnership?: NullableStringFieldUpdateOperationsInput | string | null
+    taxDeclaration?: NullableStringFieldUpdateOperationsInput | string | null
+    vicinityMap?: NullableStringFieldUpdateOperationsInput | string | null
+    siteDevelopmentPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    otherDocuments?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -28376,6 +28561,11 @@ export namespace Prisma {
     authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
     representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
     representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfOwnership?: NullableStringFieldUpdateOperationsInput | string | null
+    taxDeclaration?: NullableStringFieldUpdateOperationsInput | string | null
+    vicinityMap?: NullableStringFieldUpdateOperationsInput | string | null
+    siteDevelopmentPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    otherDocuments?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -28420,6 +28610,11 @@ export namespace Prisma {
     authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
     representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
     representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfOwnership?: NullableStringFieldUpdateOperationsInput | string | null
+    taxDeclaration?: NullableStringFieldUpdateOperationsInput | string | null
+    vicinityMap?: NullableStringFieldUpdateOperationsInput | string | null
+    siteDevelopmentPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    otherDocuments?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -28464,6 +28659,11 @@ export namespace Prisma {
     authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
     representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
     representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfOwnership?: NullableStringFieldUpdateOperationsInput | string | null
+    taxDeclaration?: NullableStringFieldUpdateOperationsInput | string | null
+    vicinityMap?: NullableStringFieldUpdateOperationsInput | string | null
+    siteDevelopmentPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    otherDocuments?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -28508,6 +28708,11 @@ export namespace Prisma {
     authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
     representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
     representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfOwnership?: NullableStringFieldUpdateOperationsInput | string | null
+    taxDeclaration?: NullableStringFieldUpdateOperationsInput | string | null
+    vicinityMap?: NullableStringFieldUpdateOperationsInput | string | null
+    siteDevelopmentPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    otherDocuments?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -28552,6 +28757,11 @@ export namespace Prisma {
     authorizationLetter?: NullableStringFieldUpdateOperationsInput | string | null
     representedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
     representativeId?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfOwnership?: NullableStringFieldUpdateOperationsInput | string | null
+    taxDeclaration?: NullableStringFieldUpdateOperationsInput | string | null
+    vicinityMap?: NullableStringFieldUpdateOperationsInput | string | null
+    siteDevelopmentPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    otherDocuments?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumZoningApplicationStatusFieldUpdateOperationsInput | $Enums.ZoningApplicationStatus
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

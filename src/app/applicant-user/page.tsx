@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { StepIndicator, ApplicantNavigation } from "./components";
+import { useRouter } from "next/navigation";
+import { StepIndicator, ApplicantNavigation, SuccessModal } from "./components";
 import { useApplicationForm } from "./hooks";
 import {
   ApplicantCorporationStep,
@@ -15,6 +16,7 @@ import {
 const TOTAL_STEPS = 6;
 
 const ApplicantUserPage: React.FC = () => {
+  const router = useRouter();
   const {
     currentStep,
     applicantDetails,
@@ -26,6 +28,8 @@ const ApplicantUserPage: React.FC = () => {
     isSubmitting,
     submitError,
     fieldErrors,
+    isSuccess,
+    submittedApplicationNo,
     handleApplicantDetailsChange,
     handleProjectInformationChange,
     handleProjectInformationSelectChange,
@@ -41,6 +45,7 @@ const ApplicantUserPage: React.FC = () => {
     nextStep,
     prevStep,
     handleSubmit,
+    resetSuccess,
     isReadyToSubmit,
   } = useApplicationForm();
 
@@ -112,6 +117,14 @@ const ApplicantUserPage: React.FC = () => {
 
   return (
     <div className="py-8 px-4">
+      {/* Success Modal */}
+      <SuccessModal
+        isOpen={isSuccess}
+        applicationNo={submittedApplicationNo ?? ""}
+        onClose={resetSuccess}
+        onViewApplications={() => router.push("/applicant-user/my-applications")}
+      />
+
       <div className="mx-auto max-w-4xl">
         {/* Navigation */}
         <div className="mb-6">

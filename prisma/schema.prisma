@@ -282,6 +282,13 @@ model ZoningApplication {
     representedPersonId      String?
     representativeId         String?
 
+    // Supporting Documents (uploaded to S3)
+    proofOfOwnership         String?
+    taxDeclaration           String?
+    vicinityMap              String?
+    siteDevelopmentPlan      String?
+    otherDocuments           String?
+
     // Application Status
     status            ZoningApplicationStatus @default(SUBMITTED)
     submittedAt       DateTime   @default(now())

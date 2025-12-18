@@ -2,3 +2,4 @@ export { FormField } from "./FormField";
 export { FileUpload } from "./FileUpload";
 export { StepIndicator } from "./StepIndicator";
 export { ApplicantNavigation } from "./ApplicantNavigation";
+export { SuccessModal } from "./SuccessModal";

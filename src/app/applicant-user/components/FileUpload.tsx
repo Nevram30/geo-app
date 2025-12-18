@@ -14,7 +14,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   onFileRemove,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { file, preview, error, isUploading } = state;
+  const { file, preview, error, isUploading, uploadProgress, s3Url } = state;
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -98,7 +98,15 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         {isUploading ? (
           <div className="flex flex-col items-center py-4">
             <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
-            <p className="mt-2 text-sm text-gray-600">Uploading...</p>
+            <p className="mt-2 text-sm text-gray-600">Uploading to cloud...</p>
+            <div className="mt-2 w-full max-w-xs">
+              <div className="h-2 w-full rounded-full bg-gray-200">
+                <div
+                  className="h-2 rounded-full bg-blue-500 transition-all duration-300"
+                  style={{ width: `${uploadProgress}%` }}
+                ></div>
+              </div>
+            </div>
           </div>
         ) : file ? (
           <div className="flex items-center justify-between">
@@ -135,6 +143,14 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                 <p className="text-xs text-gray-500">
                   {formatFileSize(file.size)}
                 </p>
+                {s3Url && (
+                  <p className="text-xs text-green-600 flex items-center gap-1 mt-1">
+                    <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Uploaded to cloud
+                  </p>
+                )}
               </div>
             </div>
             <button

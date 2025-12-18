@@ -69,6 +69,9 @@ export interface FileUploadState {
   preview: string | null;
   error: string | null;
   isUploading: boolean;
+  uploadProgress: number;
+  s3Url: string | null;
+  s3Key: string | null;
 }
 
 // All documents state
@@ -142,6 +145,9 @@ export const initialFileUploadState: FileUploadState = {
   preview: null,
   error: null,
   isUploading: false,
+  uploadProgress: 0,
+  s3Url: null,
+  s3Key: null,
 };
 
 // Initial documents state

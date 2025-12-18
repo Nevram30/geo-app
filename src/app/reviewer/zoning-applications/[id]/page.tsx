@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { api } from "~/trpc/react";
 
 type ApplicationStatus = "SUBMITTED" | "REVIEWING" | "REJECTED" | "APPROVED" | "FOR_EVALUATION";
@@ -44,7 +44,6 @@ const STATUS_FLOW: ApplicationStatus[] = ["SUBMITTED", "REVIEWING", "REJECTED", 
 
 const ReviewerApplicationDetailPage: React.FC = () => {
   const params = useParams();
-  const router = useRouter();
   const id = params.id as string;
 
   const [selectedStatus, setSelectedStatus] = useState<ApplicationStatus | "">("");
