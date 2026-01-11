@@ -4,23 +4,25 @@ import { useState } from "react";
 import Link from "next/link";
 import { api } from "~/trpc/react";
 
+type ZoningApplicationStatus = "SUBMITTED" | "REVIEWING" | "REJECTED" | "APPROVED" | "FOR_EVALUATION";
+
 export default function ApplicationsPage() {
-  const [filter, setFilter] = useState<"ALL" | "PENDING" | "APPROVED" | "REJECTED" | "UNDER_REVIEW">("ALL");
+  const [filter, setFilter] = useState<"ALL" | ZoningApplicationStatus>("ALL");
   const [searchQuery, setSearchQuery] = useState("");
-  
-  const { data: businesses, isLoading } = api.business.getAll.useQuery(
+
+  const { data: applications, isLoading } = api.zoningApplication.getAll.useQuery(
     filter === "ALL" ? undefined : { status: filter }
   );
-  const { data: stats } = api.business.getStats.useQuery();
+  const { data: stats } = api.zoningApplication.getStats.useQuery();
 
-  // Filter businesses based on search query
-  const filteredBusinesses = businesses?.filter((business) => {
+  // Filter applications based on search query
+  const filteredApplications = applications?.filter((application) => {
     const searchLower = searchQuery.toLowerCase();
     return (
-      business.businessName.toLowerCase().includes(searchLower) ||
-      business.ownerName.toLowerCase().includes(searchLower) ||
-      business.applicationNo.toLowerCase().includes(searchLower) ||
-      business.barangay.name.toLowerCase().includes(searchLower)
+      application.applicantName.toLowerCase().includes(searchLower) ||
+      application.applicantEmail.toLowerCase().includes(searchLower) ||
+      application.applicationNo.toLowerCase().includes(searchLower) ||
+      application.applicantContact.toLowerCase().includes(searchLower)
     );
   });
 
@@ -28,14 +30,14 @@ export default function ApplicationsPage() {
     switch (status) {
       case "APPROVED":
         return "bg-green-100 text-green-800 border-green-200";
-      case "PENDING":
+      case "SUBMITTED":
         return "bg-yellow-100 text-yellow-800 border-yellow-200";
-      case "UNDER_REVIEW":
+      case "REVIEWING":
         return "bg-blue-100 text-blue-800 border-blue-200";
       case "REJECTED":
         return "bg-red-100 text-red-800 border-red-200";
-      case "REQUIRES_REVISION":
-        return "bg-orange-100 text-orange-800 border-orange-200";
+      case "FOR_EVALUATION":
+        return "bg-purple-100 text-purple-800 border-purple-200";
       default:
         return "bg-gray-100 text-gray-800 border-gray-200";
     }
@@ -49,13 +51,13 @@ export default function ApplicationsPage() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         );
-      case "PENDING":
+      case "SUBMITTED":
         return (
           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         );
-      case "UNDER_REVIEW":
+      case "REVIEWING":
         return (
           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -68,6 +70,12 @@ export default function ApplicationsPage() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         );
+      case "FOR_EVALUATION":
+        return (
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+          </svg>
+        );
       default:
         return (
           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -77,12 +85,17 @@ export default function ApplicationsPage() {
     }
   };
 
+  // Check if Evaluate button should be enabled (only for FOR_EVALUATION status)
+  const isEvaluateEnabled = (status: string) => {
+    return status === "FOR_EVALUATION";
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <div className="mx-auto max-w-screen-2xl px-6 py-8">
         {/* Statistics Cards */}
         {stats && (
-          <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
             <div className="group rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:shadow-lg">
               <div className="flex items-center justify-between">
                 <div>
@@ -96,12 +109,12 @@ export default function ApplicationsPage() {
                 </div>
               </div>
             </div>
-            
+
             <div className="group rounded-xl border border-yellow-200 bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 shadow-sm transition-all hover:shadow-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-3xl font-bold text-yellow-900">{stats.pending}</div>
-                  <div className="mt-1 text-sm font-medium text-yellow-700">Pending</div>
+                  <div className="text-3xl font-bold text-yellow-900">{stats.submitted}</div>
+                  <div className="mt-1 text-sm font-medium text-yellow-700">Submitted</div>
                 </div>
                 <div className="rounded-lg bg-yellow-200 p-3">
                   <svg className="h-6 w-6 text-yellow-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -110,12 +123,12 @@ export default function ApplicationsPage() {
                 </div>
               </div>
             </div>
-            
+
             <div className="group rounded-xl border border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100 p-6 shadow-sm transition-all hover:shadow-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-3xl font-bold text-blue-900">{stats.underReview}</div>
-                  <div className="mt-1 text-sm font-medium text-blue-700">Under Review</div>
+                  <div className="text-3xl font-bold text-blue-900">{stats.reviewing}</div>
+                  <div className="mt-1 text-sm font-medium text-blue-700">Reviewing</div>
                 </div>
                 <div className="rounded-lg bg-blue-200 p-3">
                   <svg className="h-6 w-6 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -125,7 +138,21 @@ export default function ApplicationsPage() {
                 </div>
               </div>
             </div>
-            
+
+            <div className="group rounded-xl border border-purple-200 bg-gradient-to-br from-purple-50 to-purple-100 p-6 shadow-sm transition-all hover:shadow-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-3xl font-bold text-purple-900">{stats.forEvaluation}</div>
+                  <div className="mt-1 text-sm font-medium text-purple-700">For Evaluation</div>
+                </div>
+                <div className="rounded-lg bg-purple-200 p-3">
+                  <svg className="h-6 w-6 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
             <div className="group rounded-xl border border-green-200 bg-gradient-to-br from-green-50 to-green-100 p-6 shadow-sm transition-all hover:shadow-lg">
               <div className="flex items-center justify-between">
                 <div>
@@ -139,7 +166,7 @@ export default function ApplicationsPage() {
                 </div>
               </div>
             </div>
-            
+
             <div className="group rounded-xl border border-red-200 bg-gradient-to-br from-red-50 to-red-100 p-6 shadow-sm transition-all hover:shadow-lg">
               <div className="flex items-center justify-between">
                 <div>
@@ -161,10 +188,10 @@ export default function ApplicationsPage() {
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-lg font-bold text-slate-900">Filter Applications</h2>
             <span className="text-sm text-slate-600">
-              {filteredBusinesses?.length ?? 0} result{filteredBusinesses?.length !== 1 ? 's' : ''}
+              {filteredApplications?.length ?? 0} result{filteredApplications?.length !== 1 ? 's' : ''}
             </span>
           </div>
-          
+
           {/* Search Bar */}
           <div className="mb-4">
             <div className="relative">
@@ -175,14 +202,14 @@ export default function ApplicationsPage() {
               </div>
               <input
                 type="text"
-                placeholder="Search by business name, owner, application number, or barangay..."
+                placeholder="Search by applicant name, email, application number, or contact..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full rounded-lg border border-slate-300 bg-white py-3 pl-11 pr-4 text-sm text-slate-900 placeholder-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
               />
             </div>
           </div>
-          
+
           {/* Filter Buttons */}
           <div className="flex flex-wrap gap-2">
             <button
@@ -199,9 +226,9 @@ export default function ApplicationsPage() {
               All
             </button>
             <button
-              onClick={() => setFilter("PENDING")}
+              onClick={() => setFilter("SUBMITTED")}
               className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all ${
-                filter === "PENDING"
+                filter === "SUBMITTED"
                   ? "bg-gradient-to-r from-yellow-500 to-yellow-600 text-white shadow-lg shadow-yellow-500/30"
                   : "border border-slate-300 bg-white text-slate-700 hover:border-slate-400 hover:bg-slate-50"
               }`}
@@ -209,12 +236,12 @@ export default function ApplicationsPage() {
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              Pending
+              Submitted
             </button>
             <button
-              onClick={() => setFilter("UNDER_REVIEW")}
+              onClick={() => setFilter("REVIEWING")}
               className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all ${
-                filter === "UNDER_REVIEW"
+                filter === "REVIEWING"
                   ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30"
                   : "border border-slate-300 bg-white text-slate-700 hover:border-slate-400 hover:bg-slate-50"
               }`}
@@ -222,7 +249,20 @@ export default function ApplicationsPage() {
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              Under Review
+              Reviewing
+            </button>
+            <button
+              onClick={() => setFilter("FOR_EVALUATION")}
+              className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all ${
+                filter === "FOR_EVALUATION"
+                  ? "bg-gradient-to-r from-purple-500 to-purple-600 text-white shadow-lg shadow-purple-500/30"
+                  : "border border-slate-300 bg-white text-slate-700 hover:border-slate-400 hover:bg-slate-50"
+              }`}
+            >
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+              </svg>
+              For Evaluation
             </button>
             <button
               onClick={() => setFilter("APPROVED")}
@@ -260,7 +300,7 @@ export default function ApplicationsPage() {
               <div className="mb-4 h-12 w-12 animate-spin rounded-full border-4 border-blue-600 border-t-transparent"></div>
               <p className="text-sm font-medium text-slate-600">Loading applications...</p>
             </div>
-          ) : filteredBusinesses && filteredBusinesses.length > 0 ? (
+          ) : filteredApplications && filteredApplications.length > 0 ? (
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white">
@@ -269,16 +309,13 @@ export default function ApplicationsPage() {
                       Application No.
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-700">
-                      Business Name
+                      Applicant Name
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-700">
-                      Owner
+                      Email
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-700">
-                      Barangay
-                    </th>
-                    <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-700">
-                      Category
+                      Contact
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-700">
                       Status
@@ -292,67 +329,70 @@ export default function ApplicationsPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {filteredBusinesses.map((business) => (
-                    <tr key={business.id} className="group transition-colors hover:bg-slate-50">
+                  {filteredApplications.map((application) => (
+                    <tr key={application.id} className="group transition-colors hover:bg-slate-50">
                       <td className="whitespace-nowrap px-6 py-4">
                         <span className="font-mono text-sm font-semibold text-slate-900">
-                          {business.applicationNo}
+                          {application.applicationNo}
                         </span>
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
                           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100">
                             <svg className="h-5 w-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                           </div>
                           <span className="text-sm font-medium text-slate-900">
-                            {business.businessName}
+                            {application.applicantName}
                           </span>
                         </div>
                       </td>
                       <td className="px-6 py-4 text-sm text-slate-700">
-                        {business.ownerName}
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className="inline-flex items-center gap-1.5 rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700">
-                          <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                          </svg>
-                          {business.barangay.name}
-                        </span>
+                        {application.applicantEmail}
                       </td>
                       <td className="px-6 py-4 text-sm text-slate-700">
-                        {business.category.name}
+                        {application.applicantContact}
                       </td>
                       <td className="px-6 py-4">
                         <span
                           className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-semibold ${getStatusColor(
-                            business.status,
+                            application.status,
                           )}`}
                         >
-                          {getStatusIcon(business.status)}
-                          {business.status.replace("_", " ")}
+                          {getStatusIcon(application.status)}
+                          {application.status.replace("_", " ")}
                         </span>
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-600">
-                        {new Date(business.submittedAt).toLocaleDateString('en-US', {
+                        {new Date(application.submittedAt).toLocaleDateString('en-US', {
                           year: 'numeric',
                           month: 'short',
                           day: 'numeric'
                         })}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        <Link
-                          href={`/compliance/applications/${business.id}`}
-                          className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-medium text-white transition-all hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/30"
-                        >
-                          Evaluate
-                          <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </Link>
+                        {isEvaluateEnabled(application.status) ? (
+                          <Link
+                            href={`/compliance/applications/${application.id}`}
+                            className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-medium text-white transition-all hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/30"
+                          >
+                            Evaluate
+                            <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </Link>
+                        ) : (
+                          <button
+                            disabled
+                            className="inline-flex cursor-not-allowed items-center gap-1.5 rounded-lg bg-slate-300 px-3 py-1.5 text-xs font-medium text-slate-500"
+                          >
+                            Evaluate
+                            <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </button>
+                        )}
                       </td>
                     </tr>
                   ))}
@@ -377,22 +417,11 @@ export default function ApplicationsPage() {
                 </svg>
               </div>
               <h3 className="mb-2 text-lg font-bold text-slate-900">No applications found</h3>
-              <p className="mb-6 text-center text-sm text-slate-600">
+              <p className="text-center text-sm text-slate-600">
                 {searchQuery
                   ? "Try adjusting your search or filter criteria"
-                  : "Get started by creating a new business application"}
+                  : "No zoning applications have been submitted yet"}
               </p>
-              {!searchQuery && (
-                <Link
-                  href="/applications/new"
-                  className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-3 text-sm font-medium text-white shadow-lg shadow-blue-500/30 transition-all hover:from-blue-700 hover:to-blue-800 hover:shadow-xl"
-                >
-                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                  </svg>
-                  New Application
-                </Link>
-              )}
             </div>
           )}
         </div>

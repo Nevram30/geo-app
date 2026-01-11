@@ -6,9 +6,10 @@ const prisma = new PrismaClient();
 async function main() {
   console.log("🌱 Starting seed...");
 
-  // Create Admin User
-  console.log("Creating admin user...");
+  // Create Users for all roles
+  console.log("Creating users...");
   const hashedPassword = await bcrypt.hash("admin123", 10);
+
   const adminUser = await prisma.user.upsert({
     where: { email: "admin@santotomas.gov.ph" },
     update: {},
@@ -20,11 +21,59 @@ async function main() {
       emailVerified: new Date(),
     },
   });
+
   console.log(`✅ Created admin user: ${adminUser.email}`);
-  console.log(`   Password: admin123`);
+
+  // Create Compliance User
+  const complianceUser = await prisma.user.upsert({
+    where: { email: "compliance@santotomas.gov.ph" },
+    update: {},
+    create: {
+      email: "compliance@santotomas.gov.ph",
+      name: "Compliance Officer",
+      password: hashedPassword,
+      role: "COMPLIANCE",
+      emailVerified: new Date(),
+    },
+  });
+
+  console.log(`✅ Created compliance user: ${complianceUser.email}`);
+
+  // Create Reviewer User
+  const reviewerUser = await prisma.user.upsert({
+    where: { email: "reviewer@santotomas.gov.ph" },
+    update: {},
+    create: {
+      email: "reviewer@santotomas.gov.ph",
+      name: "Application Reviewer",
+      password: hashedPassword,
+      role: "REVIEWER",
+      emailVerified: new Date(),
+    },
+  });
+
+  console.log(`✅ Created reviewer user: ${reviewerUser.email}`);
+
+  // Create Applicant User
+  const applicantUser = await prisma.user.upsert({
+    where: { email: "applicant@example.com" },
+    update: {},
+    create: {
+      email: "applicant@example.com",
+      name: "Sample Applicant",
+      password: hashedPassword,
+      role: "APPLICANT",
+      emailVerified: new Date(),
+    },
+  });
+
+  console.log(`✅ Created applicant user: ${applicantUser.email}`);
+
+  console.log(`\n📋 All users created with password: admin123`);
 
   // Create Barangays
   console.log("Creating barangays...");
+  
   const barangays = await Promise.all([
     prisma.barangay.upsert({
       where: { code: "BRG-001" },

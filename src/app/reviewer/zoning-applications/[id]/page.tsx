@@ -51,6 +51,7 @@ const ReviewerApplicationDetailPage: React.FC = () => {
   const [isUpdating, setIsUpdating] = useState(false);
 
   const utils = api.useUtils();
+  
   const { data: application, isLoading } = api.zoningApplication.getById.useQuery({ id });
 
   const updateStatusMutation = api.zoningApplication.updateStatus.useMutation({
